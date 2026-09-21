@@ -67,7 +67,7 @@ const Layout = {
           <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
             <span class="text-xs font-bold text-slate-500 tracking-widest uppercase">Stay Connected</span>
             <div class="flex gap-4 justify-center">
-              <a href="#" class="text-slate-800 hover:text-skynex-blue transition-colors"><i class="fa-brands fa-linkedin-in text-lg"></i></a>
+              <a href="https://www.linkedin.com/in/ibrahim-shuaibu-257921379?utm_source=share_via&utm_content=profile&utm_medium=member_android" class="text-slate-800 hover:text-skynex-blue transition-colors"><i class="fa-brands fa-linkedin-in text-lg"></i></a>
               <a href="#" class="text-slate-800 hover:text-skynex-dark transition-colors"><i class="fa-brands fa-x-twitter text-lg"></i></a>
               <a href="#" class="text-slate-800 hover:text-skynex-dark transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
             </div>

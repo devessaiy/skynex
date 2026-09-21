@@ -18,18 +18,18 @@ const AppConfig = {
   ],
   teamMembers: [
     {
+      name: 'Alhassan Bashir',
+      role: 'CEO & Co-Founder',
+      initials: 'AB',
+      description: 'Guiding corporate strategy, operational execution, and business development. Alhassan ensures that Skynex\'s technological capabilities are perfectly aligned with market demands, enterprise integrations, and overarching business objectives.',
+      linkedin: '#'
+    },
+    {
       name: 'Ibrahim Hanif Shuaibu',
       role: 'CTO & Co-Founder',
       initials: 'IHS',
       description: 'Leading the technological vision and engineering architecture of Skynex Solutions. Ibrahim oversees the development of flagship products like Trideta, driving innovation across software engineering, cloud deployments, and proprietary security research.',
-      linkedin: '#'
-    },
-    {
-      name: 'Alhassan Bashir',
-      role: 'Director & Co-Founder',
-      initials: 'AB',
-      description: 'Guiding corporate strategy, operational execution, and business development. Alhassan ensures that Skynex\'s technological capabilities are perfectly aligned with market demands, enterprise integrations, and overarching business objectives.',
-      linkedin: '#'
+      linkedin: 'https://www.linkedin.com/in/ibrahim-shuaibu-257921379?utm_source=share_via&utm_content=profile&utm_medium=member_android'
     }
   ],
   servicesPage: [
