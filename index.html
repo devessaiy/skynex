@@ -1,883 +1,122 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" class="scroll-smooth">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SKYNEX Solutions Systems built to run without limits</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skynex Solutions Limited | Official Corporate Website</title>
 
-<!-- Social Preview / Open Graph Tags -->
-<meta property="og:title" content="SKYNEX Solutions Systems built to run without limits">
-<meta property="og:description" content="A software house building the products, infrastructure and security-focused systems that organisations run on.">
-<meta property="og:image" content="https://yourdomain.com/ogimage.png"> 
-<meta property="og:url" content="https://yourdomain.com">
-<meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-<!-- Dynamic Favicon Placeholder -->
-<link id="dynamic-favicon" rel="icon" type="image/svg+xml" href="">
-
-<style>
-  :root {
-    /* Dark Theme (Default) */
-    --void: #070C16;
-    --deep: #0C1729;
-    --panel: #0F1B30;
-    --line: #1D2C46;
-    --ink: #EAF0FA;
-    --mist: #8CA0C2;
-    --mist-dim: #5C6E8F;
-    --signal: #2F8CFF;
-    --signal-deep: #0B4FE0;
-    --cyan: #6FD8FF;
-    --nav-bg: rgba(7,12,22,0.72);
-    --grad: linear-gradient(135deg, var(--cyan) 0%, var(--signal) 45%, var(--signal-deep) 100%);
-    
-    /* Comet Aura - Dark Mode */
-    --comet-glow-1: rgba(111, 216, 255, 0.85);
-    --comet-glow-2: rgba(47, 140, 255, 0.35);
-  }
-
-  /* Light Theme Override */
-  [data-theme="light"] {
-    --void: #FAFAFA;
-    --deep: #F4F4F5;
-    --panel: #FFFFFF;
-    --line: #E4E4E7;
-    --ink: #09090B;
-    --mist: #52525B;
-    --mist-dim: #A1A1AA;
-    --signal: #0066FF;
-    --signal-deep: #0044CC;
-    --cyan: #00A2E8;
-    --nav-bg: rgba(250, 250, 250, 0.85);
-
-    /* Comet Aura - Light Mode */
-    --comet-glow-1: rgba(0, 162, 232, 0.5);
-    --comet-glow-2: rgba(0, 102, 255, 0.15);
-  }
-
-  *{ margin:0; padding:0; box-sizing:border-box; }
-
-  html{ scroll-behavior:smooth; }
-
-  body{
-    background:var(--void);
-    color:var(--ink);
-    font-family:'Inter', sans-serif;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-
-  a{ color:inherit; text-decoration:none; }
-
-  :focus-visible{
-    outline:2px solid var(--cyan);
-    outline-offset:3px;
-    border-radius:4px;
-  }
-
-  .wrap{
-    max-width:1160px;
-    margin:0 auto;
-    padding:0 32px;
-  }
-
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:0.18em;
-    text-transform:uppercase;
-    color:var(--mist);
-  }
-
-  h1,h2,h3{
-    font-family:'Space Grotesk', sans-serif;
-    letter-spacing:-0.01em;
-    line-height:1.05;
-  }
-
-  /* ---------- background texture ---------- */
-  .grain{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:0;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size:64px 64px;
-    opacity:0.12;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
-  }
-
-  /* ---------- nav ---------- */
-  header{
-    position:sticky;
-    top:0;
-    z-index:50;
-    background:var(--nav-bg);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-  nav{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:18px 0;
-  }
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size:18px;
-    letter-spacing:0.02em;
-  }
-
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-  }
-
-  .nav-links{
-    display:flex;
-    gap:36px;
-    font-size:14px;
-    color:var(--mist);
-  }
-  .nav-links a{ transition:color .2s ease; }
-  .nav-links a:hover{ color:var(--ink); }
-
-  .theme-toggle {
-    background: transparent;
-    border: 1px solid var(--line);
-    color: var(--ink);
-    padding: 8px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-  }
-  .theme-toggle:hover {
-    border-color: var(--signal);
-    color: var(--signal);
-  }
-  .theme-toggle svg { width: 16px; height: 16px; }
-
-  .nav-ctas {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-family:'Inter', sans-serif;
-    font-weight:600;
-    font-size:14px;
-    padding:11px 22px;
-    border-radius:999px;
-    border:1px solid transparent;
-    cursor:pointer;
-    transition:transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
-  }
-  .btn-primary{
-    background:var(--grad);
-    color:#04101F;
-  }
-  .btn-primary:hover{
-    transform:translateY(-1px);
-    box-shadow:0 8px 24px -6px rgba(47,140,255,0.55);
-  }
-  .btn-ghost{
-    border-color:var(--line);
-    color:var(--ink);
-  }
-  .btn-ghost:hover{ border-color:var(--signal); }
-
-  /* ---------- hero ---------- */
-  .hero{
-    position:relative;
-    padding:120px 0 100px;
-    overflow:hidden;
-  }
-  .hero-grid{
-    display:grid;
-    grid-template-columns:1.1fr 0.9fr;
-    gap:40px;
-    align-items:center;
-  }
-  .hero h1{
-    font-size:clamp(40px, 6vw, 68px);
-    font-weight:600;
-    margin:20px 0 24px;
-  }
-  .hero h1 .accent{
-    background:var(--grad);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-  .hero p{
-    font-size:17px;
-    color:var(--mist);
-    max-width:480px;
-    line-height:1.65;
-    margin-bottom:36px;
-  }
-  .hero-ctas{
-    display:flex;
-    gap:14px;
-    flex-wrap:wrap;
-  }
-
-  .infinity-stage{
-    position:relative;
-    width:100%;
-    aspect-ratio:1 / 0.7;
-  }
-  .infinity-stage svg{ width:100%; height:100%; overflow:visible; }
-
-  /* ---------- section shell ---------- */
-  section{ position:relative; padding:96px 0; }
-  .section-head{
-    max-width:560px;
-    margin-bottom:56px;
-  }
-  .section-head h2{
-    font-size:clamp(28px, 3.4vw, 38px);
-    font-weight:600;
-    margin-top:12px;
-  }
-  .section-head p{
-    color:var(--mist);
-    font-size:16px;
-    margin-top:14px;
-    line-height:1.6;
-  }
-  .divider{
-    height:1px;
-    background:var(--line);
-    transition: background 0.3s ease;
-  }
-
-  /* ---------- services ---------- */
-  .services-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
-    border-radius:20px;
-    overflow:hidden;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-  .service{
-    background:var(--panel);
-    padding:36px 30px;
-    transition:background .25s ease;
-  }
-  .service:hover{ 
-    background: var(--deep); 
-  }
-  .service .mark{
-    width:34px; height:34px;
-    margin-bottom:22px;
-    color:var(--signal);
-  }
-  .service h3{
-    font-size:18px;
-    font-weight:600;
-    margin-bottom:10px;
-  }
-  .service p{
-    font-size:14.5px;
-    color:var(--mist);
-    line-height:1.6;
-  }
-
-  /* ---------- team ---------- */
-  .team-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
-    gap:32px 24px;
-  }
-  .founder{
-    display: flex;
-    flex-direction: column;
-  }
-  .founder-img-wrapper {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    background: var(--deep);
-    border: 1px solid var(--line);
-    overflow: hidden;
-    margin-bottom: 16px;
-    position: relative;
-    transition: border-color 0.3s ease;
-  }
-  .founder-img-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    /* Halftone/Grayscale effect matching screenshot */
-    filter: grayscale(100%) contrast(110%);
-    transition: filter 0.4s ease, transform 0.4s ease;
-  }
-  .founder:hover .founder-img-wrapper img {
-    filter: grayscale(0%) contrast(100%);
-    transform: scale(1.02);
-  }
-  .founder h3{
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: var(--ink);
-  }
-  .founder .role{
-    font-size: 13px;
-    color: var(--mist);
-    margin-bottom: 8px;
-  }
-
-  /* ---------- cta ---------- */
-  .cta-band{
-    border-radius:24px;
-    background:linear-gradient(160deg, var(--panel), var(--deep));
-    border:1px solid var(--line);
-    padding:64px 56px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:40px;
-    flex-wrap:wrap;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-  .cta-band h2{
-    font-size:clamp(26px,3vw,34px);
-    font-weight:600;
-    max-width:480px;
-  }
-  .cta-band p{
-    color:var(--mist);
-    margin-top:12px;
-    max-width:440px;
-    font-size:15px;
-  }
-
-  /* ---------- expanded footer ---------- */
-  .foot-expanded-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
-    gap: 40px;
-    margin-bottom: 40px;
-  }
-  .foot-col h4 {
-    font-size: 14px;
-    color: var(--ink);
-    margin-bottom: 16px;
-    font-family: 'Inter', sans-serif;
-    transition: color 0.3s ease;
-  }
-  .foot-links {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    font-size: 14px;
-    color: var(--mist);
-  }
-  .foot-links a:hover {
-    color: var(--signal);
-  }
-  footer{
-    border-top:1px solid var(--line);
-    padding:64px 0 40px;
-    transition: border-color 0.3s ease;
-  }
-  .foot-brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-  }
-  .foot-meta{
-    font-size:13px;
-    color:var(--mist-dim);
-    line-height:1.7;
-  }
-  .foot-meta span{ color:var(--mist); }
-
-  /* ---------- responsive ---------- */
-  @media (max-width:860px){
-    .hero-grid{ grid-template-columns:1fr; }
-    .infinity-stage{ order:-1; opacity:0.5; }
-    .services-grid{ grid-template-columns:1fr 1fr; }
-    .nav-links{ display:none; }
-    .cta-band{ padding:44px 28px; }
-    .foot-expanded-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width:560px){
-    .wrap{ padding:0 20px; }
-    .services-grid{ grid-template-columns:1fr; border-radius:16px; }
-    .team-grid{ grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); }
-    .hero{ padding:64px 0 60px; }
-    section{ padding:64px 0; }
-    .foot-expanded-grid { grid-template-columns: 1fr; gap: 32px; }
-  }
-
-  .hero-logo{
-    position:absolute;
-    top:50%; left:50%;
-    transform:translate(-50%,-50%);
-    width:52%;
-    max-width:280px;
-    z-index:2;
-    filter:drop-shadow(0 0 28px rgba(47,140,255,0.35));
-    pointer-events:none;
-  }
-
-  /* ---------- featured project ---------- */
-  .project-card{
-    display:grid;
-    grid-template-columns:auto 1fr auto;
-    align-items:center;
-    gap:36px;
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:20px;
-    padding:40px 44px;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-  .project-card .icon{
-    width:76px; height:76px;
-    border-radius:20px;
-    overflow:hidden;
-    flex-shrink:0;
-  }
-  .project-card .icon img{ width:100%; height:100%; display:block; object-fit:cover; }
-  .project-card h3{
-    font-size:22px;
-    font-weight:600;
-    margin-bottom:8px;
-  }
-  .project-card .status{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--cyan);
-    margin-bottom:12px;
-  }
-  .project-card .status::before{
-    content:'';
-    width:6px; height:6px;
-    border-radius:50%;
-    background:var(--cyan);
-    box-shadow:0 0 8px 2px rgba(111,216,255,0.7);
-  }
-  .project-card p{
-    color:var(--mist);
-    font-size:15px;
-    line-height:1.6;
-    max-width:520px;
-  }
-
-  .cta-actions{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    align-items:flex-start;
-  }
-  
-  /* Hardcode dark colors for whatsapp button to stand out in light mode too */
-  .btn-whatsapp{
-    background:#1F2E22 !important;
-    color:#7CF29C !important;
-    border:1px solid #2C4A32 !important;
-  }
-  .btn-whatsapp:hover{
-    border-color:#3FE06B !important;
-    transform:translateY(-1px);
-  }
-  .btn-whatsapp svg{ width:16px; height:16px; }
-
-  @media (max-width:700px){
-    .project-card{
-      grid-template-columns:1fr;
-      text-align:left;
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            skynex: {
+              blue: '#1976D2',
+              teal: '#26A69A',
+              dark: '#050505',     // True premium black
+              gray: '#f5f5f7',     // Apple/Samsung style surface gray
+              border: '#e5e5e5'    // Crisp, subtle structural border
+            }
+          },
+          letterSpacing: {
+            tightest: '-.04em',
+            tighter: '-.02em',
+          }
+        }
+      }
     }
-  }
+  </script>
+  <style>
+    /* Premium custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #ffffff; }
+    ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
 
-  @media (prefers-reduced-motion: reduce){
-    /* Hide the animated comet if user prefers reduced motion */
-    .comet-group { display:none; }
-    html{ scroll-behavior:auto; }
-  }
-</style>
+    /* Subtle Text Gradient for Accents */
+    .text-gradient {
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-image: linear-gradient(to right, #1976D2, #26A69A);
+    }
+
+    /* Sophisticated Underline Hover */
+    .nav-link {
+      position: relative;
+      color: #050505;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 1px;
+      bottom: -4px;
+      left: 0;
+      background-color: #050505;
+      transform-origin: bottom right;
+      transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    /* SPA View Transitions */
+    .spa-view {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .spa-view.active {
+      display: block;
+      opacity: 1;
+      animation: fadeInView 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeInView {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Utility for structural grid lists */
+    .structural-list>div { border-bottom: 1px solid #e5e5e5; }
+    .structural-list>div:last-child { border-bottom: none; }
+  </style>
 </head>
-<body>
 
-<div class="grain"></div>
+<body class="font-sans text-slate-900 bg-white antialiased selection:bg-skynex-dark selection:text-white">
 
-<header>
-  <div class="wrap">
-    <nav>
-      <div class="brand">
-        <!-- Dynamic Header Logo -->
-        <img id="header-logo" src="" alt="Skynex Logo" style="width: 26px; height: 26px;">
-        SKYNEX
-      </div>
-      <div class="nav-right">
-        <div class="nav-links">
-          <a href="#services">Services</a>
-          <a href="#project">Project</a>
-          <a href="#team">Team</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <div class="nav-ctas">
-          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
-            <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </button>
-          <a href="#contact" class="btn btn-primary">Start a project</a>
-        </div>
-      </div>
-    </nav>
-  </div>
-</header>
+  <div id="app"></div>
 
-<main>
+  <!--
+    Scripts are plain classic scripts (no build step, no framework, works from file:// too).
+    Core files are needed on every screen. Only the landing screen (Home) is loaded up front so
+    the first paint is identical to before; every other screen is fetched on demand by
+    js/core/router.js the first time it is visited.
+  -->
+  <script src="js/config.js" defer></script>
+  <script src="js/components/ui.js" defer></script>
+  <script src="js/components/layout.js" defer></script>
+  <script src="js/core/router.js" defer></script>
+  <script src="js/core/app.js" defer></script>
 
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <p class="eyebrow">Suleja, Niger State Nigeria</p>
-        <h1>Systems built<br>to run <span class="accent">without limits.</span></h1>
-        <p>SKYNEX Solutions is a software house building the products, infrastructure and security-focused systems that organisations run on designed by a team that ships end to end, from first line of code to launch.</p>
-        <div class="hero-ctas">
-          <a href="#contact" class="btn btn-primary">Start a project</a>
-          <a href="#services" class="btn btn-ghost">See what we build</a>
-        </div>
-      </div>
-
-      <div class="infinity-stage">
-        <svg viewBox="0 0 600 300" aria-hidden="true" style="overflow: visible;">
-          <defs>
-            <!-- Filters to create the glowing aura -->
-            <filter id="glow-blur-1" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="4"/>
-            </filter>
-            <filter id="glow-blur-2" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="12"/>
-            </filter>
-          </defs>
-          
-          <!-- The SVG path is now invisible, but used exclusively as a track for the comet -->
-          <g class="comet-group">
-             <!-- Outer fuzzy aura -->
-             <circle r="25" fill="var(--comet-glow-2)" filter="url(#glow-blur-2)" />
-             <!-- Inner tight aura -->
-             <circle r="12" fill="var(--comet-glow-1)" filter="url(#glow-blur-1)" />
-             <!-- Core light -->
-             <circle r="5" fill="var(--cyan)" />
-             
-             <!-- Math-perfect animation lock -->
-             <animateMotion 
-                dur="7s" 
-                repeatCount="indefinite" 
-                path="M300,150 C300,96 246,50 190,50 C122,50 78,102 78,150 C78,198 122,250 190,250 C246,250 300,204 300,150 C300,96 354,50 410,50 C478,50 522,102 522,150 C522,198 478,250 410,250 C354,250 300,204 300,150 Z" />
-          </g>
-        </svg>
-        <img class="hero-logo" src="skynex-online.svg" alt="Trideta app logo">
-      </div>
-    </div>
-  </section>
-
-  <div class="wrap"><div class="divider"></div></div>
-
-  <section id="services">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">What we build</p>
-        <h2>Six disciplines, one team.</h2>
-        <p>Every engagement draws on the same core group no handoffs between agencies, no scope lost in translation.</p>
-      </div>
-
-      <div class="services-grid">
-        <div class="service">
-          <svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
-          <h3>Product engineering</h3>
-          <p>Web and mobile applications built end to end from architecture to the interface people actually use.</p>
-        </div>
-        <div class="service">
-          <svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 17a4 4 0 010-8 5 5 0 019.6-1.5A4.5 4.5 0 0119 17H6z"/></svg>
-          <h3>Cloud &amp; data</h3>
-          <p>Infrastructure, data processing and digital transformation for teams that need to move fast without breaking things.</p>
-        </div>
-        <div class="service">
-          <svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
-          <h3>Security &amp; civic systems</h3>
-          <p>Crime-reporting platforms and security-focused applications built with accountability in mind.</p>
-        </div>
-        <div class="service">
-          <svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3.5"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2 2M16.4 16.4l2 2M18.4 5.6l-2 2M7.6 16.4l-2 2"/></svg>
-          <h3>Creative &amp; brand</h3>
-          <p>Design, branding, content and multimedia that make a product feel finished, not just functional.</p>
-        </div>
-        <div class="service">
-          <svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v6l4 2"/><circle cx="12" cy="12" r="9"/></svg>
-          <h3>Support &amp; training</h3>
-          <p>IT training, technical support and maintenance that keeps systems running long after launch day.</p>
-        </div>
-        <div class="service">
-          <svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-          <h3>Hardware &amp; supply</h3>
-          <p>ICT equipment, networking gear and office technology sourced, configured and installed.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="wrap"><div class="divider"></div></div>
-
-  <section id="project">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Live product</p>
-        <h2>Currently running: Trideta.</h2>
-        <p>Our first product in the wild built, launched and maintained by the team above.</p>
-      </div>
-
-      <div class="project-card">
-        <div class="icon">
-          <img src="data:image/webp;base64,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" alt="Trideta app logo">
-        </div>
-        <div>
-          <p class="status">In production</p>
-          <h3>Trideta school management, simplified.</h3>
-          <p>A school management platform built for Nursery, Primary and Secondary levels handling students, results and day-to-day administration in one place.</p>
-        </div>
-        <a href="https://trideta.skynex.com.ng" class="btn btn-ghost" target="_blank" rel="noopener">Visit Trideta ↗</a>
-      </div>
-    </div>
-  </section>
-
-  <div class="wrap"><div class="divider"></div></div>
-
-  <section id="team">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Who we are</p>
-        <h2>Six founders, one build.</h2>
-        <p>A team that pairs strategy with implementation no layer between the people who decide and the people who ship.</p>
-      </div>
-
-      <div class="team-grid">
-        <div class="founder">
-          <div class="founder-img-wrapper">
-            <!-- Replace this placeholder with the actual image of Bashir -->
-            <img src="CEO.png" alt="Bashir Alhassan">
-          </div>
-          <div class="founder-info">
-            <h3>Bashir Alhassan</h3>
-            <p class="role">Chief Executive Officer</p>
-           </div>
-        </div>
-        <div class="founder">
-          <div class="founder-img-wrapper">
-            <!-- Replace this placeholder with the actual image of Ibrahim -->
-            <img src="CTO.png" alt="Ibrahim Hanif Shuaibu">
-          </div>
-          <div class="founder-info">
-            <h3>Ibrahim Hanif Shuaibu</h3>
-            <p class="role">Chief Technical Officer</p>
-          </div>
-        </div>
-        <div class="founder">
-          <div class="founder-img-wrapper">
-             <!-- Replace this placeholder with the actual image of Usman B -->
-            <img src="COO.png" alt="Usman Muh'd Bindawa">
-          </div>
-          <div class="founder-info">
-            <h3>Usman Muh'd Bindawa</h3>
-            <p class="role">Chief Operations Officer</p>
-           </div>
-        </div>
-        <div class="founder">
-          <div class="founder-img-wrapper">
-             <!-- Replace this placeholder with the actual image of Usama -->
-            <img src="CMO.png" alt="Usama Isah">
-          </div>
-          <div class="founder-info">
-            <h3>Usama Isah</h3>
-            <p class="role">Chief Marketing Officer</p>
-           </div>
-        </div>
-        <div class="founder">
-          <div class="founder-img-wrapper">
-             <!-- Replace this placeholder with the actual image of Sani -->
-            <img src="H AND D.png" alt="Sani Zurqaneini">
-          </div>
-          <div class="founder-info">
-            <h3>Sani Zurqaneini</h3>
-            <p class="role">Head of R&amp;D</p>
-           
-          </div>
-        </div>
-        <div class="founder">
-          <div class="founder-img-wrapper">
-             <!-- Replace this placeholder with the actual image of Muhammad -->
-            <img src="CFO.png" alt="Muh'd Ghaddafi Umar">
-          </div>
-          <div class="founder-info">
-            <h3>Muh'd Ghaddafi Umar</h3>
-            <p class="role">Chief Financial Officer</p>
-            </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="wrap">
-      <div class="cta-band">
-        <div>
-          <h2>Have a system to build?</h2>
-          <p>Tell us what you're trying to run! <br> A product, a platform, a migration and we'll tell you how we'd build it.</p>
-        </div>
-        <div class="cta-actions">
-          <a href="mailto:skynexsolutionslimited@gmail.com" class="btn btn-primary">Send Us Mail</a>
-          <a href="https://wa.me/2348121219528" class="btn btn-whatsapp">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.41-1.35a9.87 9.87 0 004.63 1.15h.01c5.46 0 9.9-4.45 9.9-9.9C21.95 6.45 17.5 2 12.04 2zm5.8 14.11c-.24.68-1.4 1.3-1.93 1.37-.5.07-1.13.1-1.83-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.8-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.15.07.15.12.32.02.51-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.13-.28.28-.12.55.16.27.7 1.15 1.5 1.87 1.03.92 1.9 1.2 2.17 1.34.27.13.43.11.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.22.6-.13.25.09 1.58.75 1.85.88.27.13.45.19.51.3.07.11.07.63-.17 1.24z"/></svg>
-            WhatsApp
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="wrap foot-expanded-grid">
-    <div class="foot-col">
-      <div class="foot-brand">
-        <!-- Dynamic Footer Logo -->
-        <img id="footer-logo" src="" alt="Skynex Logo" style="width: 22px; height: 22px;">
-        SKYNEX SOLUTIONS LTD
-      </div>
-      <p class="foot-meta" style="margin-top: 12px;">
-        Systems built to run without limits.
-      </p>
-    </div>
-    
-    <div class="foot-col">
-      <h4>Quick Links</h4>
-      <div class="foot-links">
-        <a href="#services">Services</a>
-        <a href="#project">Project</a>
-        <a href="#team">Team</a>
-      </div>
-    </div>
-    
-    <div class="foot-col">
-      <h4>Contact</h4>
-      <div class="foot-links">
-        <a href="mailto:skynexsolutionslimited@gmail.com">skynexsolutionslimited@gmail.com</a>
-        <a href="https://wa.me/2348121219528">+234 812 121 9528</a>
-      </div>
-    </div>
-    
-    <div class="foot-col">
-      <h4>Legal & Address</h4>
-      <div class="foot-meta">
-        RC 9757226<br>
-        <span>Kaduna Road, Suleja, Niger State, Nigeria</span><br>
-        Incorporated under CAMA, 2020.
-      </div>
-    </div>
-  </div>
-  
-  <div class="wrap">
-    <div class="divider"></div>
-    <p class="foot-meta" style="margin-top: 24px; text-align: center;">&copy; 2026 Skynex Solutions Ltd. All rights reserved.</p>
-  </div>
-</footer>
-
-<script>
-  // EXACT SVG FILE NAMES
-  const onlineSvgPath = 'skynex-online.svg'; 
-  const offlineSvgPath = 'skynex-offline.svg'; 
-
-  /* =========================================
-     Dynamic Favicon (Online / Offline State)
-     ========================================= */
-  const faviconLink = document.getElementById('dynamic-favicon');
-
-  function updateFavicon() {
-    faviconLink.href = navigator.onLine ? onlineSvgPath : offlineSvgPath;
-  }
-
-  // Listeners
-  window.addEventListener('online', updateFavicon);
-  window.addEventListener('offline', updateFavicon);
-  // Initial Check
-  updateFavicon();
-
-  /* =========================================
-     Light / Dark Theme & Logo Toggle
-     ========================================= */
-  const themeToggleBtn = document.getElementById('theme-toggle');
-  const rootElement = document.documentElement;
-  const headerLogo = document.getElementById('header-logo');
-  const footerLogo = document.getElementById('footer-logo');
-  
-  // Check local storage OR system preferences
-  let currentTheme = localStorage.getItem('skynex-theme');
-  if (!currentTheme) {
-    currentTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
-  }
-  rootElement.setAttribute('data-theme', currentTheme);
-
-  function updateLogos(theme) {
-    // SWAPPED: Dark mode = online SVG, Light mode = offline SVG
-    const logoSrc = theme === 'dark' ? onlineSvgPath : offlineSvgPath;
-    if (headerLogo) headerLogo.src = logoSrc;
-    if (footerLogo) footerLogo.src = logoSrc;
-  }
-
-  // Set initial logos on page load
-  updateLogos(currentTheme);
-
-  themeToggleBtn.addEventListener('click', () => {
-    currentTheme = rootElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    rootElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('skynex-theme', newTheme);
-    
-    // Swap the header and footer logos on click
-    updateLogos(newTheme);
-  });
-</script>
-
+  <!-- Landing screen (eager) -->
+  <script src="js/views/home.js" defer></script>
+  <script src="js/features/trideta-video.js" defer></script>
 </body>
 </html>
-
