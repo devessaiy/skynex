@@ -21,15 +21,55 @@ const AppConfig = {
       name: 'Alhassan Bashir',
       role: 'CEO & Co-Founder',
       initials: 'AB',
+      photo: '../../CEO.png',
       description: 'Guiding corporate strategy, operational execution, and business development. Alhassan ensures that Skynex\'s technological capabilities are perfectly aligned with market demands, enterprise integrations, and overarching business objectives.',
-      linkedin: '#'
+      linkedin: '#',
+      instagram: '#'
     },
     {
       name: 'Ibrahim Hanif Shuaibu',
       role: 'CTO & Co-Founder',
       initials: 'IHS',
+      photo: '../../CTO.png',
       description: 'Leading the technological vision and engineering architecture of Skynex Solutions. Ibrahim oversees the development of flagship products like Trideta, driving innovation across software engineering, cloud deployments, and proprietary security research.',
-      linkedin: 'https://www.linkedin.com/in/ibrahim-shuaibu-257921379?utm_source=share_via&utm_content=profile&utm_medium=member_android'
+      linkedin: 'https://www.linkedin.com/in/ibrahim-shuaibu-257921379?utm_source=share_via&utm_content=profile&utm_medium=member_android',
+      tiktok: '#'
+    },
+    {
+      name: 'Usman Muhammad Bindawa',
+      role: 'COO & Co-Founder',
+      initials: 'UMB',
+      photo: '../../COO.png',
+      description: 'Overseeing operational strategy, day-to-day management, and strategic initiatives. Usman ensures that Skynex operates efficiently and effectively, aligning operational activities with overall business goals.',
+      linkedin: '#',
+      instagram: '#'
+    },
+    {
+      name: 'Usama Isah',
+      role: 'CMO & Co-Founder',
+      initials: 'UI',
+      photo: '../../CMO.png',
+      description: 'Overseeing marketing strategy, brand management, and customer engagement initiatives. Usama ensures that Skynex maintains a strong market presence and drives business growth through effective marketing campaigns and customer satisfaction programs.',
+      linkedin: '#',
+      instagram: '#'
+    },
+    {
+      name: 'Sani Zurqaneini',
+      role: 'R&D & Co-Founder',
+      initials: 'SZ',
+      photo: '../../H AND D.png',
+      description: 'Overseeing research and development initiatives, innovation strategies, and technological advancement. Sani ensures that Skynex stays at the forefront of industry trends and delivers cutting-edge solutions.',
+      linkedin: '#',
+      instagram: '#'
+    },
+    {
+      name: 'Muhammad Ghaddafi Umar',
+      role: 'CFO & Co-Founder',
+      initials: 'MGU',
+      photo: '../../CFO.png',
+      description: 'Overseeing financial strategy, budgeting, and investment decisions. Usman ensures that Skynex maintains a strong financial foundation while pursuing growth opportunities and sustainable business practices.',
+      linkedin: '#',
+      instagram: '#'
     }
   ],
   servicesPage: [

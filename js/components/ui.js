@@ -10,18 +10,38 @@ const UI = {
     /*html*/`<a href="${link.href}" class="mobile-link text-skynex-dark">${link.label}</a>`
   ).join(''),
   
+  // Flat, divider-separated profile grid (mentor-listing style): portrait photo, name/role,
+  // description, socials. No card box/shadow — the grid's own divider lines do the separating.
+  //
+  // Placeholder photo: a self-contained inline SVG silhouette (data URI), not remote/hotlinked.
+  // It renders instantly with zero network requests, so a full roster never adds any load time.
+  // Swap it out by giving a member a real `photo: 'assets/team/jane.jpg'` field — TeamCard uses
+  // that automatically once it's present.
+  _PLACEHOLDER_AVATAR: 'data:image/svg+xml,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500">' +
+    '<rect width="400" height="500" fill="#f5f5f7"/>' +
+    '<circle cx="200" cy="200" r="70" fill="#d4d4d8"/>' +
+    '<path d="M60 460c0-90 63-150 140-150s140 60 140 150" fill="#d4d4d8"/>' +
+    '</svg>'
+  ),
+
   TeamCard: (member) => /*html*/`
-    <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-10 items-start">
-      <div class="w-40 h-40 flex-shrink-0 rounded-full overflow-hidden bg-slate-200 border border-slate-300">
-        <img src="https://placehold.co/400x400/e2e8f0/64748b?text=${member.initials}" alt="${member.name}" class="w-full h-full object-cover">
+    <div class="pb-12 sm:pb-0 sm:px-8 md:px-10 first:pl-0 last:pr-0">
+      <div class="aspect-[4/5] w-full overflow-hidden bg-skynex-gray">
+        <img src="${member.photo || UI._PLACEHOLDER_AVATAR}" alt="${member.name}" loading="lazy" width="400" height="500" class="w-full h-full object-cover">
       </div>
-      <div>
-        <h3 class="text-3xl font-bold text-skynex-dark mb-2">${member.name}</h3>
-        <p class="text-sm font-bold tracking-widest uppercase text-skynex-blue mb-6">${member.role}</p>
-        <p class="text-slate-600 font-light leading-relaxed mb-6">${member.description}</p>
-        <a href="${member.linkedin}" class="text-skynex-dark hover:text-skynex-blue transition-colors">
-          <i class="fa-brands fa-linkedin text-xl"></i>
-        </a>
+      <div class="pt-6">
+        <h3 class="text-base font-bold text-skynex-dark uppercase tracking-widest mb-1">${member.name}</h3>
+        <p class="text-sm text-slate-500 font-medium mb-4">${member.role}</p>
+        <p class="text-sm text-slate-500 font-light leading-relaxed mb-5">${member.description}</p>
+        <div class="flex items-center gap-3">
+          <a href="${member.linkedin}" aria-label="${member.name} on LinkedIn" class="w-8 h-8 rounded-full border border-skynex-border flex items-center justify-center text-skynex-dark hover:bg-skynex-dark hover:text-white hover:border-skynex-dark transition-colors">
+            <i class="fa-brands fa-linkedin-in text-xs"></i>
+          </a>
+          <a href="${member.instagram}" aria-label="${member.name} on Instagram" class="w-8 h-8 rounded-full border border-skynex-border flex items-center justify-center text-skynex-dark hover:bg-skynex-dark hover:text-white hover:border-skynex-dark transition-colors">
+            <i class="fa-brands fa-instagram text-xs"></i>
+          </a>
+        </div>
       </div>
     </div>
   `,
