@@ -3,6 +3,18 @@
 
 <head>
   <meta charset="UTF-8">
+  <!--
+    IMPORTANT: this must come before any relative URL is used on the page (script src, img
+    src, etc.). Because this is a path-based SPA router (History API, not #hash), the browser
+    URL can sit at a nested path like /staff/dashboard/ceo. Without a fixed base, a RELATIVE
+    path like "js/core/auth.js" would resolve against that nested URL's own directory
+    (/staff/dashboard/js/core/auth.js — 404) instead of the site root. This one line is what
+    makes every relative script/image reference in this codebase resolve correctly no matter
+    how deep the current route is. Requires the site to be served from its own root (which the
+    SPA fallback rules in DEPLOYMENT.md already assume) -- if you ever deploy under a subpath
+    (e.g. https://host.com/skynex/), change this to that subpath instead of "/".
+  -->
+  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skynex Solutions Limited | Official Corporate Website</title>
 

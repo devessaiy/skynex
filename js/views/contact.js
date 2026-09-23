@@ -21,6 +21,35 @@ Views.Contact = {
                   <input data-contact-email type="email" required class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark focus:outline-none focus:border-skynex-dark transition-colors" placeholder="jane@company.com">
                 </div>
                 <div>
+                  <label class="block text-xs font-bold tracking-widest uppercase text-slate-500 mb-2">Company Name</label>
+                  <input data-contact-company type="text" class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark focus:outline-none focus:border-skynex-dark transition-colors" placeholder="Company Ltd. (optional)">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold tracking-widest uppercase text-slate-500 mb-2">Service Needed</label>
+                  <select data-contact-service required class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark focus:outline-none focus:border-skynex-dark transition-colors">
+                    <option value="" disabled selected>Select a service</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Custom App">Custom App</option>
+                    <option value="Digital Marketing">Digital Marketing</option>
+                    <option value="Branding">Branding</option>
+                    <option value="Analytics & Reporting">Analytics &amp; Reporting</option>
+                    <option value="Supply of Office Equipment">Supply of Office Equipment</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold tracking-widest uppercase text-slate-500 mb-2">Project Budget</label>
+                  <select data-contact-budget required class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark focus:outline-none focus:border-skynex-dark transition-colors">
+                    <option value="" disabled selected>Select a budget range</option>
+                    <option value="Under ₦500,000">Under ₦500,000</option>
+                    <option value="₦500,000 - ₦2,000,000">₦500,000 - ₦2,000,000</option>
+                    <option value="₦2,000,000 - ₦5,000,000">₦2,000,000 - ₦5,000,000</option>
+                    <option value="₦5,000,000 - ₦10,000,000">₦5,000,000 - ₦10,000,000</option>
+                    <option value="Above ₦10,000,000">Above ₦10,000,000</option>
+                    <option value="Not sure yet">Not sure yet</option>
+                  </select>
+                </div>
+                <div>
                   <label class="block text-xs font-bold tracking-widest uppercase text-slate-500 mb-2">Message or Requirement</label>
                   <textarea data-contact-message rows="4" required class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark focus:outline-none focus:border-skynex-dark transition-colors resize-none" placeholder="How can we assist your business?"></textarea>
                 </div>
@@ -68,12 +97,15 @@ Views.Contact = {
 
       const name = el.querySelector('[data-contact-name]').value.trim();
       const email = el.querySelector('[data-contact-email]').value.trim();
+      const company_name = el.querySelector('[data-contact-company]').value.trim() || null;
+      const service_needed = el.querySelector('[data-contact-service]').value;
+      const budget_range = el.querySelector('[data-contact-budget]').value;
       const message = el.querySelector('[data-contact-message]').value.trim();
 
       try {
         const { error } = await SupabaseClient.get()
           .from('contact_submissions')
-          .insert({ name, email, message });
+          .insert({ name, email, company_name, service_needed, budget_range, message });
         if (error) throw error;
 
         form.reset();
