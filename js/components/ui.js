@@ -75,6 +75,37 @@ const UI = {
     </div>
   `,
 
+  // Numbered section for a legal document (Privacy Policy / Terms / Legal Information).
+  // bodyHtml is raw HTML — wrap paragraphs in <p class="..."> and lists in <ul class="...">
+  // using the same utility classes as the rest of the section for a consistent look.
+  LegalSection: (n, title, bodyHtml) => /*html*/`
+    <div class="pb-12 border-b border-skynex-border last:border-none last:pb-0">
+      <h2 class="text-xl font-bold uppercase tracking-widest text-skynex-dark mb-6 border-b-2 border-skynex-dark inline-block pb-2">${n}. ${title}</h2>
+      <div class="mt-6 space-y-4">
+        ${bodyHtml}
+      </div>
+    </div>
+  `,
+
+  // One column of links for the Sitemap page: heading + list of page links (with optional
+  // one-line description and an "external link" icon for links that leave the SPA router).
+  SitemapColumn: (col) => /*html*/`
+    <div>
+      <h3 class="text-sm font-bold text-skynex-dark uppercase tracking-widest mb-6 pb-2 border-b-2 border-skynex-dark inline-block">${col.title}</h3>
+      <ul class="space-y-5 mt-6">
+        ${col.links.map(l => /*html*/`
+          <li>
+            <a href="${l.href}"${l.newTab ? ' target="_blank" rel="noopener noreferrer"' : ''} class="text-base font-medium text-skynex-dark hover:text-skynex-blue hover:underline transition-colors inline-flex items-center gap-2">
+              ${l.label}
+              ${l.newTab ? '<i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-50"></i>' : ''}
+            </a>
+            ${l.desc ? `<p class="text-sm text-slate-500 font-light mt-1">${l.desc}</p>` : ''}
+          </li>
+        `).join('')}
+      </ul>
+    </div>
+  `,
+
   FooterLink: (link) => {
     const cls = link.accent
       ? 'text-sm font-semibold text-skynex-blue hover:underline transition-all'

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skynex Solutions Limited | Official Corporate Website</title>
-   <link rel="icon" type="image/x-icon" href="skynex-online.svg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -104,10 +104,15 @@
   <div id="app"></div>
 
   <!--
-    Scripts are plain classic scripts (no build step, no framework, works from file:// too).
+    Scripts are plain classic scripts (no build step, no framework).
     Core files are needed on every screen. Only the landing screen (Home) is loaded up front so
     the first paint is identical to before; every other screen is fetched on demand by
     js/core/router.js the first time it is visited.
+
+    Screens live at real URL paths (/, /services, /team, /careers, /news, /contact), navigated
+    with the History API. This must be served over http(s) — it does not work by double-clicking
+    index.html from disk — and the host needs to serve index.html for those paths too so direct
+    links and page refreshes work. See DEPLOYMENT.md for the exact config for your host.
   -->
   <script src="js/config.js" defer></script>
   <script src="js/components/ui.js" defer></script>

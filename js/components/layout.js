@@ -7,13 +7,13 @@ const Layout = {
       <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
         <div class="flex justify-between items-center h-20 md:h-24">
           <div class="flex-shrink-0 flex items-center">
-            <a href="#home" class="flex items-center gap-3">
+            <a href="/" class="flex items-center gap-3">
               <img src="skynex-online.svg" alt="Skynex Solutions Logo" class="h-6 md:h-8 w-auto" onerror="this.src='https://placehold.co/150x40/ffffff/050505?text=SKYNEX'">
             </a>
           </div>
           <div class="hidden md:flex space-x-10 items-center">
             ${UI.DesktopNavLinks()}
-            <a href="#contact" class="ml-6 px-6 py-2.5 rounded-full bg-skynex-dark text-white text-xs font-bold tracking-widest uppercase hover:bg-slate-800 transition-colors">
+            <a href="/contact" class="ml-6 px-6 py-2.5 rounded-full bg-skynex-dark text-white text-xs font-bold tracking-widest uppercase hover:bg-slate-800 transition-colors">
               Engage
             </a>
           </div>
@@ -59,15 +59,15 @@ const Layout = {
           <div class="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2">
             <span class="text-xs font-bold text-skynex-dark uppercase">Nigeria/English</span>
             <span class="w-[1px] h-3 bg-slate-300 hidden sm:block"></span>
-            <a href="#" class="text-xs font-medium text-slate-600 hover:text-skynex-dark hover:underline transition-all">Privacy Policy</a>
-            <a href="#" class="text-xs font-medium text-slate-600 hover:text-skynex-dark hover:underline transition-all">Terms of Service</a>
-            <a href="#" class="text-xs font-medium text-slate-600 hover:text-skynex-dark hover:underline transition-all">Legal</a>
-            <a href="#" class="text-xs font-medium text-slate-600 hover:text-skynex-dark hover:underline transition-all">Sitemap</a>
+            <a href="/privacy-policy" class="text-xs font-medium text-slate-600 hover:text-skynex-dark hover:underline transition-all">Privacy Policy</a>
+            <a href="/terms-of-service" class="text-xs font-medium text-slate-600 hover:text-skynex-dark hover:underline transition-all">Terms of Service</a>
+            <a href="/legal" class="text-xs font-medium text-slate-600 hover:text-skynex-dark hover:underline transition-all">Legal</a>
+            <a href="/sitemap" class="text-xs font-medium text-slate-600 hover:text-skynex-dark hover:underline transition-all">Sitemap</a>
           </div>
           <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
             <span class="text-xs font-bold text-slate-500 tracking-widest uppercase">Stay Connected</span>
             <div class="flex gap-4 justify-center">
-              <a href="https://www.linkedin.com/in/ibrahim-shuaibu-257921379?utm_source=share_via&utm_content=profile&utm_medium=member_android" class="text-slate-800 hover:text-skynex-blue transition-colors"><i class="fa-brands fa-linkedin-in text-lg"></i></a>
+              <a href="#" class="text-slate-800 hover:text-skynex-blue transition-colors"><i class="fa-brands fa-linkedin-in text-lg"></i></a>
               <a href="#" class="text-slate-800 hover:text-skynex-dark transition-colors"><i class="fa-brands fa-x-twitter text-lg"></i></a>
               <a href="#" class="text-slate-800 hover:text-skynex-dark transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
             </div>

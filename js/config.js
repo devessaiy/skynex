@@ -2,6 +2,15 @@
 // 1. CONFIGURATION & SHARED DATA
 // ==========================================
 const AppConfig = {
+  // Supabase project config for the Staff Portal + live Contact form.
+  // These two values are PUBLIC by design (same as any Supabase browser client) -- they are
+  // not secrets and are safe to ship in client-side code. All real authorization is enforced
+  // server-side by Postgres Row Level Security policies, never by hiding these values.
+  // The Supabase service-role key must NEVER appear anywhere in this codebase.
+  supabase: {
+    url: 'https://iyvuickcneepmbugnyex.supabase.co',
+    publishableKey: 'sb_publishable_3Nxr3PlnfKQcoUyTWiMULw_HuKAEaz5'
+  },
   company: {
     name: 'Skynex Solutions Limited',
     rc: '9757226',
@@ -11,63 +20,25 @@ const AppConfig = {
     whatsappUrl: 'https://wa.me/2348121219528?text=Hi%2C%20I%20am%20reaching%20out%20from%20your%20website%20to%20make%20an%20enquiry.%20I%20would%20like%20to%20know%20more%20about%20your%20services%2C%20products%2C%20or%20how%20we%20can work%20together.'
   },
   navLinks: [
-    { href: '#home', label: 'Home' },
-    { href: '#services', label: 'Capabilities' },
-    { href: '#team', label: 'Leadership' },
-    { href: '#contact', label: 'Contact' }
+    { href: '/', label: 'Home' },
+    { href: '/services', label: 'Capabilities' },
+    { href: '/team', label: 'Leadership' },
+    { href: '/contact', label: 'Contact' }
   ],
   teamMembers: [
-    {
-      name: 'Alhassan Bashir',
-      role: 'CEO & Co-Founder',
-      initials: 'AB',
-      photo: '../../CEO.png',
-      description: 'Guiding corporate strategy, operational execution, and business development. Alhassan ensures that Skynex\'s technological capabilities are perfectly aligned with market demands, enterprise integrations, and overarching business objectives.',
-      linkedin: '#',
-      instagram: '#'
-    },
     {
       name: 'Ibrahim Hanif Shuaibu',
       role: 'CTO & Co-Founder',
       initials: 'IHS',
-      photo: '../../CTO.png',
       description: 'Leading the technological vision and engineering architecture of Skynex Solutions. Ibrahim oversees the development of flagship products like Trideta, driving innovation across software engineering, cloud deployments, and proprietary security research.',
-      linkedin: 'https://www.linkedin.com/in/ibrahim-shuaibu-257921379?utm_source=share_via&utm_content=profile&utm_medium=member_android',
-      tiktok: '#'
-    },
-    {
-      name: 'Usman Muhammad Bindawa',
-      role: 'COO & Co-Founder',
-      initials: 'UMB',
-      photo: '../../COO.png',
-      description: 'Overseeing operational strategy, day-to-day management, and strategic initiatives. Usman ensures that Skynex operates efficiently and effectively, aligning operational activities with overall business goals.',
       linkedin: '#',
       instagram: '#'
     },
     {
-      name: 'Usama Isah',
-      role: 'CMO & Co-Founder',
-      initials: 'UI',
-      photo: '../../CMO.png',
-      description: 'Overseeing marketing strategy, brand management, and customer engagement initiatives. Usama ensures that Skynex maintains a strong market presence and drives business growth through effective marketing campaigns and customer satisfaction programs.',
-      linkedin: '#',
-      instagram: '#'
-    },
-    {
-      name: 'Sani Zurqaneini',
-      role: 'R&D & Co-Founder',
-      initials: 'SZ',
-      photo: '../../H AND D.png',
-      description: 'Overseeing research and development initiatives, innovation strategies, and technological advancement. Sani ensures that Skynex stays at the forefront of industry trends and delivers cutting-edge solutions.',
-      linkedin: '#',
-      instagram: '#'
-    },
-    {
-      name: 'Muhammad Ghaddafi Umar',
-      role: 'CFO & Co-Founder',
-      initials: 'MGU',
-      photo: '../../CFO.png',
-      description: 'Overseeing financial strategy, budgeting, and investment decisions. Usman ensures that Skynex maintains a strong financial foundation while pursuing growth opportunities and sustainable business practices.',
+      name: 'Alhassan Bashir',
+      role: 'Director & Co-Founder',
+      initials: 'AB',
+      description: 'Guiding corporate strategy, operational execution, and business development. Alhassan ensures that Skynex\'s technological capabilities are perfectly aligned with market demands, enterprise integrations, and overarching business objectives.',
       linkedin: '#',
       instagram: '#'
     }
@@ -108,11 +79,11 @@ AppConfig.footerColumns = [
   {
     title: 'Capabilities',
     links: [
-      { href: '#services', label: 'Software Development' },
-      { href: '#services', label: 'Cloud Infrastructure' },
-      { href: '#services', label: 'System Integration' },
-      { href: '#services', label: 'Creative & Branding' },
-      { href: '#services', label: 'ICT Procurement' }
+      { href: '/services', label: 'Software Development' },
+      { href: '/services', label: 'Cloud Infrastructure' },
+      { href: '/services', label: 'System Integration' },
+      { href: '/services', label: 'Creative & Branding' },
+      { href: '/services', label: 'ICT Procurement' }
     ]
   },
   {
@@ -124,17 +95,18 @@ AppConfig.footerColumns = [
   {
     title: 'Company',
     links: [
-      { href: '#team', label: 'Leadership Team' },
-      { href: '#contact', label: 'Contact Us' },
-      { href: '#careers', label: 'Careers', icon: true },
-      { href: '#news', label: 'News', icon: true }
+      { href: '/team', label: 'Leadership Team' },
+      { href: '/contact', label: 'Contact Us' },
+      { href: '/careers', label: 'Careers', icon: true },
+      { href: '/news', label: 'News', icon: true }
     ]
   },
   {
     title: 'Support',
     links: [
       { href: AppConfig.company.whatsappUrl, label: 'WhatsApp', newTab: true },
-      { href: `mailto:${AppConfig.company.email}`, label: 'Email Support' }
+      { href: `mailto:${AppConfig.company.email}`, label: 'Email Support' },
+      { href: '/staff/login', label: 'Staff Login' }
     ]
   }
 ];

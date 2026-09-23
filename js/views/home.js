@@ -12,7 +12,7 @@ Views.Home = {
           <p class="text-xl md:text-2xl text-slate-500 font-light max-w-3xl mx-auto leading-relaxed mb-12">
             Premium software development, sophisticated cloud infrastructure, and proprietary digital ecosystems for forward-thinking enterprises.
           </p>
-          <a href="#services" class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-skynex-dark text-white font-medium text-sm tracking-widest uppercase hover:bg-skynex-blue transition-colors duration-300">
+          <a href="/services" class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-skynex-dark text-white font-medium text-sm tracking-widest uppercase hover:bg-skynex-blue transition-colors duration-300">
             Discover our expertise
           </a>
         </div>
@@ -27,9 +27,7 @@ Views.Home = {
               <p class="text-2xl font-light text-skynex-dark mb-6 leading-snug">The comprehensive, multi-tenancy school management platform.</p>
               <p class="text-lg text-slate-500 font-light leading-relaxed mb-10">A school management platform built for Nursery, Primary and Secondary levels handling students, results and day-to-day administration in one place.</p>
               <div class="flex items-center gap-6">
-                <a href="https://trideta.skynex.com.ng" class="px-8 py-4 rounded-full bg-white text-skynex-dark font-medium border border-skynex-border hover:border-skynex-dark transition-colors" target="_blank" rel="noopener noreferrer">
-                  Explore Trideta
-                </a>
+                <button class="px-8 py-4 rounded-full bg-white text-skynex-dark font-medium border border-skynex-border hover:border-skynex-dark transition-colors">Explore Trideta</button>
                 <span class="text-sm font-semibold tracking-widest uppercase text-skynex-blue">Live Platform</span>
               </div>
             </div>
@@ -69,7 +67,7 @@ Views.Home = {
               <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-skynex-dark mb-4">Core Capabilities</h2>
               <p class="text-xl text-slate-500 font-light max-w-2xl">Precision engineering across software, infrastructure, and brand identity.</p>
             </div>
-            <a href="#services" class="text-sm font-bold uppercase tracking-widest text-skynex-dark border-b border-skynex-dark pb-1 hover:text-skynex-blue hover:border-skynex-blue transition-colors">
+            <a href="/services" class="text-sm font-bold uppercase tracking-widest text-skynex-dark border-b border-skynex-dark pb-1 hover:text-skynex-blue hover:border-skynex-blue transition-colors">
               View All Services
             </a>
           </div>
