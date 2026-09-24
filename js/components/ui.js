@@ -2,6 +2,11 @@
 // 2. REUSABLE UI COMPONENTS
 // ==========================================
 const UI = {
+  // Escape text that came from the database before putting it into HTML.
+  esc: (value) => String(value ?? '').replace(/[&<>"']/g, ch => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]
+  )),
+
   DesktopNavLinks: () => AppConfig.navLinks.map(link => 
     /*html*/`<a href="${link.href}" class="nav-link text-sm font-semibold tracking-wide uppercase">${link.label}</a>`
   ).join(''),
@@ -13,7 +18,7 @@ const UI = {
   // Flat, divider-separated profile grid (mentor-listing style): portrait photo, name/role,
   // description, socials. No card box/shadow — the grid's own divider lines do the separating.
   //
-  // Placeholder photo: a self-contained inline SVG silhouette (data URI), not remote/hotlinked.
+  // Placeholder photo (used until a member has an uploaded photo): a self-contained inline SVG silhouette (data URI), not remote/hotlinked.
   // It renders instantly with zero network requests, so a full roster never adds any load time.
   // Swap it out by giving a member a real `photo: 'assets/team/jane.jpg'` field — TeamCard uses
   // that automatically once it's present.
@@ -25,26 +30,27 @@ const UI = {
     '</svg>'
   ),
 
-  TeamCard: (member) => /*html*/`
+  // member: { name, role, description, photo, linkedin, instagram } -- all text is escaped, and
+  // the description / social icons are simply omitted when a member has none.
+  TeamCard: (member) => {
+    const social = (href, icon, label) => href ? /*html*/`
+      <a href="${UI.esc(href)}" target="_blank" rel="noopener noreferrer" aria-label="${UI.esc(member.name)} on ${label}" class="w-8 h-8 rounded-full border border-skynex-border flex items-center justify-center text-skynex-dark hover:bg-skynex-dark hover:text-white hover:border-skynex-dark transition-colors">
+        <i class="fa-brands ${icon} text-xs"></i>
+      </a>` : '';
+    const links = social(member.linkedin, 'fa-linkedin-in', 'LinkedIn') + social(member.instagram, 'fa-instagram', 'Instagram');
+    return /*html*/`
     <div class="pb-12 sm:pb-0 sm:px-8 md:px-10 first:pl-0 last:pr-0">
       <div class="aspect-[4/5] w-full overflow-hidden bg-skynex-gray">
-        <img src="${member.photo || UI._PLACEHOLDER_AVATAR}" alt="${member.name}" loading="lazy" width="400" height="500" class="w-full h-full object-cover">
+        <img src="${UI.esc(member.photo || UI._PLACEHOLDER_AVATAR)}" alt="${UI.esc(member.name)}" loading="lazy" decoding="async" width="400" height="500" class="w-full h-full object-cover">
       </div>
       <div class="pt-6">
-        <h3 class="text-base font-bold text-skynex-dark uppercase tracking-widest mb-1">${member.name}</h3>
-        <p class="text-sm text-slate-500 font-medium mb-4">${member.role}</p>
-        <p class="text-sm text-slate-500 font-light leading-relaxed mb-5">${member.description}</p>
-        <div class="flex items-center gap-3">
-          <a href="${member.linkedin}" aria-label="${member.name} on LinkedIn" class="w-8 h-8 rounded-full border border-skynex-border flex items-center justify-center text-skynex-dark hover:bg-skynex-dark hover:text-white hover:border-skynex-dark transition-colors">
-            <i class="fa-brands fa-linkedin-in text-xs"></i>
-          </a>
-          <a href="${member.instagram}" aria-label="${member.name} on Instagram" class="w-8 h-8 rounded-full border border-skynex-border flex items-center justify-center text-skynex-dark hover:bg-skynex-dark hover:text-white hover:border-skynex-dark transition-colors">
-            <i class="fa-brands fa-instagram text-xs"></i>
-          </a>
-        </div>
+        <h3 class="text-base font-bold text-skynex-dark uppercase tracking-widest mb-1">${UI.esc(member.name)}</h3>
+        <p class="text-sm text-slate-500 font-medium mb-4">${UI.esc(member.role)}</p>
+        ${member.description ? `<p class="text-sm text-slate-500 font-light leading-relaxed mb-5">${UI.esc(member.description)}</p>` : ''}
+        ${links ? `<div class="flex items-center gap-3">${links}</div>` : ''}
       </div>
-    </div>
-  `,
+    </div>`;
+  },
 
   ServiceListItem: (item) => /*html*/`
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 py-10 group">

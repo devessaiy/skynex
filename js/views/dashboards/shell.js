@@ -1,11 +1,12 @@
 // ==========================================
 // SHARED STAFF DASHBOARD SHELL
 // ==========================================
-// One shared shell reused by all six founder dashboards: header, name/role display, logout,
-// and a placeholder content area. Deliberately minimal -- no invented business functionality.
-// This file only decides what to SHOW; it never decides what a role is ALLOWED to see. Any
-// real data added to a dashboard later must be fetched via a Supabase query protected by RLS
-// -- checking `profile.role_code` here is UX only and grants no actual access.
+// One shared shell reused by all six founder dashboard pages: header, name/role display,
+// logout, and a placeholder content area. Deliberately minimal -- no invented business
+// functionality (that's Phase 2). This file only decides what to SHOW; it never decides what a
+// role is ALLOWED to see. The guard (session + role match) already ran in app.js before this
+// page's content was even rendered, so `profile` here is guaranteed to already belong to the
+// signed-in user and already match this page's role -- this file just displays it.
 const DashboardShell = {
   render(id, dashboardTitle) {
     return /*html*/`
@@ -39,22 +40,15 @@ const DashboardShell = {
     `;
   },
 
-  async mount(el, expectedRoleCode) {
+  mount(el, profile) {
     const welcomeEl = el.querySelector('[data-dashboard-welcome]');
     const roleEl = el.querySelector('[data-dashboard-role]');
     const logoutBtn = el.querySelector('[data-dashboard-logout]');
 
     logoutBtn.addEventListener('click', async () => {
       await Auth.signOut();
-      Router.navigate('/staff/login');
+      window.location.href = '/staff/login';
     });
-
-    const profile = await Auth.getProfile();
-    if (!profile) { Router.navigate('/staff/login'); return; }
-    if (profile.role_code !== expectedRoleCode) {
-      Router.navigate((Router.roleDashboardPath && Router.roleDashboardPath[profile.role_code]) || '/staff/dashboard');
-      return;
-    }
 
     const displayName = profile.full_name || profile.email;
     const roleName = (profile.roles && profile.roles.name) || profile.role_code.toUpperCase();

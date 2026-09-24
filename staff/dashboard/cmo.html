@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <!--
+    IMPORTANT: this must come before any relative URL is used on the page (script src, img
+    src, etc.). Real pages can sit at a nested path, e.g. /staff/dashboard/ceo. Without a fixed
+    base, a RELATIVE path like "js/core/auth.js" would resolve against that page's OWN directory
+    (/staff/dashboard/js/core/auth.js -- 404) instead of the site root. This one line is what
+    makes every relative script/image reference in this codebase resolve correctly regardless of
+    how deep a given page's URL is. Requires the site to be served from its own root -- if you
+    ever deploy under a subpath (e.g. https://host.com/skynex/), change this to that subpath.
+  -->
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMO Dashboard | Skynex Staff Portal</title>
+  <link rel="icon" type="image/x-icon" href="/skynex-online.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            skynex: {
+              blue: '#1976D2',
+              teal: '#26A69A',
+              dark: '#050505',
+              gray: '#f5f5f7',
+              border: '#e5e5e5'
+            }
+          },
+          letterSpacing: {
+            tightest: '-.04em',
+            tighter: '-.02em',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #ffffff; }
+    ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+
+    .text-gradient {
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-image: linear-gradient(to right, #1976D2, #26A69A);
+    }
+
+    .nav-link {
+      position: relative;
+      color: #050505;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 1px;
+      bottom: -4px;
+      left: 0;
+      background-color: #050505;
+      transform-origin: bottom right;
+      transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    /* Each page shows exactly one view, so this just drives the fade-in on load
+       (app.js adds .active right after inserting this page's content). */
+    .spa-view {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .spa-view.active {
+      display: block;
+      opacity: 1;
+      animation: fadeInView 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeInView {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .structural-list>div { border-bottom: 1px solid #e5e5e5; }
+    .structural-list>div:last-child { border-bottom: none; }
+  </style>
+</head>
+<body class="font-sans text-slate-900 bg-white antialiased selection:bg-skynex-dark selection:text-white" data-view="DashboardCMO" data-guard="dashboard-role" data-role="cmo">
+
+  <div id="app"></div>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/components/ui.js" defer></script>
+  <script src="js/components/layout.js" defer></script>
+  <script src="js/core/app.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+  <script src="js/lib/supabase-client.js" defer></script>
+  <script src="js/core/auth.js" defer></script>
+  <script src="js/views/dashboards/shell.js" defer></script>
+  <script src="js/views/dashboards/cmo.js" defer></script>
+
+</body>
+</html>

@@ -1,17 +1,15 @@
 {
   "hosting": {
     "public": ".",
+    "cleanUrls": true,
+    "trailingSlash": false,
     "ignore": [
       "firebase.json",
+      "vercel.json",
+      ".htaccess",
+      "DEPLOYMENT.md",
       "**/.*",
       "**/node_modules/**"
-    ],
-    
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }

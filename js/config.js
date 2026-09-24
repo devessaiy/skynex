@@ -25,62 +25,6 @@ const AppConfig = {
     { href: '/team', label: 'Leadership' },
     { href: '/contact', label: 'Contact' }
   ],
-  teamMembers: [
-    {
-      name: 'Alhassan Bashir',
-      role: 'CEO & Co-Founder',
-      initials: 'AB',
-      photo: '../../CEO.png',
-      description: 'Guiding corporate strategy, operational execution, and business development. Alhassan ensures that Skynex\'s technological capabilities are perfectly aligned with market demands, enterprise integrations, and overarching business objectives.',
-      linkedin: '#',
-      instagram: '#'
-    },
-    {
-      name: 'Ibrahim Hanif Shuaibu',
-      role: 'CTO & Co-Founder',
-      initials: 'IHS',
-      photo: '../../CTO.png',
-      description: 'Leading the technological vision and engineering architecture of Skynex Solutions. Ibrahim oversees the development of flagship products like Trideta, driving innovation across software engineering, cloud deployments, and proprietary security research.',
-      linkedin: '#',
-      instagram: '#'
-    },
-    {
-      name: 'Usman Muhammad Bindawa',
-      role: 'COO & Co-Founder',
-      initials: 'UMB',
-      photo: '../../COO.png',
-      description: 'Leading the technological vision and engineering architecture of Skynex Solutions. Ibrahim oversees the development of flagship products like Trideta, driving innovation across software engineering, cloud deployments, and proprietary security research.',
-      linkedin: '#',
-      instagram: '#'
-    },
-    {
-      name: 'Usama Isah',
-      role: 'CMO & Co-Founder',
-      initials: 'UI',
-      photo: '../../CMO.png',
-      description: 'Leading the technological vision and engineering architecture of Skynex Solutions. Ibrahim oversees the development of flagship products like Trideta, driving innovation across software engineering, cloud deployments, and proprietary security research.',
-      linkedin: '#',
-      instagram: '#'
-    },
-    {
-      name: 'Muhammad Ghaddafi Umar',
-      role: 'CFO & Co-Founder',
-      initials: 'MGU',
-      photo: '../../CFO.png',
-      description: 'Leading the technological vision and engineering architecture of Skynex Solutions. Ibrahim oversees the development of flagship products like Trideta, driving innovation across software engineering, cloud deployments, and proprietary security research.',
-      linkedin: '#',
-      instagram: '#'
-    },
-    {
-      name: 'Sani Zurqaneini',
-      role: 'RnD & Co-Founder',
-      initials: 'SZ',
-      photo: '../../H AND D.png',
-      description: 'Leading the technological vision and engineering architecture of Skynex Solutions. Ibrahim oversees the development of flagship products like Trideta, driving innovation across software engineering, cloud deployments, and proprietary security research.',
-      linkedin: '#',
-      instagram: '#'
-    },
-  ],
   servicesPage: [
     {
       category: 'Software & Infrastructure',

@@ -1,19 +1,26 @@
 // ==========================================
 // CORE: APP CONTROLLER & SHARED EVENTS
 // ==========================================
-// Renders the page shell (header + empty <main> + footer) and wires up the behaviour that is
-// shared by every screen. Screen content is rendered by the router (js/core/router.js).
+// Every page is its own real HTML file. This injects the shared header and footer into the
+// #site-header / #site-footer placeholders and wires up the behaviour shared by every page.
+// (There is no client-side router: links are ordinary links to real pages.)
 const AppController = {
 
   isMenuOpen: false,
 
-  // Inject the shell into the DOM
+  // Inject the shared header + footer into the page
   render: () => {
-    document.getElementById('app').innerHTML = /*html*/`
-      ${Layout.Header()}
-      <main id="app-root" class="pt-20 md:pt-24 min-h-screen"></main>
-      ${Layout.Footer()}
-    `;
+    document.getElementById('site-header').innerHTML = Layout.Header();
+    document.getElementById('site-footer').innerHTML = Layout.Footer();
+  },
+
+  // Highlight the nav link for the page that is currently open (was done by the router).
+  markActiveNav: () => {
+    let path = window.location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
+    if (path.length > 1 && path.endsWith('/')) path = path.slice(0, -1);
+    document.querySelectorAll(`.nav-link[href="${path}"], .mobile-link[href="${path}"]`).forEach(link => {
+      link.classList.add('active');
+    });
   },
 
   // --- 1. Mobile Menu Logic ---
@@ -98,7 +105,13 @@ const AppController = {
   initEvents: () => {
     AppController.initMobileMenu();
     AppController.initFooterAccordion();
-    Router.start();                       // SPA routing + lazy-loaded screens
+    AppController.markActiveNav();
+
+    // Coming back with the browser Back button can restore the page from cache with the
+    // mobile menu still open; close it so the page is scrollable again.
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted && AppController.isMenuOpen) window.toggleMenu();
+    });
     AppController.initNavbarScrollEffect();
   }
 };

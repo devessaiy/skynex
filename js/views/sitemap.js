@@ -1,7 +1,7 @@
 // ==========================================
 // SCREEN: SITEMAP  #sitemap
 // ==========================================
-// Lists only routes that actually exist in Router.routes, plus the Trideta product (a real,
+// Lists only pages that actually exist on this site, plus the Trideta product (a real,
 // separately-hosted destination linked from the Home screen), and support channels that exist
 // today (WhatsApp / email) rather than a dedicated "Support" page, since none exists yet.
 Views.Sitemap = {

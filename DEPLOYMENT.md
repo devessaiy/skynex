@@ -1,100 +1,55 @@
-# Deploying the real URL paths (/team, /careers, /news, …)
+# Deploying the multi-page site
 
-The site now uses real URL paths (`/`, `/services`, `/team`, `/contact`, `/careers`, `/news`)
-instead of `#hash` fragments. Clicking links inside the site always works, on any host — that part
-needs no server configuration.
+The site is now a standard multi-page website: every page is its own real HTML file, and every
+link is an ordinary link to that file. There is no client-side router and no "serve index.html
+for everything" fallback any more — the old SPA rewrite rules are no longer needed (and should be
+removed if you added them).
 
-**Directly loading or refreshing one of those URLs does need one extra setting**, because this is
-still a single physical file (`index.html`) with client-side JavaScript deciding what to show. If
-someone types `yoursite.com/team` into their browser, or refreshes while on that page, the *server*
-sees a request for `/team` and needs to be told "serve index.html for that too" — otherwise it
-returns a 404, because no `team.html` file actually exists on disk.
+| URL | File |
+|---|---|
+| `/` | `index.html` |
+| `/services` `/team` `/contact` `/careers` `/news` | `services.html` … `news.html` |
+| `/privacy-policy` `/terms-of-service` `/legal` `/sitemap` | matching `.html` files |
+| `/staff/login` `/staff/reset-password` `/staff/dashboard` | `staff/login.html` … |
+| anything else | `404.html` |
 
-Find your host below and add the matching config. You only need the one that matches where this
-site is actually hosted.
+The links keep their clean look (`/team`, not `/team.html`). Most hosts do that automatically;
+a couple need one setting. Find yours:
 
-## Netlify
-Create a file named `_redirects` (no extension) at the same level as `index.html`:
-```
-/*  /index.html  200
-```
+## Netlify, Cloudflare Pages, GitHub Pages
+Nothing to configure. They serve `team.html` at `/team` and use `404.html` for unknown pages.
 
 ## Vercel
-Create `vercel.json` at the project root:
-```json
-{ "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
-```
+`vercel.json` (included): `{ "cleanUrls": true }`
 
-## Cloudflare Pages
-Same as Netlify — add a `_redirects` file:
-```
-/*  /index.html  200
-```
-
-## Apache (cPanel, most shared hosting, self-managed servers)
-Create/edit `.htaccess` in the same folder as `index.html`:
-```apache
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^ index.html [L]
-</IfModule>
-```
+## Apache (cPanel, most shared hosting)
+`.htaccess` (included) maps `/team` to `team.html` and sets `404.html`.
 
 ## Nginx
-Inside the relevant `server { }` block:
 ```nginx
 location / {
-  try_files $uri $uri/ /index.html;
+  try_files $uri $uri.html $uri/ =404;
 }
+error_page 404 /404.html;
 ```
 
 ## Firebase Hosting
-In `firebase.json`:
-```json
-{ "hosting": { "rewrites": [{ "source": "**", "destination": "/index.html" }] } }
-```
+In `firebase.json`: `{ "hosting": { "cleanUrls": true } }`
 
-## AWS S3 (static website hosting) / CloudFront
-- **S3 website hosting**: set the bucket's "Error document" to `index.html` (not just the index
-  document) in the Static website hosting settings.
-- **CloudFront**: add a Custom Error Response for HTTP 404 (and 403, since S3 often returns that
-  instead) → Response Page Path `/index.html`, HTTP Response Code `200`.
+## AWS S3 / CloudFront, IIS
+These don't map extensionless URLs to `.html` on their own. Tell me which you use and I'll give
+you the exact rule. (S3: set the error document to `404.html`.)
 
-## IIS (Windows hosting)
-Add a `web.config` in the same folder:
-```xml
-<configuration>
-  <system.webServer>
-    <rewrite>
-      <rules>
-        <rule name="SPA fallback" stopProcessing="true">
-          <match url=".*" />
-          <conditions logicalGrouping="MatchAll">
-            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
-            <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
-          </conditions>
-          <action type="Rewrite" url="/index.html" />
-        </rule>
-      </rules>
-    </rewrite>
-  </system.webServer>
-</configuration>
-```
-
-## GitHub Pages
-GitHub Pages can't run server-side rewrites, so it needs a different trick: a `404.html` that
-redirects back to `index.html` while preserving the path, plus a small script in `index.html` that
-restores it. This is a bigger change than the others above — let me know if this is actually your
-host and I'll wire it up properly rather than you hand-rolling it from a snippet.
+**Local testing:** open the site through a local web server (not by double-clicking a file).
+A plain static server will show `/team.html`-style URLs working but not `/team` unless it
+supports clean URLs (e.g. `npx serve` does).
 
 ---
 
 # Supabase Auth: one required setting for the Staff Portal
 
-The `/staff/*` routes above are covered automatically by whichever SPA fallback rule you added
-above — no extra rewrite rule is needed for them.
+`/staff/reset-password` must open at exactly that clean URL (see the hosting section above),
+otherwise the emailed reset link lands on a 404.
 
 However, Supabase Auth will refuse the password-reset redirect until you allow-list it:
 
@@ -117,3 +72,23 @@ update public.profiles set role_code = 'ceo' where email = 'name@company.com';
 
 **Not sure which of these applies, or your host isn't listed?** Tell me what you're deploying with
 (the platform name, or how you currently upload/push the site) and I'll give you the exact config.
+
+---
+
+## Phase 2 backend (applied to the `skynex` Supabase project)
+
+- **New tables:** `news_posts`, `leadership_members` (both RLS-protected; public read of only
+  live/active rows, writes gated by the existing `role_permissions` table via `manage_news` /
+  `manage_leadership`, added as two new permission codes -- no new RBAC system).
+- **New Storage buckets:** `news-media`, `team-photos` (both public-read; staff write, checked by
+  the same two permissions).
+- **7-day news cleanup:** an Edge Function (`cleanup-expired-news`) deletes expired posts and
+  their Storage files together, run hourly by `pg_cron` + `pg_net` -- entirely inside Supabase, no
+  dependency on a visitor opening the site.
+- **Contact replies:** the dashboard's Reply button opens a `mailto:` link to the visitor's email
+  in the staff member's own mail client. No email-sending service is configured; if you want
+  replies logged in-app later, that needs an email API (e.g. Resend, Postmark) added as a Supabase
+  secret.
+- **Leadership photos:** `leadership_members.photo_path` starts empty for every seeded member.
+  A placeholder avatar is shown publicly until a real photo is uploaded from
+  `/staff/leadership` (CEO only). Uploaded photos are compressed to WebP in the browser first.

@@ -4,17 +4,49 @@
 Views.Home = {
   render: () => /*html*/`
     <div id="view-home" class="spa-view active">
-      <section class="relative pt-24 pb-32 md:pt-40 md:pb-48 bg-white flex items-center">
-        <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 w-full text-center">
-          <h1 class="text-5xl md:text-7xl lg:text-[7rem] font-bold text-skynex-dark leading-[1.05] tracking-tighter mb-8 max-w-6xl mx-auto">
-            Engineering the future <br class="hidden md:block" /> of digital business.
-          </h1>
-          <p class="text-xl md:text-2xl text-slate-500 font-light max-w-3xl mx-auto leading-relaxed mb-12">
-            Premium software development, sophisticated cloud infrastructure, and proprietary digital ecosystems for forward-thinking enterprises.
-          </p>
-          <a href="/services" class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-skynex-dark text-white font-medium text-sm tracking-widest uppercase hover:bg-skynex-blue transition-colors duration-300">
-            Discover our expertise
-          </a>
+      <section class="relative pt-28 pb-20 md:pt-40 md:pb-28 bg-white overflow-hidden">
+        <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 w-full">
+          <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+
+            <!-- Left: heading, copy, CTA -->
+            <div class="lg:col-span-7 text-center lg:text-left">
+              <h1 class="text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-skynex-dark leading-[1.05] tracking-tighter mb-8">
+                Engineering the future of digital business.
+              </h1>
+              <p class="text-xl md:text-2xl text-slate-500 font-light max-w-xl mx-auto lg:mx-0 leading-relaxed mb-12">
+                Premium software development, sophisticated cloud infrastructure, and proprietary digital ecosystems for forward-thinking enterprises.
+              </p>
+              <a href="/services" class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-skynex-dark text-white font-medium text-sm tracking-widest uppercase hover:bg-skynex-blue transition-colors duration-300">
+                Discover our expertise
+              </a>
+            </div>
+
+            <!-- Right: branded visual. Same dark-panel + blue/teal gradient-glow treatment used
+                 on the "Pioneering What's Next" section and the Staff Login visual panel, so the
+                 logo reads as blended into the brand gradient rather than pasted on top of a
+                 generic background. No stock photography, consistent with the rest of the site. -->
+            <div class="lg:col-span-5">
+              <div class="relative aspect-square lg:aspect-[4/5] rounded-[2rem] overflow-hidden bg-skynex-dark">
+                <div class="absolute inset-0 opacity-30"
+                  style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.35) 1px, transparent 0); background-size: 28px 28px;"></div>
+                <div class="absolute -top-24 -right-24 w-[380px] h-[380px] rounded-full opacity-40 blur-3xl"
+                  style="background: radial-gradient(circle, #1976D2, transparent 70%);"></div>
+                <div class="absolute -bottom-28 -left-16 w-[340px] h-[340px] rounded-full opacity-40 blur-3xl"
+                  style="background: radial-gradient(circle, #26A69A, transparent 70%);"></div>
+
+                <div class="absolute inset-0 flex items-center justify-center p-12">
+                  <img src="skynex-offline.svg" alt="" aria-hidden="true" onerror="this.style.display='none'"
+                    class="w-3/4 h-3/4 object-contain opacity-[0.14] mix-blend-screen select-none pointer-events-none">
+                </div>
+
+                <div class="relative h-full flex flex-col items-center justify-center text-center px-8">
+                  <span class="text-3xl md:text-4xl font-bold text-white tracking-tighter">Skynex</span>
+                  <p class="mt-3 text-sm md:text-base text-white/60 font-light tracking-wide uppercase">Solutions Limited</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 

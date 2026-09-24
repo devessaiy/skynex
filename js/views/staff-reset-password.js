@@ -43,7 +43,7 @@ Views.StaffResetPassword = {
         msg.textContent = 'Password updated. Redirecting…';
         msg.classList.remove('hidden', 'text-red-600');
         msg.classList.add('text-green-600');
-        setTimeout(() => Router.navigate('/staff/dashboard'), 1200);
+        setTimeout(() => { window.location.href = '/staff/dashboard'; }, 1200);
       } catch (err) {
         msg.textContent = 'Could not update password. The reset link may have expired — request a new one from the login page.';
         msg.classList.remove('hidden', 'text-green-600');

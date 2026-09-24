@@ -3,5 +3,5 @@
 // ==========================================
 Views.DashboardCTO = {
   render: () => DashboardShell.render("dashboard-cto", "CTO Dashboard"),
-  mount: (el) => DashboardShell.mount(el, "cto")
+  mount: (el, profile) => DashboardShell.mount(el, profile)
 };

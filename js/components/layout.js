@@ -8,7 +8,7 @@ const Layout = {
         <div class="flex justify-between items-center h-20 md:h-24">
           <div class="flex-shrink-0 flex items-center">
             <a href="/" class="flex items-center gap-3">
-              <img src="skynex-online.svg" alt="Skynex Solutions Logo" class="h-6 md:h-8 w-auto" onerror="this.src='https://placehold.co/150x40/ffffff/050505?text=SKYNEX'">
+              <img src="/skynex-online.svg" alt="Skynex Solutions Logo" class="h-6 md:h-8 w-auto" onerror="this.src='https://placehold.co/150x40/ffffff/050505?text=SKYNEX'">
             </a>
           </div>
           <div class="hidden md:flex space-x-10 items-center">

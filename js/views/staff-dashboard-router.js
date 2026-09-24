@@ -1,9 +1,9 @@
 // ==========================================
-// STAFF DASHBOARD ROUTER  #/staff/dashboard
+// STAFF DASHBOARD ROUTER  --  /staff/dashboard.html
 // ==========================================
 // Reads the signed-in user's OWN profile (RLS guarantees this, see migrations) and forwards
-// to their specific dashboard. If no role has been assigned yet, shows a plain message rather
-// than guessing -- role assignment is an admin action, not something the frontend invents.
+// to their specific dashboard page. If no role has been assigned yet, shows a plain message
+// rather than guessing -- role assignment is an admin action, not something the frontend invents.
 Views.StaffDashboardRouter = {
   render: () => /*html*/`
     <div id="view-staff-dashboard" class="spa-view min-h-screen flex items-center justify-center bg-skynex-gray px-6">
@@ -12,11 +12,11 @@ Views.StaffDashboardRouter = {
   `,
   mount: async (el) => {
     const profile = await Auth.getProfile();
-    if (!profile) { Router.navigate('/staff/login'); return; }
+    if (!profile) { window.location.href = '/staff/login'; return; }
 
-    const path = profile.role_code && Router.roleDashboardPath[profile.role_code];
+    const path = profile.role_code && DASHBOARD_PATHS[profile.role_code];
     if (path) {
-      Router.navigate(path);
+      window.location.href = path;
       return;
     }
 
@@ -29,7 +29,7 @@ Views.StaffDashboardRouter = {
     `;
     el.querySelector('[data-dashboard-logout]').addEventListener('click', async () => {
       await Auth.signOut();
-      Router.navigate('/staff/login');
+      window.location.href = '/staff/login';
     });
   }
 };

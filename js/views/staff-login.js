@@ -6,21 +6,27 @@ Views.StaffLogin = {
     <div id="view-staff-login" class="spa-view min-h-screen grid lg:grid-cols-2 bg-skynex-gray">
 
       <!-- Login column -->
-      <div class="flex items-center justify-center px-6 py-16">
-        <div class="w-full max-w-md bg-white border border-skynex-border rounded-2xl p-8 md:p-10">
-          <h1 class="text-2xl font-bold text-skynex-dark tracking-tighter mb-2">Staff Login</h1>
-          <p class="text-sm text-slate-500 font-light mb-8">Sign in with your Skynex staff account.</p>
+      <div class="flex items-center justify-center px-6 py-16 bg-white">
+        <div class="w-full max-w-md">
+          <div class="flex items-center gap-2.5 mb-10">
+            <span class="w-9 h-9 rounded-lg bg-skynex-dark flex items-center justify-center text-white font-bold text-sm">S</span>
+            <span class="text-lg font-bold text-skynex-dark tracking-tighter">Skynex</span>
+          </div>
+
+          <p class="text-xs font-bold uppercase tracking-widest text-skynex-blue mb-3">Staff Portal</p>
+          <h1 class="text-3xl font-bold text-skynex-dark tracking-tighter mb-2">Welcome back</h1>
+          <p class="text-sm text-slate-500 font-light mb-10">Sign in with your Skynex staff account to continue.</p>
 
           <form data-login-form class="space-y-5">
             <div>
               <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Email</label>
               <input data-login-email type="email" required autocomplete="username"
-                class="w-full border border-skynex-border rounded-lg px-4 py-3 text-base text-skynex-dark focus:outline-none focus:border-skynex-dark transition-colors" />
+                class="w-full bg-slate-50 border border-skynex-border rounded-xl px-4 py-3.5 text-base text-skynex-dark focus:outline-none focus:bg-white focus:border-skynex-dark transition-colors" />
             </div>
             <div>
               <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Password</label>
               <input data-login-password type="password" required autocomplete="current-password"
-                class="w-full border border-skynex-border rounded-lg px-4 py-3 text-base text-skynex-dark focus:outline-none focus:border-skynex-dark transition-colors" />
+                class="w-full bg-slate-50 border border-skynex-border rounded-xl px-4 py-3.5 text-base text-skynex-dark focus:outline-none focus:bg-white focus:border-skynex-dark transition-colors" />
             </div>
 
             <p data-login-error class="text-sm text-red-600 font-medium hidden"></p>
@@ -112,7 +118,7 @@ Views.StaffLogin = {
       try {
         await Auth.signIn(email, password);
         const redirect = new URLSearchParams(window.location.search).get('redirect');
-        Router.navigate(redirect || '/staff/dashboard');
+        window.location.href = redirect || '/staff/dashboard';
       } catch (err) {
         errorEl.textContent = 'Incorrect email or password.';
         errorEl.classList.remove('hidden');
