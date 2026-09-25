@@ -16,7 +16,7 @@
         <i class="fa-solid ${icon} text-skynex-blue text-lg"></i>
       </div>
       <p class="text-3xl font-bold text-skynex-dark dark:text-white tracking-tighter mb-1">${value}</p>
-      <p class="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 dark:text-slate-500">${Staff.esc(label)}</p>
+      <p class="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">${Staff.esc(label)}</p>
     </a>`;
 
   const jobs = [];

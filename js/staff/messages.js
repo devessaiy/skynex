@@ -21,14 +21,14 @@
   function renderTabs() {
     tabsWrap.innerHTML = TABS.map(([key, label]) => {
       const count = key === 'all' ? rows.length : rows.filter(r => r.status === key).length;
-      return `<button data-tab="${key}" class="shrink-0 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors ${filter === key ? 'bg-skynex-dark text-white' : 'bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 text-slate-500 dark:text-slate-400 dark:text-slate-500 hover:border-skynex-dark'}">${label} (${count})</button>`;
+      return `<button data-tab="${key}" class="shrink-0 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors ${filter === key ? 'bg-skynex-dark text-white' : 'bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 text-slate-500 dark:text-slate-400 hover:border-skynex-dark'}">${label} (${count})</button>`;
     }).join('');
     tabsWrap.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => { filter = b.dataset.tab; renderTabs(); renderList(); }));
   }
 
   function renderList() {
     const shown = filter === 'all' ? rows : rows.filter(r => r.status === filter);
-    if (!shown.length) { listEl.innerHTML = `<p class="text-center text-slate-400 dark:text-slate-500 font-light py-16">No messages here.</p>`; return; }
+    if (!shown.length) { listEl.innerHTML = `<p class="text-center text-slate-400 font-light py-16">No messages here.</p>`; return; }
     listEl.innerHTML = shown.map(r => /*html*/`
       <button data-open="${r.id}" class="w-full text-left bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 rounded-2xl p-5 hover:border-skynex-dark transition-colors flex items-start justify-between gap-4">
         <div class="min-w-0">
@@ -36,10 +36,10 @@
             <p class="font-bold text-skynex-dark dark:text-white truncate">${Staff.esc(r.name)}</p>
             ${Staff.statusBadge(r.status)}
           </div>
-          <p class="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500 truncate">${Staff.esc(r.email)}${r.company_name ? ' · ' + Staff.esc(r.company_name) : ''}</p>
-          <p class="text-sm text-slate-400 dark:text-slate-500 font-light truncate mt-1">${Staff.esc(r.message)}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400 truncate">${Staff.esc(r.email)}${r.company_name ? ' · ' + Staff.esc(r.company_name) : ''}</p>
+          <p class="text-sm text-slate-400 font-light truncate mt-1">${Staff.esc(r.message)}</p>
         </div>
-        <p class="shrink-0 text-xs text-slate-400 dark:text-slate-500 whitespace-nowrap">${Staff.esc(Staff.formatDate(r.created_at))}</p>
+        <p class="shrink-0 text-xs text-slate-400 whitespace-nowrap">${Staff.esc(Staff.formatDate(r.created_at))}</p>
       </button>`).join('');
     listEl.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => openMessage(b.dataset.open)));
   }
@@ -69,7 +69,7 @@
         <div>
           <p class="${Staff.labelCls}">Status</p>
           <div class="flex gap-2" data-status-group>
-            ${['new', 'reviewed', 'resolved'].map(s => `<button data-set-status="${s}" class="flex-1 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest border transition-colors ${r.status === s ? 'bg-skynex-dark text-white border-skynex-dark' : 'border-skynex-border dark:border-neutral-800 text-slate-500 dark:text-slate-400 dark:text-slate-500 hover:border-skynex-dark'}">${s}</button>`).join('')}
+            ${['new', 'reviewed', 'resolved'].map(s => `<button data-set-status="${s}" class="flex-1 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest border transition-colors ${r.status === s ? 'bg-skynex-dark text-white border-skynex-dark' : 'border-skynex-border dark:border-neutral-800 text-slate-500 dark:text-slate-400 hover:border-skynex-dark'}">${s}</button>`).join('')}
           </div>
         </div>` : ''}
       </div>` });

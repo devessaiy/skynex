@@ -92,3 +92,21 @@ update public.profiles set role_code = 'ceo' where email = 'name@company.com';
 - **Leadership photos:** `leadership_members.photo_path` starts empty for every seeded member.
   A placeholder avatar is shown publicly until a real photo is uploaded from
   `/staff/leadership` (CEO only). Uploaded photos are compressed to WebP in the browser first.
+
+---
+
+## Ads (Google AdSense, News page only)
+
+Ads are wired up but **off by default** -- nothing renders and no ad script loads until you
+finish AdSense setup. To turn them on:
+
+1. Get approved for Google AdSense (adsense.google.com) and create one "Display ad" unit.
+2. Open `js/config-ads.js` and set `enabled: true`, your Publisher ID (`client`), and the Ad
+   Slot ID for the unit you created (`slots.newsListTop` -- you can reuse the same slot ID for
+   all three, or create separate units for each).
+3. Replace the placeholder line in `ads.txt` with the real line AdSense's dashboard gives you
+   (Sites -> your domain -> "Do it yourself").
+
+Ads only ever appear on `/news` (one banner above the list, one every 4 posts in the feed) and on
+an individual `/news-post` page (one unit below the article). No other page loads the ad script
+or any ad-related code.

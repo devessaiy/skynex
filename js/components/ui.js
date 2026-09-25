@@ -45,8 +45,8 @@ const UI = {
       </div>
       <div class="pt-6">
         <h3 class="text-base font-bold text-skynex-dark dark:text-white uppercase tracking-widest mb-1">${UI.esc(member.name)}</h3>
-        <p class="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500 font-medium mb-4">${UI.esc(member.role)}</p>
-        ${member.description ? `<p class="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500 font-light leading-relaxed mb-5">${UI.esc(member.description)}</p>` : ''}
+        <p class="text-sm text-slate-500 dark:text-slate-400 font-medium mb-4">${UI.esc(member.role)}</p>
+        ${member.description ? `<p class="text-sm text-slate-500 dark:text-slate-400 font-light leading-relaxed mb-5">${UI.esc(member.description)}</p>` : ''}
         ${links ? `<div class="flex items-center gap-3">${links}</div>` : ''}
       </div>
     </div>`;
@@ -58,7 +58,7 @@ const UI = {
         <h3 class="text-2xl font-bold text-skynex-dark dark:text-white">${item.title}</h3>
       </div>
       <div class="md:col-span-8">
-        <p class="text-lg text-slate-600 font-light leading-relaxed">${item.desc}</p>
+        <p class="text-lg text-slate-600 dark:text-slate-400 font-light leading-relaxed">${item.desc}</p>
       </div>
     </div>
   `,
@@ -105,7 +105,7 @@ const UI = {
               ${l.label}
               ${l.newTab ? '<i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-50"></i>' : ''}
             </a>
-            ${l.desc ? `<p class="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500 font-light mt-1">${l.desc}</p>` : ''}
+            ${l.desc ? `<p class="text-sm text-slate-500 dark:text-slate-400 font-light mt-1">${l.desc}</p>` : ''}
           </li>
         `).join('')}
       </ul>
@@ -115,7 +115,7 @@ const UI = {
   FooterLink: (link) => {
     const cls = link.accent
       ? 'text-sm font-semibold text-skynex-blue hover:underline transition-all'
-      : 'text-sm text-slate-600 hover:text-skynex-dark dark:text-white hover:underline transition-all';
+      : 'text-sm text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:underline transition-all';
     const target = link.newTab ? ' target="_blank" rel="noopener noreferrer"' : '';
     const icon = link.icon ? ' <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1 opacity-50"></i>' : '';
     return /*html*/`<li><a href="${link.href}"${target} class="${cls}">${link.label}${icon}</a></li>`;

@@ -17,7 +17,7 @@
 
     if (!rows.length) {
       grid.className = 'max-w-6xl mx-auto';
-      grid.innerHTML = '<p class="text-center text-slate-500 font-light py-16">Our leadership profiles will be published here soon.</p>';
+      grid.innerHTML = '<p class="text-center text-slate-500 dark:text-slate-400 font-light py-16">Our leadership profiles will be published here soon.</p>';
       return;
     }
     grid.innerHTML = rows.map(m => UI.TeamCard({
@@ -31,6 +31,6 @@
   } catch (err) {
     console.error('Leadership load failed:', err);
     grid.className = 'max-w-6xl mx-auto';
-    grid.innerHTML = '<p class="text-center text-slate-500 font-light py-16">We could not load our leadership team right now. Please refresh in a moment.</p>';
+    grid.innerHTML = '<p class="text-center text-slate-500 dark:text-slate-400 font-light py-16">We could not load our leadership team right now. Please refresh in a moment.</p>';
   }
 })();
