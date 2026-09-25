@@ -1,7 +1,1 @@
-# This file is required by Google AdSense to verify who is allowed to sell ads on this domain.
-# It currently has NO content because ads are not yet configured (see js/config-ads.js).
-#
-# Once you have your AdSense Publisher ID (ca-pub-XXXXXXXXXXXXXXXX), replace the line below with:
-#   google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
-# (use the numeric part only, without "ca-" -- AdSense's own dashboard shows you this exact line
-# under Sites -> your domain -> "Do it yourself", so it's safest to copy it from there.)
+google.com, pub-4392970178902104, DIRECT, f08c47fec0942fa0
