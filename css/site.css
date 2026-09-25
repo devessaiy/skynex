@@ -41,8 +41,8 @@
   transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
 }
 @media (prefers-color-scheme: dark) {
-  .nav-link { color: #ffffff; }
-  .nav-link::after { background-color: #ffffff; }
+  .nav-link { color: #050505 }
+  .nav-link::after { background-color: #050505 }
 }
 .nav-link:hover::after,
 .nav-link.active::after {
