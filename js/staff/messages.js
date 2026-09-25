@@ -21,25 +21,25 @@
   function renderTabs() {
     tabsWrap.innerHTML = TABS.map(([key, label]) => {
       const count = key === 'all' ? rows.length : rows.filter(r => r.status === key).length;
-      return `<button data-tab="${key}" class="shrink-0 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors ${filter === key ? 'bg-skynex-dark text-white' : 'bg-white border border-skynex-border text-slate-500 hover:border-skynex-dark'}">${label} (${count})</button>`;
+      return `<button data-tab="${key}" class="shrink-0 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors ${filter === key ? 'bg-skynex-dark text-white' : 'bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 text-slate-500 dark:text-slate-400 dark:text-slate-500 hover:border-skynex-dark'}">${label} (${count})</button>`;
     }).join('');
     tabsWrap.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => { filter = b.dataset.tab; renderTabs(); renderList(); }));
   }
 
   function renderList() {
     const shown = filter === 'all' ? rows : rows.filter(r => r.status === filter);
-    if (!shown.length) { listEl.innerHTML = `<p class="text-center text-slate-400 font-light py-16">No messages here.</p>`; return; }
+    if (!shown.length) { listEl.innerHTML = `<p class="text-center text-slate-400 dark:text-slate-500 font-light py-16">No messages here.</p>`; return; }
     listEl.innerHTML = shown.map(r => /*html*/`
-      <button data-open="${r.id}" class="w-full text-left bg-white border border-skynex-border rounded-2xl p-5 hover:border-skynex-dark transition-colors flex items-start justify-between gap-4">
+      <button data-open="${r.id}" class="w-full text-left bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 rounded-2xl p-5 hover:border-skynex-dark transition-colors flex items-start justify-between gap-4">
         <div class="min-w-0">
           <div class="flex items-center gap-2 mb-1 flex-wrap">
-            <p class="font-bold text-skynex-dark truncate">${Staff.esc(r.name)}</p>
+            <p class="font-bold text-skynex-dark dark:text-white truncate">${Staff.esc(r.name)}</p>
             ${Staff.statusBadge(r.status)}
           </div>
-          <p class="text-sm text-slate-500 truncate">${Staff.esc(r.email)}${r.company_name ? ' · ' + Staff.esc(r.company_name) : ''}</p>
-          <p class="text-sm text-slate-400 font-light truncate mt-1">${Staff.esc(r.message)}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500 truncate">${Staff.esc(r.email)}${r.company_name ? ' · ' + Staff.esc(r.company_name) : ''}</p>
+          <p class="text-sm text-slate-400 dark:text-slate-500 font-light truncate mt-1">${Staff.esc(r.message)}</p>
         </div>
-        <p class="shrink-0 text-xs text-slate-400 whitespace-nowrap">${Staff.esc(Staff.formatDate(r.created_at))}</p>
+        <p class="shrink-0 text-xs text-slate-400 dark:text-slate-500 whitespace-nowrap">${Staff.esc(Staff.formatDate(r.created_at))}</p>
       </button>`).join('');
     listEl.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => openMessage(b.dataset.open)));
   }
@@ -54,22 +54,22 @@
     const { body, close } = Staff.drawer({ title: r.name, html: /*html*/`
       <div class="space-y-6">
         <div class="grid grid-cols-2 gap-4 text-sm">
-          <div><p class="${Staff.labelCls}">Email</p><p class="text-skynex-dark break-all">${Staff.esc(r.email)}</p></div>
-          <div><p class="${Staff.labelCls}">Company</p><p class="text-skynex-dark">${Staff.esc(r.company_name || '\u2014')}</p></div>
-          <div><p class="${Staff.labelCls}">Service requested</p><p class="text-skynex-dark">${Staff.esc(r.service_needed || '\u2014')}</p></div>
-          <div><p class="${Staff.labelCls}">Budget</p><p class="text-skynex-dark">${Staff.esc(r.budget_range || '\u2014')}</p></div>
-          <div class="col-span-2"><p class="${Staff.labelCls}">Submitted</p><p class="text-skynex-dark">${Staff.esc(Staff.formatDateTime(r.created_at))}</p></div>
+          <div><p class="${Staff.labelCls}">Email</p><p class="text-skynex-dark dark:text-white break-all">${Staff.esc(r.email)}</p></div>
+          <div><p class="${Staff.labelCls}">Company</p><p class="text-skynex-dark dark:text-white">${Staff.esc(r.company_name || '\u2014')}</p></div>
+          <div><p class="${Staff.labelCls}">Service requested</p><p class="text-skynex-dark dark:text-white">${Staff.esc(r.service_needed || '\u2014')}</p></div>
+          <div><p class="${Staff.labelCls}">Budget</p><p class="text-skynex-dark dark:text-white">${Staff.esc(r.budget_range || '\u2014')}</p></div>
+          <div class="col-span-2"><p class="${Staff.labelCls}">Submitted</p><p class="text-skynex-dark dark:text-white">${Staff.esc(Staff.formatDateTime(r.created_at))}</p></div>
         </div>
         <div>
           <p class="${Staff.labelCls}">Message</p>
-          <p class="text-skynex-dark font-light leading-relaxed whitespace-pre-wrap">${Staff.esc(r.message)}</p>
+          <p class="text-skynex-dark dark:text-white font-light leading-relaxed whitespace-pre-wrap">${Staff.esc(r.message)}</p>
         </div>
         <a href="${mailto}" class="${Staff.primaryBtn} w-full"><i class="fa-solid fa-reply"></i> Reply via Email</a>
         ${canManage ? /*html*/`
         <div>
           <p class="${Staff.labelCls}">Status</p>
           <div class="flex gap-2" data-status-group>
-            ${['new', 'reviewed', 'resolved'].map(s => `<button data-set-status="${s}" class="flex-1 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest border transition-colors ${r.status === s ? 'bg-skynex-dark text-white border-skynex-dark' : 'border-skynex-border text-slate-500 hover:border-skynex-dark'}">${s}</button>`).join('')}
+            ${['new', 'reviewed', 'resolved'].map(s => `<button data-set-status="${s}" class="flex-1 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest border transition-colors ${r.status === s ? 'bg-skynex-dark text-white border-skynex-dark' : 'border-skynex-border dark:border-neutral-800 text-slate-500 dark:text-slate-400 dark:text-slate-500 hover:border-skynex-dark'}">${s}</button>`).join('')}
           </div>
         </div>` : ''}
       </div>` });

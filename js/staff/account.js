@@ -9,19 +9,19 @@
   main.innerHTML = Staff.pageHeader('My Account');
   main.insertAdjacentHTML('beforeend', /*html*/`
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-3xl">
-      <div class="bg-white border border-skynex-border rounded-2xl p-6 md:p-8">
-        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-500 mb-6">Profile</h2>
+      <div class="bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 rounded-2xl p-6 md:p-8">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 dark:text-slate-500 mb-6">Profile</h2>
         <form data-profile-form class="space-y-5">
           <div><label class="${Staff.labelCls}">Full name</label><input data-full-name required maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(profile.full_name || '')}"></div>
-          <div><label class="${Staff.labelCls}">Position title <span class="normal-case font-normal text-slate-400">(shown on your dashboard)</span></label><input data-position-title maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(profile.position_title || '')}"></div>
-          <div><label class="${Staff.labelCls}">Email</label><input disabled class="${Staff.inputCls} bg-skynex-gray text-slate-400" value="${Staff.esc(profile.email)}"></div>
-          <div><label class="${Staff.labelCls}">Role</label><input disabled class="${Staff.inputCls} bg-skynex-gray text-slate-400" value="${Staff.esc(roleName)}"></div>
+          <div><label class="${Staff.labelCls}">Position title <span class="normal-case font-normal text-slate-400 dark:text-slate-500">(shown on your dashboard)</span></label><input data-position-title maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(profile.position_title || '')}"></div>
+          <div><label class="${Staff.labelCls}">Email</label><input disabled class="${Staff.inputCls} bg-skynex-gray dark:bg-neutral-950 text-slate-400 dark:text-slate-500" value="${Staff.esc(profile.email)}"></div>
+          <div><label class="${Staff.labelCls}">Role</label><input disabled class="${Staff.inputCls} bg-skynex-gray dark:bg-neutral-950 text-slate-400 dark:text-slate-500" value="${Staff.esc(roleName)}"></div>
           <p data-profile-error class="hidden text-sm text-red-600"></p>
           <button type="submit" data-profile-submit class="${Staff.primaryBtn}">Save Changes</button>
         </form>
       </div>
-      <div class="bg-white border border-skynex-border rounded-2xl p-6 md:p-8">
-        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-500 mb-6">Change Password</h2>
+      <div class="bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 rounded-2xl p-6 md:p-8">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 dark:text-slate-500 mb-6">Change Password</h2>
         <form data-password-form class="space-y-5">
           <div><label class="${Staff.labelCls}">New password</label><input data-new-password type="password" required minlength="8" class="${Staff.inputCls}"></div>
           <div><label class="${Staff.labelCls}">Confirm new password</label><input data-confirm-password type="password" required minlength="8" class="${Staff.inputCls}"></div>

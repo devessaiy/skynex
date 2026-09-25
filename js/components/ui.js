@@ -12,7 +12,7 @@ const UI = {
   ).join(''),
   
   MobileNavLinks: () => AppConfig.navLinks.map(link => 
-    /*html*/`<a href="${link.href}" class="mobile-link text-skynex-dark">${link.label}</a>`
+    /*html*/`<a href="${link.href}" class="mobile-link text-skynex-dark dark:text-white">${link.label}</a>`
   ).join(''),
   
   // Flat, divider-separated profile grid (mentor-listing style): portrait photo, name/role,
@@ -34,19 +34,19 @@ const UI = {
   // the description / social icons are simply omitted when a member has none.
   TeamCard: (member) => {
     const social = (href, icon, label) => href ? /*html*/`
-      <a href="${UI.esc(href)}" target="_blank" rel="noopener noreferrer" aria-label="${UI.esc(member.name)} on ${label}" class="w-8 h-8 rounded-full border border-skynex-border flex items-center justify-center text-skynex-dark hover:bg-skynex-dark hover:text-white hover:border-skynex-dark transition-colors">
+      <a href="${UI.esc(href)}" target="_blank" rel="noopener noreferrer" aria-label="${UI.esc(member.name)} on ${label}" class="w-8 h-8 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-skynex-dark dark:text-white hover:bg-skynex-dark hover:text-white hover:border-skynex-dark transition-colors">
         <i class="fa-brands ${icon} text-xs"></i>
       </a>` : '';
     const links = social(member.linkedin, 'fa-linkedin-in', 'LinkedIn') + social(member.instagram, 'fa-instagram', 'Instagram');
     return /*html*/`
     <div class="pb-12 sm:pb-0 sm:px-8 md:px-10 first:pl-0 last:pr-0">
-      <div class="aspect-[4/5] w-full overflow-hidden bg-skynex-gray">
+      <div class="aspect-[4/5] w-full overflow-hidden bg-skynex-gray dark:bg-neutral-950">
         <img src="${UI.esc(member.photo || UI._PLACEHOLDER_AVATAR)}" alt="${UI.esc(member.name)}" loading="lazy" decoding="async" width="400" height="500" class="w-full h-full object-cover">
       </div>
       <div class="pt-6">
-        <h3 class="text-base font-bold text-skynex-dark uppercase tracking-widest mb-1">${UI.esc(member.name)}</h3>
-        <p class="text-sm text-slate-500 font-medium mb-4">${UI.esc(member.role)}</p>
-        ${member.description ? `<p class="text-sm text-slate-500 font-light leading-relaxed mb-5">${UI.esc(member.description)}</p>` : ''}
+        <h3 class="text-base font-bold text-skynex-dark dark:text-white uppercase tracking-widest mb-1">${UI.esc(member.name)}</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500 font-medium mb-4">${UI.esc(member.role)}</p>
+        ${member.description ? `<p class="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500 font-light leading-relaxed mb-5">${UI.esc(member.description)}</p>` : ''}
         ${links ? `<div class="flex items-center gap-3">${links}</div>` : ''}
       </div>
     </div>`;
@@ -55,7 +55,7 @@ const UI = {
   ServiceListItem: (item) => /*html*/`
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 py-10 group">
       <div class="md:col-span-4">
-        <h3 class="text-2xl font-bold text-skynex-dark">${item.title}</h3>
+        <h3 class="text-2xl font-bold text-skynex-dark dark:text-white">${item.title}</h3>
       </div>
       <div class="md:col-span-8">
         <p class="text-lg text-slate-600 font-light leading-relaxed">${item.desc}</p>
@@ -68,8 +68,8 @@ const UI = {
   FooterColumn: (column) => /*html*/`
     <div class="border-b border-slate-100 md:border-none">
       <button class="footer-btn relative w-full flex justify-start items-center md:pointer-events-none py-4 md:py-0">
-        <h4 class="text-sm font-bold text-skynex-dark uppercase tracking-widest md:mb-6">${column.title}</h4>
-        <i class="fa-solid fa-plus absolute right-0 md:hidden text-skynex-dark transition-transform duration-300"></i>
+        <h4 class="text-sm font-bold text-skynex-dark dark:text-white uppercase tracking-widest md:mb-6">${column.title}</h4>
+        <i class="fa-solid fa-plus absolute right-0 md:hidden text-skynex-dark dark:text-white transition-transform duration-300"></i>
       </button>
       <div class="grid grid-rows-[0fr] md:grid-rows-[1fr] transition-[grid-template-rows] duration-300">
         <div class="overflow-hidden">
@@ -85,8 +85,8 @@ const UI = {
   // bodyHtml is raw HTML — wrap paragraphs in <p class="..."> and lists in <ul class="...">
   // using the same utility classes as the rest of the section for a consistent look.
   LegalSection: (n, title, bodyHtml) => /*html*/`
-    <div class="pb-12 border-b border-skynex-border last:border-none last:pb-0">
-      <h2 class="text-xl font-bold uppercase tracking-widest text-skynex-dark mb-6 border-b-2 border-skynex-dark inline-block pb-2">${n}. ${title}</h2>
+    <div class="pb-12 border-b border-skynex-border dark:border-neutral-800 last:border-none last:pb-0">
+      <h2 class="text-xl font-bold uppercase tracking-widest text-skynex-dark dark:text-white mb-6 border-b-2 border-skynex-dark inline-block pb-2">${n}. ${title}</h2>
       <div class="mt-6 space-y-4">
         ${bodyHtml}
       </div>
@@ -97,15 +97,15 @@ const UI = {
   // one-line description and an "external link" icon for links that leave the SPA router).
   SitemapColumn: (col) => /*html*/`
     <div>
-      <h3 class="text-sm font-bold text-skynex-dark uppercase tracking-widest mb-6 pb-2 border-b-2 border-skynex-dark inline-block">${col.title}</h3>
+      <h3 class="text-sm font-bold text-skynex-dark dark:text-white uppercase tracking-widest mb-6 pb-2 border-b-2 border-skynex-dark inline-block">${col.title}</h3>
       <ul class="space-y-5 mt-6">
         ${col.links.map(l => /*html*/`
           <li>
-            <a href="${l.href}"${l.newTab ? ' target="_blank" rel="noopener noreferrer"' : ''} class="text-base font-medium text-skynex-dark hover:text-skynex-blue hover:underline transition-colors inline-flex items-center gap-2">
+            <a href="${l.href}"${l.newTab ? ' target="_blank" rel="noopener noreferrer"' : ''} class="text-base font-medium text-skynex-dark dark:text-white hover:text-skynex-blue hover:underline transition-colors inline-flex items-center gap-2">
               ${l.label}
               ${l.newTab ? '<i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-50"></i>' : ''}
             </a>
-            ${l.desc ? `<p class="text-sm text-slate-500 font-light mt-1">${l.desc}</p>` : ''}
+            ${l.desc ? `<p class="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500 font-light mt-1">${l.desc}</p>` : ''}
           </li>
         `).join('')}
       </ul>
@@ -115,7 +115,7 @@ const UI = {
   FooterLink: (link) => {
     const cls = link.accent
       ? 'text-sm font-semibold text-skynex-blue hover:underline transition-all'
-      : 'text-sm text-slate-600 hover:text-skynex-dark hover:underline transition-all';
+      : 'text-sm text-slate-600 hover:text-skynex-dark dark:text-white hover:underline transition-all';
     const target = link.newTab ? ' target="_blank" rel="noopener noreferrer"' : '';
     const icon = link.icon ? ' <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1 opacity-50"></i>' : '';
     return /*html*/`<li><a href="${link.href}"${target} class="${cls}">${link.label}${icon}</a></li>`;

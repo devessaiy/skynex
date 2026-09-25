@@ -1,8 +1,18 @@
+/* Let the browser pick light/dark UI chrome (scrollbars, form controls) automatically, to match
+   whichever theme below actually applies. */
+:root { color-scheme: light dark; }
+
 /* Premium custom scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #ffffff; }
 ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-track { background: #0a0a0a; }
+  ::-webkit-scrollbar-thumb { background: #3f3f46; }
+  ::-webkit-scrollbar-thumb:hover { background: #52525b; }
+}
 
 /* Subtle Text Gradient for Accents */
 .text-gradient {
@@ -30,6 +40,10 @@
   transform-origin: bottom right;
   transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
 }
+@media (prefers-color-scheme: dark) {
+  .nav-link { color: #ffffff; }
+  .nav-link::after { background-color: #ffffff; }
+}
 .nav-link:hover::after,
 .nav-link.active::after {
   transform: scaleX(1);
@@ -49,4 +63,7 @@
 /* Utility for structural grid lists */
 .structural-list>div { border-bottom: 1px solid #e5e5e5; }
 .structural-list>div:last-child { border-bottom: none; }
+@media (prefers-color-scheme: dark) {
+  .structural-list>div { border-bottom-color: #262626; }
+}
   

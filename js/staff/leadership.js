@@ -14,22 +14,22 @@
   main.querySelector('[data-new]').addEventListener('click', () => openForm(null));
 
   function renderList() {
-    if (!rows.length) { listEl.innerHTML = `<p class="text-center text-slate-400 font-light py-16">No leadership members yet.</p>`; return; }
+    if (!rows.length) { listEl.innerHTML = `<p class="text-center text-slate-400 dark:text-slate-500 font-light py-16">No leadership members yet.</p>`; return; }
     listEl.innerHTML = rows.map((m, i) => /*html*/`
-      <div class="bg-white border border-skynex-border rounded-2xl p-4 flex items-center gap-4">
-        <img src="${Staff.esc(Media.publicUrl('team-photos', m.photo_path) || UI._PLACEHOLDER_AVATAR)}" alt="" class="w-12 h-12 rounded-full object-cover bg-skynex-gray shrink-0">
+      <div class="bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 rounded-2xl p-4 flex items-center gap-4">
+        <img src="${Staff.esc(Media.publicUrl('team-photos', m.photo_path) || UI._PLACEHOLDER_AVATAR)}" alt="" class="w-12 h-12 rounded-full object-cover bg-skynex-gray dark:bg-neutral-950 shrink-0">
         <div class="min-w-0 flex-1">
           <div class="flex items-center gap-2 flex-wrap">
-            <p class="font-bold text-skynex-dark truncate">${Staff.esc(m.full_name)}</p>
+            <p class="font-bold text-skynex-dark dark:text-white truncate">${Staff.esc(m.full_name)}</p>
             ${Staff.statusBadge(m.is_active ? 'visible' : 'hidden')}
           </div>
-          <p class="text-sm text-slate-500 truncate">${Staff.esc(m.position_title)}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500 truncate">${Staff.esc(m.position_title)}</p>
         </div>
         <div class="shrink-0 flex items-center gap-1">
-          <button data-up="${m.id}" ${i === 0 ? 'disabled' : ''} class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-skynex-dark disabled:opacity-30 transition-colors" aria-label="Move up"><i class="fa-solid fa-chevron-up text-xs"></i></button>
-          <button data-down="${m.id}" ${i === rows.length - 1 ? 'disabled' : ''} class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-skynex-dark disabled:opacity-30 transition-colors" aria-label="Move down"><i class="fa-solid fa-chevron-down text-xs"></i></button>
-          <button data-edit="${m.id}" class="w-9 h-9 rounded-full border border-skynex-border flex items-center justify-center text-slate-500 hover:text-skynex-dark hover:border-skynex-dark transition-colors ml-1" aria-label="Edit"><i class="fa-solid fa-pen text-xs"></i></button>
-          <button data-delete="${m.id}" class="w-9 h-9 rounded-full border border-skynex-border flex items-center justify-center text-slate-500 hover:text-red-600 hover:border-red-600 transition-colors" aria-label="Delete"><i class="fa-solid fa-trash text-xs"></i></button>
+          <button data-up="${m.id}" ${i === 0 ? 'disabled' : ''} class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 dark:text-slate-500 hover:text-skynex-dark dark:text-white disabled:opacity-30 transition-colors" aria-label="Move up"><i class="fa-solid fa-chevron-up text-xs"></i></button>
+          <button data-down="${m.id}" ${i === rows.length - 1 ? 'disabled' : ''} class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 dark:text-slate-500 hover:text-skynex-dark dark:text-white disabled:opacity-30 transition-colors" aria-label="Move down"><i class="fa-solid fa-chevron-down text-xs"></i></button>
+          <button data-edit="${m.id}" class="w-9 h-9 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-slate-500 dark:text-slate-400 dark:text-slate-500 hover:text-skynex-dark dark:text-white hover:border-skynex-dark transition-colors ml-1" aria-label="Edit"><i class="fa-solid fa-pen text-xs"></i></button>
+          <button data-delete="${m.id}" class="w-9 h-9 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-slate-500 dark:text-slate-400 dark:text-slate-500 hover:text-red-600 hover:border-red-600 transition-colors" aria-label="Delete"><i class="fa-solid fa-trash text-xs"></i></button>
         </div>
       </div>`).join('');
     listEl.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => openForm(rows.find(r => r.id === b.dataset.edit))));
@@ -70,17 +70,17 @@
       <form data-form class="space-y-5">
         <div><label class="${Staff.labelCls}">Full name</label><input data-name required maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(existing?.full_name || '')}"></div>
         <div><label class="${Staff.labelCls}">Position / title</label><input data-title required maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(existing?.position_title || '')}"></div>
-        <div><label class="${Staff.labelCls}">Bio <span class="normal-case font-normal text-slate-400">(optional)</span></label><textarea data-bio rows="4" class="${Staff.inputCls}">${Staff.esc(existing?.bio || '')}</textarea></div>
+        <div><label class="${Staff.labelCls}">Bio <span class="normal-case font-normal text-slate-400 dark:text-slate-500">(optional)</span></label><textarea data-bio rows="4" class="${Staff.inputCls}">${Staff.esc(existing?.bio || '')}</textarea></div>
         <div>
-          <label class="${Staff.labelCls}">Photo <span class="normal-case font-normal text-slate-400">(optional, cropped to a portrait automatically)</span></label>
-          ${existing?.photo_path ? `<img src="${Staff.esc(Media.publicUrl('team-photos', existing.photo_path))}" class="w-24 aspect-[4/5] object-cover rounded-lg mb-2 bg-skynex-gray">` : ''}
+          <label class="${Staff.labelCls}">Photo <span class="normal-case font-normal text-slate-400 dark:text-slate-500">(optional, cropped to a portrait automatically)</span></label>
+          ${existing?.photo_path ? `<img src="${Staff.esc(Media.publicUrl('team-photos', existing.photo_path))}" class="w-24 aspect-[4/5] object-cover rounded-lg mb-2 bg-skynex-gray dark:bg-neutral-950">` : ''}
           <input data-photo type="file" accept="image/png,image/jpeg,image/webp" class="text-sm">
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div><label class="${Staff.labelCls}">LinkedIn URL</label><input data-linkedin type="url" placeholder="https://linkedin.com/in/…" class="${Staff.inputCls}" value="${Staff.esc(existing?.linkedin_url || '')}"></div>
           <div><label class="${Staff.labelCls}">Instagram URL</label><input data-instagram type="url" placeholder="https://instagram.com/…" class="${Staff.inputCls}" value="${Staff.esc(existing?.instagram_url || '')}"></div>
         </div>
-        <label class="flex items-center gap-2 text-sm text-skynex-dark"><input type="checkbox" data-active ${existing ? (existing.is_active ? 'checked' : '') : 'checked'}> Visible on the public Leadership page</label>
+        <label class="flex items-center gap-2 text-sm text-skynex-dark dark:text-white"><input type="checkbox" data-active ${existing ? (existing.is_active ? 'checked' : '') : 'checked'}> Visible on the public Leadership page</label>
         <p data-error class="hidden text-sm text-red-600"></p>
         <button type="submit" data-submit class="${Staff.primaryBtn} w-full">${isEdit ? 'Save Changes' : 'Add Member'}</button>
       </form>` });
