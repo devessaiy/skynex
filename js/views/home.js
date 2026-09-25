@@ -59,7 +59,7 @@ Views.Home = {
               <p class="text-2xl font-light text-skynex-dark mb-6 leading-snug">The comprehensive, multi-tenancy school management platform.</p>
               <p class="text-lg text-slate-500 font-light leading-relaxed mb-10">A school management platform built for Nursery, Primary and Secondary levels handling students, results and day-to-day administration in one place.</p>
               <div class="flex items-center gap-6">
-                <button class="px-8 py-4 rounded-full bg-white text-skynex-dark font-medium border border-skynex-border hover:border-skynex-dark transition-colors">Explore Trideta</button>
+                <a href="https://trideta.com.ng" class="px-8 py-4 rounded-full bg-white text-skynex-dark font-medium border border-skynex-border hover:border-skynex-dark transition-colors">Explore Trideta</a>
                 <span class="text-sm font-semibold tracking-widest uppercase text-skynex-blue">Live Platform</span>
               </div>
             </div>
