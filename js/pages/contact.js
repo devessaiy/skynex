@@ -30,7 +30,10 @@
       statusEl.classList.add('text-green-600');
     } catch (err) {
       console.error('Contact form submission failed:', err);
-      statusEl.textContent = 'Something went wrong sending your message. Please try again or email us directly.';
+      const limited = String((err && err.message) || '').includes('rate_limited');
+      statusEl.textContent = limited
+        ? 'We have received several messages from you recently. Please wait a while before sending another, or email us directly.'
+        : 'Something went wrong sending your message. Please try again or email us directly.';
       statusEl.classList.remove('hidden', 'text-green-600');
       statusEl.classList.add('text-red-600');
     } finally {

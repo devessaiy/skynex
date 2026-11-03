@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Skynex Solutions Limited | Official Corporate Website</title>
+  <meta name="description" content="Skynex Solutions Limited: software development, cloud infrastructure, system integration and creative services, and the Trideta school management platform.">
+  <link rel="icon" type="image/x-icon" href="/skynex-online.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+
+<body class="font-sans text-slate-900 dark:text-slate-100 bg-white dark:bg-neutral-900 antialiased selection:bg-skynex-dark selection:text-white">
+
+  <!-- Shared header & footer are injected by js/core/app.js (single source: js/components/layout.js + js/config.js) -->
+  <div id="site-header"></div>
+
+  <main id="app-root" class="pt-20 md:pt-24 min-h-screen">
+    <div class="page-view">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__head">
+        <h1 id="hero-title" class="hero__title"><span class="hero__title-soft">Engineering the future</span> of digital business.</h1>
+        <p class="hero__lede">Software development, cloud infrastructure and digital products for forward-thinking organisations. Home of Trideta, the school management platform.</p>
+
+        <form class="hero-search" role="search" action="/search" method="get" data-site-search>
+          <label for="hero-q" class="sr-only">Search the Skynex website</label>
+          <div class="hero-search__box">
+            <svg class="hero-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="hero-q" name="q" type="search" maxlength="100" autocomplete="off" enterkeyhint="search" placeholder="Search products, services, news and more"
+                   role="combobox" aria-expanded="false" aria-controls="hero-q-list" aria-autocomplete="list">
+            <button type="button" class="hero-search__clear" data-search-clear hidden aria-label="Clear search">&times;</button>
+            <button type="submit" class="hero-search__go">Search</button>
+          </div>
+          <ul id="hero-q-list" class="search-pop" role="listbox" aria-label="Search suggestions" hidden></ul>
+          <p class="sr-only" role="status" aria-live="polite" data-search-status></p>
+        </form>
+
+        <div class="hero__actions">
+          <a class="btn-pill" href="#trideta">See Trideta</a>
+          <a class="link-quiet" href="/contact">Discuss a project</a>
+        </div>
+      </div>
+
+      <div class="hero__field" aria-hidden="true">
+        <canvas></canvas>
+        <img class="hero__fallback" src="/skynex-offline.svg" alt="" width="512" height="512" decoding="async" onerror="this.style.display='none'">
+      </div>
+
+      <div class="hero__foot">
+        <p>Suleja, Niger State, Nigeria</p>
+        <p>Trideta, our school management platform, is live.</p>
+        <p><a href="#trideta">Scroll to explore</a></p>
+      </div>
+    </section>
+
+          <section id="trideta" class="py-24 md:py-32 bg-skynex-gray dark:bg-neutral-950 scroll-mt-20">
+            <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                <div>
+                  <span class="inline-block py-1 px-3 rounded-full border border-skynex-blue text-skynex-blue text-[10px] font-bold uppercase tracking-widest mb-6">Current Flagship</span>
+                  <h2 class="text-4xl md:text-6xl font-bold tracking-tight text-skynex-dark dark:text-white mb-6">TRIDETA.</h2>
+                  <p class="text-2xl font-light text-skynex-dark dark:text-white mb-6 leading-snug">The comprehensive, multi-tenancy school management platform.</p>
+                  <p class="text-lg text-slate-500 dark:text-slate-400 font-light leading-relaxed mb-10">A school management platform built for Nursery, Primary and Secondary levels handling students, results and day-to-day administration in one place.</p>
+                  <div class="flex items-center gap-6">
+                    <a href="https://trideta.skynex.com.ng" target="_blank" rel="noopener noreferrer" class="px-8 py-4 rounded-full bg-white dark:bg-neutral-900 text-skynex-dark dark:text-white font-medium border border-skynex-border dark:border-neutral-800 hover:border-skynex-dark transition-colors">Explore Trideta<span class="sr-only"> (opens in a new tab)</span></a>
+                    <span class="text-sm font-semibold tracking-widest uppercase text-skynex-blue">Live Platform</span>
+                  </div>
+                </div>
+                
+                <div id="trideta-video-container" class="relative w-full aspect-[4/3] bg-[#0a0f1a] rounded-2xl overflow-hidden shadow-2xl shadow-slate-200/50 group">
+                  <video id="trideta-video" class="absolute inset-0 w-full h-full object-cover" muted playsinline loop preload="none" poster="/assets/tridetaintro.png">
+                    <source data-src="/assets/tridetaintro.webm" type="video/webm">
+                    Your browser does not support the video tag.
+                  </video>
+                  <button id="mobile-sound-toggle" class="md:hidden absolute bottom-4 right-4 bg-black/60 backdrop-blur-md text-white w-10 h-10 rounded-full flex items-center justify-center border border-white/20 z-10 transition-transform active:scale-95">
+                    <i class="fa-solid fa-volume-xmark text-sm" id="sound-icon"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+    
+          <section id="featured-work" hidden class="py-24 md:py-32 bg-white dark:bg-neutral-900 border-b border-skynex-border dark:border-neutral-800" aria-labelledby="featured-work-title">
+            <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
+              <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+                <h2 id="featured-work-title" class="text-3xl md:text-5xl font-bold tracking-tighter text-skynex-dark dark:text-white">Selected work</h2>
+                <a href="/portfolio" class="text-sm font-bold text-skynex-dark dark:text-white underline underline-offset-4">See all projects</a>
+              </div>
+              <div id="featured-work-grid" class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-14"></div>
+            </div>
+          </section>
+
+          <section class="py-32 bg-skynex-dark text-white relative overflow-hidden">
+            <div class="absolute right-0 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none">
+              <img src="/skynex-offline.svg" alt="" class="w-[800px] h-auto" onerror="this.style.display='none'">
+            </div>
+            <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 relative z-10 text-center">
+              <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-8">Pioneering what's next.</h2>
+              <p class="text-xl md:text-2xl text-slate-400 font-light max-w-3xl mx-auto leading-relaxed mb-12">
+                While Trideta drives our current ecosystem, our R&D division is actively engineering proprietary software for security, advanced data processing, and integrated enterprise solutions.
+              </p>
+              <div class="inline-flex items-center justify-center gap-3 text-white font-medium tracking-widest uppercase text-sm border border-white/20 px-8 py-4 rounded-full">
+                <i class="fa-solid fa-lock text-xs"></i> More Products Coming Soon
+              </div>
+            </div>
+          </section>
+    
+          <section class="py-24 md:py-32 bg-white dark:bg-neutral-900">
+            <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
+              <div class="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
+                <div>
+                  <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-skynex-dark dark:text-white mb-4">Core Capabilities</h2>
+                  <p class="text-xl text-slate-500 dark:text-slate-400 font-light max-w-2xl">Precision engineering across software, infrastructure, and brand identity.</p>
+                </div>
+                <a href="/services" class="text-sm font-bold uppercase tracking-widest text-skynex-dark dark:text-white border-b border-skynex-dark pb-1 hover:text-skynex-blue hover:border-skynex-blue transition-colors">
+                  View All Services
+                </a>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-16 border-t border-skynex-border dark:border-neutral-800 pt-16">
+                <div>
+                  <h3 class="text-2xl font-bold text-skynex-dark dark:text-white mb-4">Software & Cloud Engineering</h3>
+                  <p class="text-slate-500 dark:text-slate-400 font-light leading-relaxed">Websites, web and mobile applications, cloud infrastructure and data analytics, built for reliability and tailored to how your organisation works.</p>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-skynex-dark dark:text-white mb-4">System Integration & Hardware</h3>
+                  <p class="text-slate-500 dark:text-slate-400 font-light leading-relaxed">Seamless integration of complex IT systems, coupled with the procurement, deployment, and maintenance of premium networking and hardware devices.</p>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-skynex-dark dark:text-white mb-4">Creative, Brand & Marketing</h3>
+                  <p class="text-slate-500 dark:text-slate-400 font-light leading-relaxed">Brand identity, visual communication, multimedia production and digital marketing to help organisations be seen and remembered.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="/js/config.js" defer></script>
+  <script src="/js/components/ui.js" defer></script>
+  <script src="/js/components/layout.js" defer></script>
+  <script src="/js/core/app.js" defer></script>
+  <script src="/js/features/trideta-video.js" defer></script>
+  <script src="/js/lib/public-api.js" defer></script>
+  <script src="/js/lib/search.js" defer></script>
+  <script src="/js/features/search-ui.js" defer></script>
+  <script src="/js/features/hero-field.js" defer></script>
+  <script src="/js/lib/portfolio-render.js" defer></script>
+  <script src="/js/pages/home-portfolio.js" defer></script>
+  <script src="/js/pages/home.js" defer></script>
+</body>
+</html>

@@ -3,29 +3,35 @@
 // ==========================================
 const Layout = {
   Header: () => /*html*/`
-    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-xl border-b border-transparent" id="navbar">
+    <nav class="fixed w-full z-50 transition-all duration-300 border-b border-transparent" id="navbar" aria-label="Main">
       <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
         <div class="flex justify-between items-center h-20 md:h-24">
           <div class="flex-shrink-0 flex items-center">
-            <a href="/" class="flex items-center gap-3">
-              <img src="/skynex-online.svg" alt="Skynex Solutions Logo" class="h-6 md:h-8 w-auto" onerror="this.src='https://placehold.co/150x40/ffffff/050505?text=SKYNEX'">
+            <a href="/" class="flex items-center gap-3" aria-label="Skynex Solutions home">
+              <img src="/skynex-online.svg" alt="" width="32" height="32" class="h-6 md:h-8 w-auto" onerror="this.src='https://placehold.co/150x40/ffffff/050505?text=SKYNEX'">
             </a>
           </div>
-          <div class="hidden md:flex space-x-10 items-center">
+          <div class="hidden md:flex gap-x-6 lg:gap-x-9 items-center">
             ${UI.DesktopNavLinks()}
-            <a href="/contact" class="ml-6 px-6 py-2.5 rounded-full bg-skynex-dark text-white text-xs font-bold tracking-widest uppercase hover:bg-slate-800 transition-colors">
+            <a href="/search" class="nav-icon-link" aria-label="Search the website">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            </a>
+            <a href="/contact" class="px-6 py-2.5 rounded-full bg-skynex-dark text-white text-xs font-bold tracking-widest uppercase hover:bg-slate-800 transition-colors">
               Engage
             </a>
           </div>
-          <div class="md:hidden flex items-center">
-            <button id="mobile-menu-btn" class="text-skynex-dark dark:text-white focus:outline-none p-2">
-              <i class="fa-solid fa-bars text-xl"></i>
+          <div class="md:hidden flex items-center gap-1">
+            <a href="/search" class="nav-icon-link" aria-label="Search the website">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            </a>
+            <button id="mobile-menu-btn" type="button" class="nav-icon-link" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+              <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
             </button>
           </div>
         </div>
       </div>
 
-      <div id="mobile-menu" class="fixed inset-0 z-40 bg-white dark:bg-neutral-900 transform translate-x-full transition-transform duration-500 ease-in-out md:hidden pt-28 px-6 overflow-y-auto pb-10">
+      <div id="mobile-menu" inert class="fixed inset-0 z-40 bg-white dark:bg-neutral-900 transform translate-x-full transition-transform duration-500 ease-in-out md:hidden pt-28 px-6 overflow-y-auto pb-10" style="height:100vh;height:100dvh;padding-bottom:calc(2.5rem + env(safe-area-inset-bottom,0px))">
         <div class="flex flex-col space-y-8 text-3xl font-light tracking-tight text-center md:text-left">
           ${UI.MobileNavLinks()}
         </div>
@@ -64,12 +70,12 @@ const Layout = {
             <a href="/legal" class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:underline transition-all">Legal</a>
             <a href="/sitemap" class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:underline transition-all">Sitemap</a>
           </div>
-          <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+          <div class="${AppConfig.company.social && Object.values(AppConfig.company.social).some(Boolean) ? 'flex' : 'hidden'} flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
             <span class="text-xs font-bold text-slate-500 dark:text-slate-400 tracking-widest uppercase">Stay Connected</span>
             <div class="flex gap-4 justify-center">
-              <a href="#" class="text-slate-800 hover:text-skynex-blue transition-colors"><i class="fa-brands fa-linkedin-in text-lg"></i></a>
-              <a href="#" class="text-slate-800 hover:text-skynex-dark dark:hover:text-white transition-colors"><i class="fa-brands fa-x-twitter text-lg"></i></a>
-              <a href="#" class="text-slate-800 hover:text-skynex-dark dark:hover:text-white transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+              ${[['linkedin','fa-linkedin-in','LinkedIn'],['x','fa-x-twitter','X'],['instagram','fa-instagram','Instagram']]
+                .filter(([k]) => AppConfig.company.social && AppConfig.company.social[k])
+                .map(([k, icon, label]) => `<a href="${AppConfig.company.social[k]}" target="_blank" rel="noopener noreferrer" aria-label="Skynex on ${label}" class="text-slate-800 dark:text-slate-300 hover:text-skynex-blue transition-colors"><i class="fa-brands ${icon} text-lg" aria-hidden="true"></i></a>`).join('')}
             </div>
           </div>
         </div>

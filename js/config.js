@@ -12,6 +12,8 @@ const AppConfig = {
     publishableKey: 'sb_publishable_3Nxr3PlnfKQcoUyTWiMULw_HuKAEaz5'
   },
   company: {
+    // Social profile URLs. '#' placeholders until the real pages exist (replace each with the full https:// URL).
+    social: { linkedin: '#', x: '#', instagram: '#' },
     name: 'Skynex Solutions Limited',
     rc: '9757226',
     email: 'skynexsolutionslimited@gmail.com',
@@ -22,15 +24,22 @@ const AppConfig = {
   navLinks: [
     { href: '/', label: 'Home' },
     { href: '/services', label: 'Capabilities' },
+    { href: '/#trideta', label: 'Trideta' },
     { href: '/team', label: 'Leadership' },
+    { href: '/news', label: 'News' },
+    { href: '/careers', label: 'Careers' },
     { href: '/contact', label: 'Contact' }
   ],
+  // MERGED service list (existing site + the services named in the brief). Wording for the three newest
+  // entries (Web Development, Analytics & Reporting, Digital Marketing) is a draft for management to review.
   servicesPage: [
     {
-      category: 'Software & Infrastructure',
+      category: 'Software & Digital',
       items: [
-        { title: 'Software Development', desc: 'Design and development of bespoke web platforms and native mobile applications. We build highly performant, secure, and scalable architectures tailored to specific business logic and user needs.' },
+        { title: 'Web Development', desc: 'Design and development of websites and web applications, from corporate sites to custom platforms, built to be fast, secure and easy to maintain.' },
+        { title: 'Custom Software & App Development', desc: 'Design and development of bespoke web platforms and native mobile applications. We build highly performant, secure, and scalable architectures tailored to specific business logic and user needs.' },
         { title: 'Cloud & Data Processing', desc: 'Provision of resilient cloud infrastructure services, complex data processing solutions, and enterprise digital transformation strategies to ensure high availability and data integrity.' },
+        { title: 'Analytics & Reporting', desc: 'Collection and analysis of business and website data, presented as clear reports and dashboards that support better decisions.' },
         { title: 'Proprietary Software R&D', desc: 'Dedicated research and development of proprietary software products, with a specialized focus on crime reporting systems, security applications, and intellectual property commercialization.' },
         { title: 'IT Consultancy', desc: 'High-level technological advisory serving corporate and individual clients. We align IT investments with overarching business objectives to maximize operational efficiency.' }
       ]
@@ -39,14 +48,15 @@ const AppConfig = {
       category: 'Systems & Hardware',
       items: [
         { title: 'System Integration', desc: 'Architecting and integrating disparate computing systems and software applications to function together seamlessly as a coordinated, unified whole within an enterprise environment.' },
-        { title: 'ICT Equipment Supply', desc: 'Procurement, supply, and maintenance of premium ICT equipment, commercial-grade computers, networking devices, peripherals, and modern office furniture.' },
+        { title: 'ICT & Office Equipment Supply', desc: 'Procurement, supply, and maintenance of premium ICT equipment, commercial-grade computers, networking devices, peripherals, and modern office furniture.' },
         { title: 'Tech Support & Training', desc: 'Comprehensive technical support, system maintenance for digital platforms, and specialized IT training to empower your workforce and ensure continuous operational continuity.' }
       ]
     },
     {
-      category: 'Creative & Media',
+      category: 'Creative & Marketing',
       items: [
-        { title: 'Creative Services & Branding', desc: 'Strategic brand identity development, high-end graphics design, visual communication, digital content creation, and professional multimedia production to elevate corporate presence.' },
+        { title: 'Digital Marketing', desc: 'Planning and delivery of digital marketing campaigns, social media content and online presence management that help organisations reach and engage their audiences.' },
+        { title: 'Branding & Creative Services', desc: 'Strategic brand identity development, high-end graphics design, visual communication, digital content creation, and professional multimedia production to elevate corporate presence.' },
         { title: 'Commercial Printing', desc: 'Execution of commercial and digital printing services, large-format corporate branding, specialized publishing, and professional document production services.' }
       ]
     }
@@ -61,11 +71,12 @@ AppConfig.footerColumns = [
   {
     title: 'Capabilities',
     links: [
-      { href: '/services', label: 'Software Development' },
-      { href: '/services', label: 'Cloud Infrastructure' },
-      { href: '/services', label: 'System Integration' },
-      { href: '/services', label: 'Creative & Branding' },
-      { href: '/services', label: 'ICT Procurement' }
+      { href: '/services#web-development', label: 'Web Development' },
+      { href: '/services#custom-software-and-app-development', label: 'Software & Apps' },
+      { href: '/services#cloud-and-data-processing', label: 'Cloud & Data' },
+      { href: '/services#digital-marketing', label: 'Digital Marketing' },
+      { href: '/services#branding-and-creative-services', label: 'Branding & Creative' },
+      { href: '/services#ict-and-office-equipment-supply', label: 'ICT & Office Equipment' }
     ]
   },
   {
@@ -79,6 +90,7 @@ AppConfig.footerColumns = [
     links: [
       { href: '/team', label: 'Leadership Team' },
       { href: '/contact', label: 'Contact Us' },
+      { href: '/search', label: 'Search' },
       { href: '/careers', label: 'Careers', icon: true },
       { href: '/news', label: 'News', icon: true }
     ]

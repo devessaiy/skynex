@@ -24,35 +24,43 @@ const AppController = {
   },
 
   // --- 1. Mobile Menu Logic ---
+  // Accessible disclosure: labelled toggle with aria-expanded, closed menu is inert (not tabbable and
+  // hidden from screen readers), Escape closes and returns focus, Tab is kept inside while open, and
+  // the menu closes by itself if the window grows to the desktop layout.
   initMobileMenu: () => {
     const btn = document.getElementById('mobile-menu-btn');
     const menu = document.getElementById('mobile-menu');
     const icon = btn.querySelector('i');
     const navbar = document.getElementById('navbar');
 
-    window.toggleMenu = function() {
-      AppController.isMenuOpen = !AppController.isMenuOpen;
-      if (AppController.isMenuOpen) {
-        menu.classList.remove('translate-x-full');
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-xmark');
-        document.body.style.overflow = 'hidden';
-
-        // Force solid background on navbar when open
-        navbar.classList.remove('bg-white/90', 'backdrop-blur-xl');
-        navbar.classList.add('bg-white');
-      } else {
-        menu.classList.add('translate-x-full');
-        icon.classList.remove('fa-xmark');
-        icon.classList.add('fa-bars');
-        document.body.style.overflow = '';
-
-        // Restore default semi-transparent navbar styling
-        navbar.classList.add('bg-white/90', 'backdrop-blur-xl');
-        navbar.classList.remove('bg-white');
-      }
+    const setOpen = (open, restoreFocus) => {
+      AppController.isMenuOpen = open;
+      menu.classList.toggle('translate-x-full', !open);
+      menu.inert = !open;
+      icon.classList.toggle('fa-bars', !open);
+      icon.classList.toggle('fa-xmark', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      navbar.classList.toggle('is-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) { const first = menu.querySelector('a'); if (first) first.focus({ preventScroll: true }); }
+      else if (restoreFocus) btn.focus();
     };
+    window.toggleMenu = () => setOpen(!AppController.isMenuOpen, true);
     btn.addEventListener('click', window.toggleMenu);
+
+    document.addEventListener('keydown', (e) => {
+      if (!AppController.isMenuOpen) return;
+      if (e.key === 'Escape') { setOpen(false, true); return; }
+      if (e.key !== 'Tab') return;
+      const stops = [btn, ...menu.querySelectorAll('a[href]')];
+      const i = stops.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); stops[stops.length - 1].focus(); }
+      else if (!e.shiftKey && i === stops.length - 1) { e.preventDefault(); btn.focus(); }
+    });
+    const desktop = window.matchMedia('(min-width: 768px)');
+    const onChange = () => { if (desktop.matches && AppController.isMenuOpen) setOpen(false, false); };
+    if (desktop.addEventListener) desktop.addEventListener('change', onChange); else desktop.addListener(onChange);
   },
 
   // --- 2. Mobile Footer Accordion Logic ---
