@@ -44,7 +44,7 @@
       position_title: main.querySelector('[data-position-title]').value.trim() || null,
     }).eq('id', profile.id);
     if (error) { pErr.textContent = 'Could not save changes.'; pErr.classList.remove('hidden'); }
-    else { await Auth.getProfile(true); Staff.toast('Profile updated.'); }
+    else { await Auth.getProfile(true); Staff.clearCache(); Staff.toast('Profile updated.'); }
     btn.disabled = false; btn.textContent = 'Save Changes';
   });
 

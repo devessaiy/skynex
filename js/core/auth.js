@@ -56,12 +56,14 @@ const Auth = {
     const { data, error } = await this.client().auth.signInWithPassword({ email, password });
     if (error) throw error;
     this._profileCache = null; this._permCache = null;
+    try { sessionStorage.removeItem('sx_staff_ctx'); } catch (e) { /* ignore */ }
     return data;
   },
 
   async signOut() {
     await this.client().auth.signOut();
     this._profileCache = null; this._permCache = null;
+    try { sessionStorage.removeItem('sx_staff_ctx'); } catch (e) { /* ignore */ }
   },
 
   async sendPasswordReset(email) {

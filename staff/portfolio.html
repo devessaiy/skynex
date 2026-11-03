@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Portfolio | Skynex Solutions Limited</title>
-  <meta name="description" content="Selected projects delivered by Skynex Solutions Limited.">
+  <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/x-icon" href="/skynex-online.svg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,35 +18,21 @@
   <link rel="stylesheet" href="/css/site.css">
 </head>
 
-<body class="font-sans text-slate-900 dark:text-slate-100 bg-white dark:bg-neutral-900 antialiased selection:bg-skynex-dark selection:text-white">
+<body class="font-sans text-slate-900 dark:text-slate-100 bg-skynex-gray dark:bg-neutral-950 antialiased selection:bg-skynex-dark selection:text-white">
 
-  <div id="site-header"></div>
-
-  <main id="app-root" class="pt-20 md:pt-24 min-h-screen">
-    <div class="page-view bg-white dark:bg-neutral-900">
-      <section class="pt-24 pb-16 border-b border-skynex-border dark:border-neutral-800">
-        <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-          <h1 class="text-5xl md:text-7xl font-bold text-skynex-dark dark:text-white tracking-tighter mb-6">Portfolio</h1>
-          <p class="text-xl text-slate-500 dark:text-slate-400 font-light max-w-2xl">Selected projects delivered by Skynex Solutions Limited.</p>
-        </div>
-      </section>
-      <section class="py-16 md:py-24 min-h-[40vh]">
-        <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-          <div id="portfolio-filters" class="flex flex-wrap gap-2 mb-10" role="group" aria-label="Filter projects by category"></div>
-          <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-14" aria-live="polite"></div>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <div id="site-footer"></div>
+  <div id="staff-app" class="min-h-screen flex items-center justify-center">
+    <p class="sr-only" role="status">Loading</p>
+  </div>
 
   <script src="/js/config.js" defer></script>
   <script src="/js/components/ui.js" defer></script>
-  <script src="/js/components/layout.js" defer></script>
-  <script src="/js/core/app.js" defer></script>
-  <script src="/js/lib/public-api.js" defer></script>
+  <script src="/js/lib/media.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+  <script src="/js/lib/supabase-client.js" defer></script>
+  <script src="/js/core/auth.js" defer></script>
+  <script src="/js/staff/shell.js" defer></script>
   <script src="/js/lib/portfolio-render.js" defer></script>
-  <script src="/js/pages/portfolio.js" defer></script>
+  <script src="/js/staff/portfolio.js" defer></script>
+
 </body>
 </html>

@@ -31,6 +31,8 @@
     const paragraphs = p.body.split(/\n{2,}/).map(t => t.trim()).filter(Boolean)
       .map(t => `<p class="text-lg text-slate-600 dark:text-slate-400 font-light leading-relaxed">${UI.esc(t).replace(/\n/g, '<br>')}</p>`).join('');
 
+    const shareUrl = `${AppConfig.siteUrl}/news-post?id=${encodeURIComponent(p.id)}`;   // same link for everyone, whatever address they opened
+
     box.innerHTML = /*html*/`
       <a href="/news" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white transition-colors mb-10">
         <i class="fa-solid fa-arrow-left text-[10px]"></i> All news
@@ -42,8 +44,10 @@
       ${img ? `<img src="${UI.esc(img)}" alt="" decoding="async" class="w-full rounded-2xl mb-10 bg-skynex-gray dark:bg-neutral-950">` : ''}
       <div class="space-y-6">${paragraphs}</div>
       ${video ? `<video src="${UI.esc(video)}" controls playsinline preload="metadata" class="w-full rounded-2xl mt-10 bg-skynex-dark"></video>` : ''}
+      ${Share.html({ url: shareUrl, title: p.title })}
       ${Ads.unitHtml('newsPost') ? `<div class="mt-12 pt-10 border-t border-skynex-border dark:border-neutral-800">${Ads.unitHtml('newsPost')}</div>` : ''}
     `;
+    Share.bind(box, { url: shareUrl, title: p.title });
     Ads.push();
   } catch (err) {
     console.error('News post load failed:', err);

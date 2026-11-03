@@ -9,7 +9,7 @@
   if (q) document.title = `Search: ${q} | Skynex Solutions Limited`;
   if (!q) { out.innerHTML = '<p class="search-msg">Search products, services, news and more. Try “Trideta”, “web”, or “careers”.</p>'; return; }
 
-  const ORDER = ['Product', 'Capability', 'News', 'Leadership', 'Company', 'Legal'];
+  const ORDER = ['Product', 'Capability', 'Portfolio', 'News', 'Leadership', 'Company', 'Legal'];
   const draw = (live, failed) => {
     const hits = SiteSearch.search(q, live);
     if (!hits.length) {

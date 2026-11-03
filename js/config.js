@@ -21,14 +21,16 @@ const AppConfig = {
     year: new Date().getFullYear(),
     whatsappUrl: 'https://wa.me/2348121219528?text=Hi%2C%20I%20am%20reaching%20out%20from%20your%20website%20to%20make%20an%20enquiry.%20I%20would%20like%20to%20know%20more%20about%20your%20services%2C%20products%2C%20or%20how%20we%20can work%20together.'
   },
+  siteUrl: 'https://skynex.com.ng',   // canonical origin used for links people share
   navLinks: [
-    { href: '/', label: 'Home' },
+    { href: '/', label: 'Home', mobileOnly: true },          // the logo already links home on desktop
     { href: '/services', label: 'Capabilities' },
+    { href: '/portfolio', label: 'Portfolio' },
     { href: '/#trideta', label: 'Trideta' },
     { href: '/team', label: 'Leadership' },
     { href: '/news', label: 'News' },
     { href: '/careers', label: 'Careers' },
-    { href: '/contact', label: 'Contact' }
+    { href: '/contact', label: 'Contact', mobileOnly: true } // desktop has the "Engage" button for this
   ],
   // MERGED service list (existing site + the services named in the brief). Wording for the three newest
   // entries (Web Development, Analytics & Reporting, Digital Marketing) is a draft for management to review.
@@ -89,6 +91,7 @@ AppConfig.footerColumns = [
     title: 'Company',
     links: [
       { href: '/team', label: 'Leadership Team' },
+      { href: '/portfolio', label: 'Portfolio' },
       { href: '/contact', label: 'Contact Us' },
       { href: '/search', label: 'Search' },
       { href: '/careers', label: 'Careers', icon: true },

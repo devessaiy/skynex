@@ -8,8 +8,15 @@
       "vercel.json",
       ".htaccess",
       "DEPLOYMENT.md",
+      "supabase/**",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/portfolio/**",
+        "destination": "/portfolio-project.html"
+      }
     ]
   }
 }

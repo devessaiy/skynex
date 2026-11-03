@@ -15,6 +15,7 @@ const Staff = {
     { key: 'messages',   href: '/staff/messages',   label: 'Messages',       icon: 'fa-envelope',   perm: 'view_contact_submissions' },
     { key: 'news',       href: '/staff/news',       label: 'News',           icon: 'fa-newspaper',  perm: 'manage_news' },
     { key: 'leadership', href: '/staff/leadership', label: 'Leadership',     icon: 'fa-users',      perm: 'manage_leadership' },
+    { key: 'portfolio',  href: '/staff/portfolio',  label: 'Portfolio',      icon: 'fa-briefcase',  perm: 'manage_portfolio' },
     { key: 'account',    href: '/staff/account',    label: 'My Account',     icon: 'fa-user-gear' }
   ],
 
@@ -22,7 +23,8 @@ const Staff = {
     view_contact_submissions: 'Read visitor messages',
     manage_contact_submissions: 'Update message status',
     manage_news: 'Publish and manage news',
-    manage_leadership: 'Manage the Leadership team'
+    manage_leadership: 'Manage the Leadership team',
+    manage_portfolio: 'Manage portfolio projects'
   },
 
   logoHtml: (cls = 'h-6 w-auto') => /*html*/`
@@ -34,13 +36,61 @@ const Staff = {
   },
 
   // ---- boot ---------------------------------------------------------------------------
+  // Fast path: after the first page of a visit, the signed-in person's own role/permission summary is kept in
+  // sessionStorage (this tab only, wiped on sign-out or when the tab closes) so every later module draws its frame
+  // immediately instead of waiting on the network. It is only a display hint: the session and permissions are
+  // re-verified in the background on every page, and every read/write is still checked by Postgres RLS.
+  CACHE_KEY: 'sx_staff_ctx',
+  readCache() {
+    try {
+      const c = JSON.parse(sessionStorage.getItem(Staff.CACHE_KEY) || 'null');
+      return c && c.uid && c.profile && Array.isArray(c.perms) && (Date.now() - c.t) < 12 * 60 * 60 * 1000 ? c : null;
+    } catch (e) { return null; }
+  },
+  writeCache(uid, profile, perms) {
+    try {
+      sessionStorage.setItem(Staff.CACHE_KEY, JSON.stringify({ uid, t: Date.now(), perms: [...perms], profile: {
+        id: profile.id, email: profile.email, full_name: profile.full_name, role_code: profile.role_code,
+        position_title: profile.position_title, roles: profile.roles ? { name: profile.roles.name } : null } }));
+    } catch (e) { /* storage unavailable: just use the slow path every time */ }
+  },
+  clearCache() { try { sessionStorage.removeItem(Staff.CACHE_KEY); } catch (e) { /* ignore */ } },
+
+  makeCtx(root, active, profile, perms) {
+    const roleName = (profile.roles && profile.roles.name) || profile.role_code.toUpperCase();
+    const displayName = profile.full_name || profile.email;
+    Staff.renderFrame(root, { active, perms, profile, roleName, displayName });
+    return { profile, perms, roleName, displayName, db: SupabaseClient.get(), main: document.getElementById('staff-main') };
+  },
+
   async init({ active, permission = null } = {}) {
     const root = document.getElementById('staff-app');
     const here = window.location.pathname;
+    const toLogin = () => { Staff.clearCache(); window.location.replace('/staff/login?redirect=' + encodeURIComponent(here)); };
 
+    // ---- fast path: draw now, verify behind the scenes
+    const cached = Staff.readCache();
+    if (cached && (!permission || cached.perms.includes(permission))) {
+      const ctx = Staff.makeCtx(root, active, cached.profile, new Set(cached.perms));
+      (async () => {
+        try {
+          const session = await Auth.getSession();
+          if (!session || session.user.id !== cached.uid) return toLogin();
+          const profile = await Auth.getProfile();
+          const perms = profile && profile.role_code ? await Auth.getPermissions() : null;
+          if (!profile || !perms) return toLogin();
+          const changed = profile.role_code !== cached.profile.role_code || perms.size !== cached.perms.length || [...perms].some(x => !cached.perms.includes(x));
+          Staff.writeCache(cached.uid, profile, perms);
+          if (changed) window.location.reload();                     // role or permissions changed: redraw from fresh data
+        } catch (e) { console.error('Staff verify failed:', e); }
+      })();
+      return ctx;
+    }
+
+    // ---- slow path (first page of a visit, or cache missing/expired)
     let session = null;
     try { session = await Auth.getSession(); } catch (e) { console.error(e); }
-    if (!session) { window.location.replace('/staff/login?redirect=' + encodeURIComponent(here)); return null; }
+    if (!session) { toLogin(); return null; }
 
     const profile = await Auth.getProfile();
     if (!profile) {
@@ -53,16 +103,12 @@ const Staff = {
     }
 
     const perms = await Auth.getPermissions();
+    Staff.writeCache(session.user.id, profile, perms);
     if (permission && !perms.has(permission)) { window.location.replace('/staff/dashboard'); return null; }
-
-    const roleName = (profile.roles && profile.roles.name) || profile.role_code.toUpperCase();
-    const displayName = profile.full_name || profile.email;
-    Staff.renderFrame(root, { active, perms, profile, roleName, displayName });
-
-    return { profile, perms, roleName, displayName, db: SupabaseClient.get(), main: document.getElementById('staff-main') };
+    return Staff.makeCtx(root, active, profile, perms);
   },
 
-  logout: async () => { await Auth.signOut(); window.location.assign('/staff/login'); },
+  logout: async () => { Staff.clearCache(); await Auth.signOut(); window.location.assign('/staff/login'); },
 
   fatal(root, title, body) {
     root.className = 'min-h-screen flex items-center justify-center px-6 bg-skynex-gray dark:bg-neutral-950';

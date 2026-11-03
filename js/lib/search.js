@@ -21,6 +21,7 @@ const SiteSearch = {
         keywords: 'school management students results admission parents teachers platform app' },
       { title: 'Home', category: 'Company', url: '/', desc: 'Skynex Solutions Limited: software, systems and creative services.', keywords: 'skynex homepage' },
       { title: 'Capabilities', category: 'Company', url: '/services', desc: 'Everything Skynex does, from web and software development to ICT supply and branding.', keywords: 'services what we do' },
+      { title: 'Portfolio', category: 'Company', url: '/portfolio', desc: 'Selected projects delivered by Skynex.', keywords: 'projects work case studies clients websites apps' },
       { title: 'Leadership', category: 'Company', url: '/team', desc: 'The founders and directors of Skynex Solutions Limited.', keywords: 'team directors founders ceo cto coo cfo cmo about' },
       { title: 'News', category: 'Company', url: '/news', desc: 'Latest company news and announcements.', keywords: 'announcements updates press' },
       { title: 'Careers', category: 'Company', url: '/careers', desc: 'Career opportunities at Skynex.', keywords: 'jobs vacancies recruitment work' },
@@ -46,7 +47,9 @@ const SiteSearch = {
       .then(rows => rows.map(r => ({ title: r.title, category: 'News', url: '/news-post?id=' + encodeURIComponent(r.id), desc: r.excerpt || '', keywords: '' })));
     const team = PublicAPI.select('leadership_members', 'select=full_name,position_title,bio&is_active=eq.true')
       .then(rows => rows.map(r => ({ title: r.full_name, category: 'Leadership', url: '/team', desc: [r.position_title, r.bio].filter(Boolean).join('. '), keywords: '' })));
-    this._livePromise = Promise.allSettled([news, team]).then(res => ({
+    const work = PublicAPI.select('portfolio_projects', 'select=title,slug,short_description,category,technologies&status=eq.published&limit=100')
+      .then(rows => rows.map(r => ({ title: r.title, category: 'Portfolio', url: '/portfolio/' + encodeURIComponent(r.slug), desc: r.short_description || '', keywords: [r.category].concat(r.technologies || []).filter(Boolean).join(' ') })));
+    this._livePromise = Promise.allSettled([news, team, work]).then(res => ({
       entries: res.flatMap(r => r.status === 'fulfilled' ? r.value : []),
       failed: res.some(r => r.status === 'rejected')
     }));

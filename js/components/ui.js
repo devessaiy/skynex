@@ -7,7 +7,7 @@ const UI = {
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]
   )),
 
-  DesktopNavLinks: () => AppConfig.navLinks.map(link => 
+  DesktopNavLinks: () => AppConfig.navLinks.filter(link => !link.mobileOnly).map(link => 
     /*html*/`<a href="${link.href}" class="nav-link text-sm font-semibold tracking-wide uppercase">${link.label}</a>`
   ).join(''),
   
