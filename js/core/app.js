@@ -110,10 +110,23 @@ const AppController = {
     });
   },
 
+  // Footer "Cookie Settings": opens the consent panel from any page (loads the small consent script on demand).
+  initCookieSettingsLink: () => {
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('[data-cookie-settings]');
+      if (!link) return;
+      e.preventDefault();
+      const run = () => Consent.open();
+      if (typeof Consent !== 'undefined') return run();
+      const s = document.createElement('script'); s.src = '/js/lib/consent.js'; s.onload = run; document.head.appendChild(s);
+    });
+  },
+
   initEvents: () => {
     AppController.initMobileMenu();
     AppController.initFooterAccordion();
     AppController.markActiveNav();
+    AppController.initCookieSettingsLink();
 
     // Coming back with the browser Back button can restore the page from cache with the
     // mobile menu still open; close it so the page is scrollable again.

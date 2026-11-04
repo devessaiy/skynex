@@ -15,7 +15,7 @@
     const email = field('email').value.trim();
     const company_name = field('company').value.trim() || null;
     const service_needed = field('service').value;
-    const budget_range = field('budget').value;
+    const budget_range = field('budget').value || null;   // optional
     const message = field('message').value.trim();
 
     try {

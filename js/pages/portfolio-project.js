@@ -1,3 +1,6 @@
+
+// Keep canonical/Open Graph tags in step with the content that was loaded (crawlers that run JavaScript read these).
+const setMeta = (sel, attr, val) => { let el = document.head.querySelector(sel); if (!el) { el = document.createElement(sel.startsWith('link') ? 'link' : 'meta'); const m = sel.match(/\[(\w+(?::\w+)?)="([^"]+)"\]/); if (m) el.setAttribute(m[1], m[2]); document.head.appendChild(el); } el.setAttribute(attr, val); };
 // Project detail. URL is /portfolio/<slug> (Firebase rewrite) or /portfolio-project?slug=<slug>.
 (async () => {
   const root = document.getElementById('project-root');
@@ -19,6 +22,10 @@
     document.title = `${p.title} | Skynex Solutions Limited`;
     const d = document.querySelector('meta[name="description"]'); if (d) d.content = p.short_description;
     root.innerHTML = PortfolioView.detail(p);
+    const url = `${AppConfig.siteUrl}/portfolio/${encodeURIComponent(p.slug)}`;
+    setMeta('link[rel="canonical"]', 'href', url); setMeta('meta[property="og:url"]', 'content', url);
+    setMeta('meta[property="og:title"]', 'content', p.title); setMeta('meta[property="og:description"]', 'content', p.short_description);
+    setMeta('meta[name="twitter:title"]', 'content', p.title); setMeta('meta[name="twitter:description"]', 'content', p.short_description);
   } catch (e) {
     console.error('Project load failed:', e);
     root.innerHTML = '<p class="text-slate-500 dark:text-slate-400 font-light py-16">We could not load this project right now. Please refresh in a moment.</p>';

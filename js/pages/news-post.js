@@ -1,3 +1,6 @@
+
+// Keep canonical/Open Graph tags in step with the content that was loaded (crawlers that run JavaScript read these).
+const setMeta = (sel, attr, val) => { let el = document.head.querySelector(sel); if (!el) { el = document.createElement(sel.startsWith('link') ? 'link' : 'meta'); const m = sel.match(/\[(\w+(?::\w+)?)="([^"]+)"\]/); if (m) el.setAttribute(m[1], m[2]); document.head.appendChild(el); } el.setAttribute(attr, val); };
 // A single news post (/news-post?id=...). Posts that expired or were removed simply are not
 // returned by the database, so they show the "no longer available" message.
 //
@@ -48,6 +51,8 @@
       ${Ads.unitHtml('newsPost') ? `<div class="mt-12 pt-10 border-t border-skynex-border dark:border-neutral-800">${Ads.unitHtml('newsPost')}</div>` : ''}
     `;
     Share.bind(box, { url: shareUrl, title: p.title });
+    setMeta('link[rel="canonical"]', 'href', shareUrl); setMeta('meta[property="og:url"]', 'content', shareUrl);
+    setMeta('meta[property="og:title"]', 'content', p.title); setMeta('meta[name="twitter:title"]', 'content', p.title);
     Ads.push();
   } catch (err) {
     console.error('News post load failed:', err);

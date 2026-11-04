@@ -2,8 +2,14 @@
 // AD RENDERING HELPER (News pages only)
 // ==========================================
 const Ads = {
-  ready() {
+  // Is advertising set up in js/config-ads.js at all? (Says nothing about consent.)
+  configured() {
     return AdsConfig.enabled && !/REPLACE/.test(AdsConfig.client) && !/^\s*$/.test(AdsConfig.client);
+  },
+
+  // Ads may load/render only when they are configured AND the visitor has accepted advertising cookies.
+  ready() {
+    return this.configured() && typeof Consent !== 'undefined' && Consent.allowed('advertising');
   },
 
   // Loads the AdSense script once. Safe to call more than once (only injects it the first time).
@@ -40,3 +46,8 @@ const Ads = {
     catch (e) { console.error('AdSense push failed:', e); }
   }
 };
+
+// Ask for the visitor's choice on any page that loads this file (News pages), but only if ads are actually set up.
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof Consent !== 'undefined') Consent.init({ optional: Ads.configured() ? ['advertising'] : [] });
+});

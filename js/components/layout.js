@@ -69,6 +69,7 @@ const Layout = {
             <a href="/terms-of-service" class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:underline transition-all">Terms of Service</a>
             <a href="/legal" class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:underline transition-all">Legal</a>
             <a href="/sitemap" class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:underline transition-all">Sitemap</a>
+            <a href="#cookie-settings" data-cookie-settings class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:underline transition-all">Cookie Settings</a>
           </div>
           <div class="${AppConfig.company.social && Object.values(AppConfig.company.social).some(Boolean) ? 'flex' : 'hidden'} flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
             <span class="text-xs font-bold text-slate-500 dark:text-slate-400 tracking-widest uppercase">Stay Connected</span>

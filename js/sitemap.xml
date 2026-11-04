@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://skynex.com.ng/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://skynex.com.ng/services</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://skynex.com.ng/team</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://skynex.com.ng/news</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://skynex.com.ng/careers</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://skynex.com.ng/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://skynex.com.ng/sitemap</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://skynex.com.ng/legal</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://skynex.com.ng/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://skynex.com.ng/terms-of-service</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://skynex.com.ng/trideta-privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://skynex.com.ng/trideta-terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://skynex.com.ng/portfolio</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+</urlset>

@@ -71,6 +71,12 @@
           <div class="flex gap-2" data-status-group>
             ${['new', 'reviewed', 'resolved'].map(s => `<button data-set-status="${s}" class="flex-1 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest border transition-colors ${r.status === s ? 'bg-skynex-dark text-white border-skynex-dark' : 'border-skynex-border dark:border-neutral-800 text-slate-500 dark:text-slate-400 hover:border-skynex-dark'}">${s}</button>`).join('')}
           </div>
+        </div>
+        <div class="pt-6 border-t border-skynex-border dark:border-neutral-800">
+          ${r.status === 'resolved'
+            ? `<button data-delete class="w-full py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest border border-red-300 text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"><i class="fa-solid fa-trash"></i> Delete this enquiry</button>
+               <p class="text-xs text-slate-400 mt-2">Resolved enquiries can be deleted at any time. Deleting removes it permanently from the website database.</p>`
+            : `<p class="text-xs text-slate-400">Mark this enquiry as resolved to be able to delete it.</p>`}
         </div>` : ''}
       </div>` });
 
@@ -85,6 +91,18 @@
         Staff.toast('Status updated.');
         close(); renderTabs(); renderList();
       }));
+
+      const del = body.querySelector('[data-delete]');
+      if (del) del.addEventListener('click', async () => {
+        const ok = await Staff.confirm({ title: 'Delete this enquiry?', message: `The enquiry from ${r.name} will be permanently deleted. Make sure you have kept anything you still need, such as the email address for follow-up. This cannot be undone.`, confirmLabel: 'Delete', danger: true });
+        if (!ok) return;
+        // .select() returns the deleted rows, so a silent "0 rows" (not resolved / no permission) is detected.
+        const { data: gone, error } = await db.from('contact_submissions').delete().eq('id', r.id).select('id');
+        if (error || !gone || !gone.length) { Staff.toast('Could not delete this enquiry. It must be resolved first.', 'error'); return; }
+        rows = rows.filter(x => x.id !== r.id);
+        Staff.toast('Enquiry deleted.');
+        close(); renderTabs(); renderList();
+      });
     }
   }
 
