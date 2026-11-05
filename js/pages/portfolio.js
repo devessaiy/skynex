@@ -10,19 +10,19 @@
   } catch (e) {
     console.error('Portfolio load failed:', e);
     grid.className = 'max-w-3xl';
-    grid.innerHTML = '<p class="text-slate-500 dark:text-slate-400 font-light py-12">We could not load our projects right now. Please refresh in a moment.</p>';
+    grid.innerHTML = '<p class="text-slate-600 dark:text-slate-400 font-light py-12">We could not load our projects right now. Please refresh in a moment.</p>';
     return;
   }
   if (!rows.length) {
     grid.className = 'max-w-3xl';
-    grid.innerHTML = '<p class="text-slate-500 dark:text-slate-400 font-light py-12">Our project showcase will be published here soon.</p>';
+    grid.innerHTML = '<p class="text-slate-600 dark:text-slate-400 font-light py-12">Our project showcase will be published here soon.</p>';
     return;
   }
   const cats = [...new Set(rows.map(r => r.category).filter(Boolean))].sort();
   let active = 'All';
   const draw = () => {
     const list = active === 'All' ? rows : rows.filter(r => r.category === active);
-    grid.innerHTML = list.map(PortfolioView.card).join('');
+    grid.innerHTML = list.map(p => PortfolioView.card(p, 2)).join('');
     filters.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.cat === active)));
   };
   if (cats.length > 1) {

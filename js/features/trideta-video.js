@@ -73,6 +73,7 @@ const TridetaVideo = {
       if (!soundIcon) return;
       soundIcon.classList.toggle('fa-volume-xmark', video.muted);
       soundIcon.classList.toggle('fa-volume-high', !video.muted);
+      if (soundToggle) { soundToggle.setAttribute('aria-label', video.muted ? 'Unmute video' : 'Mute video'); soundToggle.setAttribute('aria-pressed', String(!video.muted)); }
     };
     listen(video, 'volumechange', syncIcon);
 

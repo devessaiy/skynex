@@ -26,7 +26,7 @@
 
       form.reset();
       statusEl.textContent = 'Thank you — your message has been sent. We\u2019ll be in touch shortly.';
-      statusEl.classList.remove('hidden', 'text-red-600');
+      statusEl.classList.remove('hidden', 'text-red-600', 'dark:text-red-400');
       statusEl.classList.add('text-green-600');
     } catch (err) {
       console.error('Contact form submission failed:', err);
@@ -35,7 +35,7 @@
         ? 'We have received several messages from you recently. Please wait a while before sending another, or email us directly.'
         : 'Something went wrong sending your message. Please try again or email us directly.';
       statusEl.classList.remove('hidden', 'text-green-600');
-      statusEl.classList.add('text-red-600');
+      statusEl.classList.add('text-red-600', 'dark:text-red-400');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Submit Message';

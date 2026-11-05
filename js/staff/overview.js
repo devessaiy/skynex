@@ -13,10 +13,10 @@
   const card = (label, value, href, icon) => /*html*/`
     <a href="${href}" class="block bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 rounded-2xl p-6 hover:border-skynex-dark transition-colors">
       <div class="flex items-center justify-between mb-4">
-        <i class="fa-solid ${icon} text-skynex-blue text-lg"></i>
+        <i aria-hidden="true" class="fa-solid ${icon} text-skynex-bluetext dark:text-skynex-bluelight text-lg"></i>
       </div>
       <p class="text-3xl font-bold text-skynex-dark dark:text-white tracking-tighter mb-1">${value}</p>
-      <p class="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">${Staff.esc(label)}</p>
+      <p class="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400">${Staff.esc(label)}</p>
     </a>`;
 
   const jobs = [];

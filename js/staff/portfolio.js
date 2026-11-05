@@ -9,7 +9,7 @@
   let rows = [];
 
   main.innerHTML = Staff.pageHeader('Portfolio', 'Projects shown on the public Portfolio page. Only published projects are visible to visitors.',
-    `<button data-new class="${Staff.primaryBtn}"><i class="fa-solid fa-plus"></i> Add Project</button>`);
+    `<button data-new class="${Staff.primaryBtn}"><i aria-hidden="true" class="fa-solid fa-plus"></i> Add Project</button>`);
   const listEl = document.createElement('div');
   listEl.className = 'space-y-2';
   main.appendChild(listEl);
@@ -19,7 +19,7 @@
   const ringBtn = 'w-9 h-9 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:border-skynex-dark transition-colors';
 
   function renderList() {
-    if (!rows.length) { listEl.innerHTML = `<p class="text-center text-slate-400 font-light py-16">No projects yet. Add your first one.</p>`; return; }
+    if (!rows.length) { listEl.innerHTML = `<p class="text-center text-slate-600 dark:text-slate-400 font-light py-16">No projects yet. Add your first one.</p>`; return; }
     listEl.innerHTML = rows.map((p, i) => /*html*/`
       <div class="bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 rounded-2xl p-4 flex items-center gap-4">
         <div class="w-20 h-14 shrink-0 rounded-lg overflow-hidden bg-skynex-gray dark:bg-neutral-950">
@@ -29,16 +29,16 @@
           <div class="flex items-center gap-2 flex-wrap">
             <p class="font-bold text-skynex-dark dark:text-white truncate">${E(p.title)}</p>
             ${Staff.statusBadge(p.status === 'published' ? 'live' : 'draft')}
-            ${p.is_featured ? '<span class="text-[10px] font-bold uppercase tracking-widest text-skynex-blue">Featured</span>' : ''}
+            ${p.is_featured ? '<span class="text-[10px] font-bold uppercase tracking-widest text-skynex-bluetext dark:text-skynex-bluelight">Featured</span>' : ''}
           </div>
-          <p class="text-sm text-slate-500 dark:text-slate-400 truncate">${E(p.category || 'No category')} · /portfolio/${E(p.slug)}</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400 truncate">${E(p.category || 'No category')} · /portfolio/${E(p.slug)}</p>
         </div>
         <div class="shrink-0 flex items-center gap-1">
-          <button data-up="${p.id}" ${i === 0 ? 'disabled' : ''} class="${iconBtn}" aria-label="Move up"><i class="fa-solid fa-chevron-up text-xs"></i></button>
-          <button data-down="${p.id}" ${i === rows.length - 1 ? 'disabled' : ''} class="${iconBtn}" aria-label="Move down"><i class="fa-solid fa-chevron-down text-xs"></i></button>
-          <button data-toggle="${p.id}" class="${ringBtn} ml-1" aria-label="${p.status === 'published' ? 'Unpublish' : 'Publish'}" title="${p.status === 'published' ? 'Unpublish' : 'Publish'}"><i class="fa-solid ${p.status === 'published' ? 'fa-eye-slash' : 'fa-eye'} text-xs"></i></button>
-          <button data-edit="${p.id}" class="${ringBtn}" aria-label="Edit"><i class="fa-solid fa-pen text-xs"></i></button>
-          <button data-delete="${p.id}" class="${ringBtn} hover:!text-red-600 hover:!border-red-600" aria-label="Delete"><i class="fa-solid fa-trash text-xs"></i></button>
+          <button data-up="${p.id}" ${i === 0 ? 'disabled' : ''} class="${iconBtn}" aria-label="Move up"><i aria-hidden="true" class="fa-solid fa-chevron-up text-xs"></i></button>
+          <button data-down="${p.id}" ${i === rows.length - 1 ? 'disabled' : ''} class="${iconBtn}" aria-label="Move down"><i aria-hidden="true" class="fa-solid fa-chevron-down text-xs"></i></button>
+          <button data-toggle="${p.id}" class="${ringBtn} ml-1" aria-label="${p.status === 'published' ? 'Unpublish' : 'Publish'}" title="${p.status === 'published' ? 'Unpublish' : 'Publish'}"><i aria-hidden="true" class="fa-solid ${p.status === 'published' ? 'fa-eye-slash' : 'fa-eye'} text-xs"></i></button>
+          <button data-edit="${p.id}" class="${ringBtn}" aria-label="Edit"><i aria-hidden="true" class="fa-solid fa-pen text-xs"></i></button>
+          <button data-delete="${p.id}" class="${ringBtn} hover:!text-red-600 dark:text-red-400 hover:!border-red-600" aria-label="Delete"><i aria-hidden="true" class="fa-solid fa-trash text-xs"></i></button>
         </div>
       </div>`).join('');
     const on = (sel, fn) => listEl.querySelectorAll(sel).forEach(b => b.addEventListener('click', () => fn(b.dataset[sel.slice(6, -1)])));
@@ -91,25 +91,25 @@
         <div><label class="${Staff.labelCls}" for="pf-title">Title</label><input id="pf-title" data-title required maxlength="150" class="${Staff.inputCls}" value="${E(existing?.title || '')}"></div>
         <div><label class="${Staff.labelCls}" for="pf-slug">Web address</label>
           <input id="pf-slug" data-slug required maxlength="80" class="${Staff.inputCls}" value="${E(existing?.slug || '')}" aria-describedby="pf-slug-help">
-          <p id="pf-slug-help" class="text-xs text-slate-400 mt-1">skynex.com.ng/portfolio/<span data-slug-preview>${E(existing?.slug || '')}</span> (lowercase letters, numbers and hyphens). Changing it later breaks links already shared.</p></div>
-        <div><label class="${Staff.labelCls}" for="pf-short">Short description <span class="normal-case font-normal text-slate-400">(shown on the card, max 300)</span></label><textarea id="pf-short" data-short required rows="2" maxlength="300" class="${Staff.inputCls}">${E(existing?.short_description || '')}</textarea></div>
-        <div><label class="${Staff.labelCls}" for="pf-desc">Detailed description <span class="normal-case font-normal text-slate-400">(optional, plain text; leave a blank line between paragraphs)</span></label><textarea id="pf-desc" data-desc rows="7" maxlength="10000" class="${Staff.inputCls}">${E(existing?.description || '')}</textarea></div>
+          <p id="pf-slug-help" class="text-xs text-slate-600 dark:text-slate-400 mt-1">skynex.com.ng/portfolio/<span data-slug-preview>${E(existing?.slug || '')}</span> (lowercase letters, numbers and hyphens). Changing it later breaks links already shared.</p></div>
+        <div><label class="${Staff.labelCls}" for="pf-short">Short description <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(shown on the card, max 300)</span></label><textarea id="pf-short" data-short required rows="2" maxlength="300" class="${Staff.inputCls}">${E(existing?.short_description || '')}</textarea></div>
+        <div><label class="${Staff.labelCls}" for="pf-desc">Detailed description <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(optional, plain text; leave a blank line between paragraphs)</span></label><textarea id="pf-desc" data-desc rows="7" maxlength="10000" class="${Staff.inputCls}">${E(existing?.description || '')}</textarea></div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div><label class="${Staff.labelCls}" for="pf-cat">Category</label><input id="pf-cat" data-cat maxlength="60" list="pf-cats" placeholder="e.g. Web Application" class="${Staff.inputCls}" value="${E(existing?.category || '')}"><datalist id="pf-cats">${[...new Set(rows.map(r => r.category).filter(Boolean))].map(c => `<option value="${E(c)}">`).join('')}</datalist></div>
-          <div><label class="${Staff.labelCls}" for="pf-date">Completed <span class="normal-case font-normal text-slate-400">(optional)</span></label><input id="pf-date" data-date type="date" class="${Staff.inputCls}" value="${E(existing?.completed_on || '')}"></div>
+          <div><label class="${Staff.labelCls}" for="pf-date">Completed <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(optional)</span></label><input id="pf-date" data-date type="date" class="${Staff.inputCls}" value="${E(existing?.completed_on || '')}"></div>
         </div>
-        <div><label class="${Staff.labelCls}" for="pf-tech">Technologies <span class="normal-case font-normal text-slate-400">(optional, separated by commas, max 20)</span></label><input id="pf-tech" data-tech class="${Staff.inputCls}" value="${E((existing?.technologies || []).join(', '))}"></div>
-        <div><label class="${Staff.labelCls}" for="pf-client">Client <span class="normal-case font-normal text-slate-400">(optional, only if the client approved being named publicly)</span></label><input id="pf-client" data-client maxlength="120" class="${Staff.inputCls}" value="${E(existing?.client_name || '')}"></div>
-        <div><label class="${Staff.labelCls}" for="pf-url">Live project link <span class="normal-case font-normal text-slate-400">(optional, must start with https://)</span></label><input id="pf-url" data-url type="url" maxlength="500" placeholder="https://" class="${Staff.inputCls}" value="${E(existing?.live_url || '')}"></div>
+        <div><label class="${Staff.labelCls}" for="pf-tech">Technologies <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(optional, separated by commas, max 20)</span></label><input id="pf-tech" data-tech class="${Staff.inputCls}" value="${E((existing?.technologies || []).join(', '))}"></div>
+        <div><label class="${Staff.labelCls}" for="pf-client">Client <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(optional, only if the client approved being named publicly)</span></label><input id="pf-client" data-client maxlength="120" class="${Staff.inputCls}" value="${E(existing?.client_name || '')}"></div>
+        <div><label class="${Staff.labelCls}" for="pf-url">Live project link <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(optional, must start with https://)</span></label><input id="pf-url" data-url type="url" maxlength="500" placeholder="https://" class="${Staff.inputCls}" value="${E(existing?.live_url || '')}"></div>
 
         <div>
-          <label class="${Staff.labelCls}" for="pf-feat">Featured image <span class="normal-case font-normal text-slate-400">(shown on the card; cropped to 16:10)</span></label>
+          <label class="${Staff.labelCls}" for="pf-feat">Featured image <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(shown on the card; cropped to 16:10)</span></label>
           <div data-feat-preview class="mb-2"></div>
           <input id="pf-feat" data-feat type="file" accept="image/png,image/jpeg,image/webp" class="text-sm">
-          <button type="button" data-feat-clear class="hidden ml-3 text-xs text-slate-500 underline">Remove image</button>
+          <button type="button" data-feat-clear class="hidden ml-3 text-xs text-slate-600 dark:text-slate-400 underline">Remove image</button>
         </div>
         <div>
-          <label class="${Staff.labelCls}" for="pf-gal">More screenshots <span class="normal-case font-normal text-slate-400">(optional, up to ${MAX_GALLERY}, shown uncropped)</span></label>
+          <label class="${Staff.labelCls}" for="pf-gal">More screenshots <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(optional, up to ${MAX_GALLERY}, shown uncropped)</span></label>
           <div data-gal-list class="grid grid-cols-3 gap-2 mb-2"></div>
           <input id="pf-gal" data-gal type="file" multiple accept="image/png,image/jpeg,image/webp" class="text-sm">
         </div>
@@ -119,7 +119,7 @@
             <select id="pf-status" data-status class="${Staff.inputCls}"><option value="draft">Draft (hidden)</option><option value="published">Published (visible)</option></select></div>
           <label class="flex items-center gap-2 text-sm text-skynex-dark dark:text-white pb-3"><input type="checkbox" data-featured ${existing?.is_featured ? 'checked' : ''}> Feature on the homepage</label>
         </div>
-        <p data-error role="alert" class="hidden text-sm text-red-600"></p>
+        <p data-error role="alert" class="hidden text-sm text-red-600 dark:text-red-400"></p>
         <div class="flex gap-3">
           <button type="button" data-preview class="flex-1 px-6 py-3 rounded-full border border-skynex-border dark:border-neutral-700 text-xs font-bold uppercase tracking-widest text-skynex-dark dark:text-white hover:border-skynex-dark transition-colors">Preview</button>
           <button type="submit" data-submit class="${Staff.primaryBtn} flex-1">${isEdit ? 'Save Changes' : 'Add Project'}</button>
@@ -134,7 +134,7 @@
     const drawImages = () => {
       q('[data-feat-preview]').innerHTML = featured ? `<img src="${E(urlOf(featured))}" alt="Current featured image" class="w-full max-w-xs aspect-[16/10] object-cover rounded-lg bg-skynex-gray dark:bg-neutral-950">` : '';
       q('[data-feat-clear]').classList.toggle('hidden', !featured);
-      q('[data-gal-list]').innerHTML = gallery.map((g, i) => `<div class="relative"><img src="${E(urlOf(g))}" alt="Screenshot ${i + 1}" class="w-full aspect-[4/3] object-cover rounded-lg bg-skynex-gray dark:bg-neutral-950"><button type="button" data-gal-del="${i}" aria-label="Remove screenshot ${i + 1}" class="absolute top-1 right-1 w-6 h-6 rounded-full bg-white/90 text-red-600 text-xs shadow"><i class="fa-solid fa-xmark"></i></button></div>`).join('');
+      q('[data-gal-list]').innerHTML = gallery.map((g, i) => `<div class="relative"><img src="${E(urlOf(g))}" alt="Screenshot ${i + 1}" class="w-full aspect-[4/3] object-cover rounded-lg bg-skynex-gray dark:bg-neutral-950"><button type="button" data-gal-del="${i}" aria-label="Remove screenshot ${i + 1}" class="absolute top-1 right-1 w-6 h-6 rounded-full bg-white/90 text-red-600 dark:text-red-400 text-xs shadow"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button></div>`).join('');
       body.querySelectorAll('[data-gal-del]').forEach(b => b.addEventListener('click', () => { gallery.splice(+b.dataset.galDel, 1); drawImages(); }));
     };
     drawImages();
@@ -182,10 +182,10 @@
       ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', 'Project preview');
       ov.innerHTML = `<div class="sticky top-0 z-10 bg-skynex-dark text-white text-xs font-bold uppercase tracking-widest px-5 py-3 flex items-center justify-between"><span>Preview${p.status === 'published' ? '' : ' (draft: not visible to visitors)'}</span><button data-x class="px-4 py-1.5 rounded-full border border-white/40">Close preview</button></div><div class="max-w-[1100px] mx-auto px-6 py-12">${PortfolioView.detail(p)}</div>`;
       document.body.appendChild(ov);
-      const x = ov.querySelector('[data-x]'); x.focus();
-      const shut = () => { ov.remove(); document.removeEventListener('keydown', esc, true); };
-      const esc = (e) => { if (e.key === 'Escape') { e.stopPropagation(); shut(); } };
-      document.addEventListener('keydown', esc, true);
+      const x = ov.querySelector('[data-x]');
+      let release = () => {};
+      const shut = () => { release(); ov.remove(); };
+      release = Staff._openModal(ov, { onEscape: shut, focusFirst: () => { x.focus(); return true; } });   // traps focus in the preview; Escape closes only the preview
       x.addEventListener('click', shut);
     });
 
@@ -239,6 +239,6 @@
   }
 
   const { data, error } = await db.from('portfolio_projects').select('*').order('display_order', { ascending: true }).order('created_at', { ascending: true });
-  if (error) { listEl.innerHTML = `<p class="text-center text-red-600 py-16">Could not load the project list.</p>`; return; }
+  if (error) { listEl.innerHTML = `<p class="text-center text-red-600 dark:text-red-400 py-16">Could not load the project list.</p>`; return; }
   rows = data; renderList();
 })();

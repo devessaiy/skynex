@@ -115,64 +115,91 @@ const Staff = {
     root.innerHTML = /*html*/`
       <div class="text-center max-w-md">
         <h1 class="text-2xl font-bold text-skynex-dark dark:text-white tracking-tighter mb-4">${title}</h1>
-        <p class="text-slate-500 dark:text-slate-400 font-light mb-8">${body}</p>
-        <button data-logout class="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white transition-colors">Log Out</button>
+        <p class="text-slate-600 dark:text-slate-400 font-light mb-8">${body}</p>
+        <button data-logout class="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white transition-colors">Log Out</button>
       </div>`;
     root.querySelector('[data-logout]').addEventListener('click', Staff.logout);
   },
 
   renderFrame(root, { active, perms, profile, roleName, displayName }) {
     const links = Staff.NAV.filter(i => !i.perm || perms.has(i.perm)).map(i => /*html*/`
-      <a href="${i.href}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-colors ${i.key === active ? 'bg-skynex-gray dark:bg-neutral-800 text-skynex-dark dark:text-white font-semibold' : 'text-slate-500 dark:text-slate-400 hover:bg-skynex-gray dark:hover:bg-neutral-800 hover:text-skynex-dark dark:hover:text-white font-medium'}">
-        <i class="fa-solid ${i.icon} w-5 text-center"></i>${i.label}
+      <a href="${i.href}"${i.key === active ? ' aria-current="page"' : ''} class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-colors ${i.key === active ? 'bg-skynex-gray dark:bg-neutral-800 text-skynex-dark dark:text-white font-semibold' : 'text-slate-600 dark:text-slate-400 hover:bg-skynex-gray dark:hover:bg-neutral-800 hover:text-skynex-dark dark:hover:text-white font-medium'}">
+        <i aria-hidden="true" class="fa-solid ${i.icon} w-5 text-center"></i>${i.label}
       </a>`).join('');
 
     root.className = '';
     root.innerHTML = /*html*/`
+      <a href="#staff-main" class="skip-link">Skip to main content</a>
       <div class="min-h-screen lg:flex bg-skynex-gray dark:bg-neutral-950">
         <div id="staff-backdrop" class="hidden fixed inset-0 z-30 bg-skynex-dark/50 lg:hidden"></div>
 
         <aside id="staff-sidebar" class="fixed inset-y-0 left-0 z-40 w-72 max-w-[85vw] shrink-0 lg:sticky lg:top-0 lg:h-screen bg-white dark:bg-neutral-900 border-r border-skynex-border dark:border-neutral-800 flex flex-col -translate-x-full lg:translate-x-0 transition-transform duration-300">
           <div class="h-20 px-6 flex items-center gap-3 border-b border-skynex-border dark:border-neutral-800 shrink-0">
             ${Staff.logoHtml('h-6 w-auto')}
-            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 border-l border-skynex-border dark:border-neutral-800 pl-3">Staff Portal</span>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400 border-l border-skynex-border dark:border-neutral-800 pl-3">Staff Portal</span>
           </div>
-          <nav class="flex-1 overflow-y-auto p-4 space-y-1">${links}</nav>
+          <nav aria-label="Staff sections" class="flex-1 overflow-y-auto p-4 space-y-1">${links}</nav>
           <div class="p-4 pb-[max(1rem,env(safe-area-inset-bottom))] border-t border-skynex-border dark:border-neutral-800 shrink-0 space-y-3">
             <div class="flex items-center gap-3 px-2">
               <div class="w-10 h-10 shrink-0 rounded-full bg-skynex-dark text-white text-xs font-bold flex items-center justify-center">${Staff.esc(Staff.initials(displayName))}</div>
               <div class="min-w-0">
                 <p class="text-sm font-semibold text-skynex-dark dark:text-white truncate">${Staff.esc(displayName)}</p>
-                <p class="text-xs text-slate-500 dark:text-slate-400 truncate">${Staff.esc(roleName)}${profile.position_title ? ' · ' + Staff.esc(profile.position_title) : ''}</p>
+                <p class="text-xs text-slate-600 dark:text-slate-400 truncate">${Staff.esc(roleName)}${profile.position_title ? ' · ' + Staff.esc(profile.position_title) : ''}</p>
               </div>
             </div>
             <div class="grid grid-cols-2 gap-2">
-              <a href="/" class="text-center text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white border border-skynex-border dark:border-neutral-800 rounded-full py-2.5 transition-colors">Website</a>
-              <button data-logout class="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-white hover:bg-skynex-dark border border-skynex-border dark:border-neutral-800 hover:border-skynex-dark rounded-full py-2.5 transition-colors">Log out</button>
+              <a href="/" class="text-center text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white border border-skynex-border dark:border-neutral-800 rounded-full py-2.5 transition-colors">Website</a>
+              <button data-logout class="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-white hover:bg-skynex-dark border border-skynex-border dark:border-neutral-800 hover:border-skynex-dark rounded-full py-2.5 transition-colors">Log out</button>
             </div>
           </div>
         </aside>
 
         <div class="flex-1 min-w-0">
           <header class="lg:hidden sticky top-0 z-20 h-16 px-4 flex items-center justify-between bg-white/90 backdrop-blur-xl border-b border-skynex-border dark:border-neutral-800">
-            <button id="staff-menu-btn" aria-label="Open menu" class="p-2 text-skynex-dark dark:text-white"><i class="fa-solid fa-bars text-xl"></i></button>
+            <button id="staff-menu-btn" type="button" aria-label="Open menu" class="p-2 text-skynex-dark dark:text-white"><i aria-hidden="true" class="fa-solid fa-bars text-xl"></i></button>
             ${Staff.logoHtml('h-5 w-auto')}
             <span class="w-9"></span>
           </header>
-          <main id="staff-main" class="page-view px-5 sm:px-8 lg:px-12 py-8 lg:py-12 max-w-6xl mx-auto"></main>
+          <main id="staff-main" tabindex="-1" class="page-view px-5 sm:px-8 lg:px-12 py-8 lg:py-12 max-w-6xl mx-auto"></main>
         </div>
       </div>
       <div id="staff-toasts" class="fixed bottom-4 right-4 left-4 sm:left-auto z-[60] flex flex-col items-stretch sm:items-end gap-2 pointer-events-none"></div>`;
 
     const sidebar = document.getElementById('staff-sidebar');
     const backdrop = document.getElementById('staff-backdrop');
-    const setOpen = (open) => {
+    // Phones: the sidebar is a slide-in menu. While closed it is inert (not tabbable, hidden from screen readers);
+    // while open, Escape closes it, Tab stays inside it, and focus returns to the menu button.
+    const menuBtn = document.getElementById('staff-menu-btn');
+    const wide = window.matchMedia('(min-width: 1024px)');
+    let isOpen = false;
+    const setOpen = (open, restoreFocus = true) => {
+      isOpen = open;
       sidebar.classList.toggle('-translate-x-full', !open);
       backdrop.classList.toggle('hidden', !open);
       document.body.style.overflow = open ? 'hidden' : '';
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      sidebar.inert = !open && !wide.matches;
+      const mainEl = document.getElementById('staff-main'); if (mainEl) mainEl.inert = open && !wide.matches;   // page content is unreachable behind the open menu
+      if (open) { const first = Staff._focusable(sidebar)[0]; if (first) first.focus(); }
+      else if (restoreFocus && !wide.matches) menuBtn.focus();
     };
-    document.getElementById('staff-menu-btn').addEventListener('click', () => setOpen(true));
+    menuBtn.setAttribute('aria-controls', 'staff-sidebar'); menuBtn.setAttribute('aria-expanded', 'false');
+    sidebar.inert = !wide.matches;
+    const onWide = () => { if (wide.matches) setOpen(false, false); else { sidebar.inert = !isOpen; const m = document.getElementById('staff-main'); if (m) m.inert = isOpen; } };
+    if (wide.addEventListener) wide.addEventListener('change', onWide); else wide.addListener(onWide);
+    menuBtn.addEventListener('click', () => setOpen(!isOpen));
     backdrop.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (e) => {
+      if (!isOpen || wide.matches || Staff._modalStack.length) return;
+      if (e.key === 'Escape') { setOpen(false); return; }
+      if (e.key !== 'Tab') return;
+      // Tab order = document order of the menu button plus the sidebar links; wrap at both ends.
+      const f = [menuBtn, ...Staff._focusable(sidebar)].sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1);
+      const i = f.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+    });
     root.querySelectorAll('[data-logout]').forEach(b => b.addEventListener('click', Staff.logout));
   },
 
@@ -181,7 +208,7 @@ const Staff = {
     <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
       <div>
         <h1 class="text-3xl md:text-4xl font-bold text-skynex-dark dark:text-white tracking-tighter">${title}</h1>
-        ${subtitle ? `<p class="text-slate-500 dark:text-slate-400 font-light mt-2 max-w-2xl">${subtitle}</p>` : ''}
+        ${subtitle ? `<p class="text-slate-600 dark:text-slate-400 font-light mt-2 max-w-2xl">${subtitle}</p>` : ''}
       </div>
       ${actionHtml}
     </div>`,
@@ -204,27 +231,56 @@ const Staff = {
   formatDateTime: (iso) => new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
   formatDate: (iso) => new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
 
+  // ---- modal accessibility helpers (shared by confirm + drawer) ----
+  _modalStack: [],
+  _focusable: (el) => [...el.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')]
+    .filter(e => !e.closest('[hidden],[inert]') && e.offsetParent !== null),
+  // Makes everything outside `modal` unreachable (inert), traps Tab inside it, lets only the top-most modal react to Escape,
+  // and returns a function that undoes it all and puts focus back where it was.
+  _openModal(modal, { onEscape, focusFirst }) {
+    const opener = document.activeElement;
+    const others = [...document.body.children].filter(c => c !== modal && !c.inert && !['SCRIPT', 'STYLE'].includes(c.tagName) && !c.matches('[aria-live],[role=status],[role=alert]'));
+    others.forEach(c => { c.inert = true; });
+    const token = {}; Staff._modalStack.push(token);
+    const onKey = (e) => {
+      if (Staff._modalStack[Staff._modalStack.length - 1] !== token) return;       // a newer dialog is on top
+      if (e.key === 'Escape') { e.stopPropagation(); onEscape(); return; }
+      if (e.key !== 'Tab') return;
+      const f = Staff._focusable(modal); if (!f.length) { e.preventDefault(); return; }
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && (document.activeElement === first || !modal.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (document.activeElement === last || !modal.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', onKey, true);
+    setTimeout(() => { (focusFirst && focusFirst() ) || (Staff._focusable(modal)[0] || modal).focus(); }, 0);
+    return () => {
+      document.removeEventListener('keydown', onKey, true);
+      Staff._modalStack = Staff._modalStack.filter(t => t !== token);
+      others.forEach(c => { c.inert = false; });
+      if (opener && opener.isConnected && typeof opener.focus === 'function') opener.focus();
+    };
+  },
+
   confirm({ title, message, confirmLabel = 'Confirm', danger = false }) {
     return new Promise(resolve => {
       const wrap = document.createElement('div');
       wrap.className = 'fixed inset-0 z-[70] flex items-center justify-center px-6 bg-skynex-dark/60 backdrop-blur-sm';
       wrap.innerHTML = /*html*/`
-        <div class="w-full max-w-sm bg-white dark:bg-neutral-900 rounded-2xl p-8" role="dialog" aria-modal="true">
-          <h2 class="text-lg font-bold text-skynex-dark dark:text-white tracking-tighter mb-2">${Staff.esc(title)}</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 font-light mb-8">${Staff.esc(message)}</p>
+        <div class="w-full max-w-sm bg-white dark:bg-neutral-900 rounded-2xl p-8" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-msg">
+          <h2 id="confirm-title" class="text-lg font-bold text-skynex-dark dark:text-white tracking-tighter mb-2">${Staff.esc(title)}</h2>
+          <p id="confirm-msg" class="text-sm text-slate-600 dark:text-slate-400 font-light mb-8">${Staff.esc(message)}</p>
           <div class="flex gap-3 justify-end">
             <button data-no class="${Staff.ghostBtn}">Cancel</button>
             <button data-yes class="inline-flex items-center justify-center px-6 py-3 rounded-full text-white text-xs font-bold tracking-widest uppercase transition-colors ${danger ? 'bg-red-600 hover:bg-red-700' : 'bg-skynex-dark hover:bg-skynex-blue'}">${Staff.esc(confirmLabel)}</button>
           </div>
         </div>`;
-      const done = (v) => { document.removeEventListener('keydown', onKey); wrap.remove(); resolve(v); };
-      const onKey = (e) => { if (e.key === 'Escape') done(false); };
-      document.addEventListener('keydown', onKey);
+      let release = () => {};
+      const done = (v) => { release(); wrap.remove(); resolve(v); };
       wrap.querySelector('[data-no]').addEventListener('click', () => done(false));
       wrap.querySelector('[data-yes]').addEventListener('click', () => done(true));
       wrap.addEventListener('click', (e) => { if (e.target === wrap) done(false); });
       document.body.appendChild(wrap);
-      wrap.querySelector('[data-no]').focus();
+      release = Staff._openModal(wrap, { onEscape: () => done(false), focusFirst: () => { const b = wrap.querySelector('[data-no]'); b.focus(); return true; } });   // Cancel is focused first: the safe default
     });
   },
 
@@ -234,34 +290,35 @@ const Staff = {
     wrap.className = 'fixed inset-0 z-50';
     wrap.innerHTML = /*html*/`
       <div data-backdrop class="absolute inset-0 bg-skynex-dark/50"></div>
-      <div class="absolute inset-y-0 right-0 w-full sm:max-w-xl bg-white dark:bg-neutral-900 shadow-2xl flex flex-col" role="dialog" aria-modal="true">
+      <div class="absolute inset-y-0 right-0 w-full sm:max-w-xl bg-white dark:bg-neutral-900 shadow-2xl flex flex-col" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
         <div class="h-20 px-6 sm:px-8 flex items-center justify-between border-b border-skynex-border dark:border-neutral-800 shrink-0">
-          <h2 class="text-lg font-bold text-skynex-dark dark:text-white tracking-tighter truncate">${Staff.esc(title)}</h2>
-          <button data-close aria-label="Close" class="p-2 text-slate-400 hover:text-skynex-dark dark:hover:text-white transition-colors"><i class="fa-solid fa-xmark text-lg"></i></button>
+          <h2 id="drawer-title" class="text-lg font-bold text-skynex-dark dark:text-white tracking-tighter truncate">${Staff.esc(title)}</h2>
+          <button data-close aria-label="Close" class="p-2 text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white transition-colors"><i aria-hidden="true" class="fa-solid fa-xmark text-lg"></i></button>
         </div>
         <div data-body class="flex-1 overflow-y-auto px-6 sm:px-8 py-8">${html}</div>
       </div>`;
     const prevOverflow = document.body.style.overflow;
+    let release = () => {};
     const close = () => {
-      document.removeEventListener('keydown', onKey);
+      release();
       document.body.style.overflow = prevOverflow;
       wrap.remove();
       if (onClose) onClose();
     };
-    const onKey = (e) => { if (e.key === 'Escape') close(); };
-    document.addEventListener('keydown', onKey);
     wrap.querySelector('[data-close]').addEventListener('click', close);
     wrap.querySelector('[data-backdrop]').addEventListener('click', close);
     document.body.style.overflow = 'hidden';
     document.body.appendChild(wrap);
+    // Focus goes to the first form field if there is one (otherwise the Close button).
+    release = Staff._openModal(wrap, { onEscape: close, focusFirst: () => { const f = wrap.querySelector('[data-body] input:not([type=hidden]):not([disabled]), [data-body] textarea, [data-body] select, [data-body] button'); if (f) { f.focus(); return true; } return false; } });
     return { body: wrap.querySelector('[data-body]'), close };
   },
 
   statusBadge(status) {
     const map = {
-      new: 'bg-blue-50 dark:bg-blue-950/40 text-skynex-blue', reviewed: 'bg-amber-50 dark:bg-amber-950/30 text-amber-700', resolved: 'bg-green-50 dark:bg-green-950/30 text-green-700',
-      live: 'bg-green-50 dark:bg-green-950/30 text-green-700', scheduled: 'bg-amber-50 dark:bg-amber-950/30 text-amber-700', visible: 'bg-green-50 dark:bg-green-950/30 text-green-700', hidden: 'bg-slate-100 dark:bg-neutral-800 text-slate-500 dark:text-slate-400'
+      new: 'bg-blue-50 dark:bg-blue-950/40 text-skynex-bluetext dark:text-skynex-bluelight', reviewed: 'bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400', resolved: 'bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400',
+      live: 'bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400', scheduled: 'bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400', visible: 'bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400', hidden: 'bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-slate-400'
     };
-    return `<span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${map[status] || 'bg-slate-100 dark:bg-neutral-800 text-slate-500 dark:text-slate-400'}">${Staff.esc(status)}</span>`;
+    return `<span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${map[status] || 'bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-slate-400'}">${Staff.esc(status)}</span>`;
   }
 };

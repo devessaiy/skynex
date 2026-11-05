@@ -10,22 +10,22 @@
   main.insertAdjacentHTML('beforeend', /*html*/`
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-3xl">
       <div class="bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 rounded-2xl p-6 md:p-8">
-        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-6">Profile</h2>
+        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400 mb-6">Profile</h2>
         <form data-profile-form class="space-y-5">
-          <div><label class="${Staff.labelCls}">Full name</label><input data-full-name required maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(profile.full_name || '')}"></div>
-          <div><label class="${Staff.labelCls}">Position title <span class="normal-case font-normal text-slate-400">(shown on your dashboard)</span></label><input data-position-title maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(profile.position_title || '')}"></div>
-          <div><label class="${Staff.labelCls}">Email</label><input disabled class="${Staff.inputCls} bg-skynex-gray dark:bg-neutral-950 text-slate-400" value="${Staff.esc(profile.email)}"></div>
-          <div><label class="${Staff.labelCls}">Role</label><input disabled class="${Staff.inputCls} bg-skynex-gray dark:bg-neutral-950 text-slate-400" value="${Staff.esc(roleName)}"></div>
-          <p data-profile-error class="hidden text-sm text-red-600"></p>
+          <div><label for="acc-1" class="${Staff.labelCls}">Full name</label><input id="acc-1" data-full-name autocomplete="name" required maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(profile.full_name || '')}"></div>
+          <div><label for="acc-2" class="${Staff.labelCls}">Position title <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(shown on your dashboard)</span></label><input id="acc-2" data-position-title maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(profile.position_title || '')}"></div>
+          <div><label for="acc-3" class="${Staff.labelCls}">Email</label><input id="acc-3" disabled class="${Staff.inputCls} bg-skynex-gray dark:bg-neutral-950 text-slate-600 dark:text-slate-400" value="${Staff.esc(profile.email)}"></div>
+          <div><label for="acc-4" class="${Staff.labelCls}">Role</label><input id="acc-4" disabled class="${Staff.inputCls} bg-skynex-gray dark:bg-neutral-950 text-slate-600 dark:text-slate-400" value="${Staff.esc(roleName)}"></div>
+          <p data-profile-error role="alert" class="hidden text-sm text-red-600 dark:text-red-400"></p>
           <button type="submit" data-profile-submit class="${Staff.primaryBtn}">Save Changes</button>
         </form>
       </div>
       <div class="bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 rounded-2xl p-6 md:p-8">
-        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-6">Change Password</h2>
+        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400 mb-6">Change Password</h2>
         <form data-password-form class="space-y-5">
-          <div><label class="${Staff.labelCls}">New password</label><input data-new-password type="password" required minlength="8" class="${Staff.inputCls}"></div>
-          <div><label class="${Staff.labelCls}">Confirm new password</label><input data-confirm-password type="password" required minlength="8" class="${Staff.inputCls}"></div>
-          <p data-password-error class="hidden text-sm text-red-600"></p>
+          <div><label for="acc-5" class="${Staff.labelCls}">New password</label><input id="acc-5" data-new-password autocomplete="new-password" type="password" required minlength="8" class="${Staff.inputCls}"></div>
+          <div><label for="acc-6" class="${Staff.labelCls}">Confirm new password</label><input id="acc-6" data-confirm-password autocomplete="new-password" type="password" required minlength="8" class="${Staff.inputCls}"></div>
+          <p data-password-error role="alert" class="hidden text-sm text-red-600 dark:text-red-400"></p>
           <p data-password-success class="hidden text-sm text-green-600"></p>
           <button type="submit" data-password-submit class="${Staff.ghostBtn}">Update Password</button>
         </form>

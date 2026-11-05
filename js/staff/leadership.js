@@ -7,14 +7,14 @@
   let rows = [];
 
   main.innerHTML = Staff.pageHeader('Leadership', 'Shown on the public Leadership page, in this order.',
-    `<button data-new class="${Staff.primaryBtn}"><i class="fa-solid fa-plus"></i> Add Member</button>`);
+    `<button data-new class="${Staff.primaryBtn}"><i aria-hidden="true" class="fa-solid fa-plus"></i> Add Member</button>`);
   const listEl = document.createElement('div');
   listEl.className = 'space-y-2';
   main.appendChild(listEl);
   main.querySelector('[data-new]').addEventListener('click', () => openForm(null));
 
   function renderList() {
-    if (!rows.length) { listEl.innerHTML = `<p class="text-center text-slate-400 font-light py-16">No leadership members yet.</p>`; return; }
+    if (!rows.length) { listEl.innerHTML = `<p class="text-center text-slate-600 dark:text-slate-400 font-light py-16">No leadership members yet.</p>`; return; }
     listEl.innerHTML = rows.map((m, i) => /*html*/`
       <div class="bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 rounded-2xl p-4 flex items-center gap-4">
         <img src="${Staff.esc(Media.publicUrl('team-photos', m.photo_path) || UI._PLACEHOLDER_AVATAR)}" alt="" class="w-12 h-12 rounded-full object-cover bg-skynex-gray dark:bg-neutral-950 shrink-0">
@@ -23,13 +23,13 @@
             <p class="font-bold text-skynex-dark dark:text-white truncate">${Staff.esc(m.full_name)}</p>
             ${Staff.statusBadge(m.is_active ? 'visible' : 'hidden')}
           </div>
-          <p class="text-sm text-slate-500 dark:text-slate-400 truncate">${Staff.esc(m.position_title)}</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400 truncate">${Staff.esc(m.position_title)}</p>
         </div>
         <div class="shrink-0 flex items-center gap-1">
-          <button data-up="${m.id}" ${i === 0 ? 'disabled' : ''} class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-skynex-dark dark:hover:text-white disabled:opacity-30 transition-colors" aria-label="Move up"><i class="fa-solid fa-chevron-up text-xs"></i></button>
-          <button data-down="${m.id}" ${i === rows.length - 1 ? 'disabled' : ''} class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-skynex-dark dark:hover:text-white disabled:opacity-30 transition-colors" aria-label="Move down"><i class="fa-solid fa-chevron-down text-xs"></i></button>
-          <button data-edit="${m.id}" class="w-9 h-9 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:border-skynex-dark transition-colors ml-1" aria-label="Edit"><i class="fa-solid fa-pen text-xs"></i></button>
-          <button data-delete="${m.id}" class="w-9 h-9 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-red-600 hover:border-red-600 transition-colors" aria-label="Delete"><i class="fa-solid fa-trash text-xs"></i></button>
+          <button data-up="${m.id}" ${i === 0 ? 'disabled' : ''} class="w-8 h-8 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white disabled:opacity-30 transition-colors" aria-label="Move up"><i aria-hidden="true" class="fa-solid fa-chevron-up text-xs"></i></button>
+          <button data-down="${m.id}" ${i === rows.length - 1 ? 'disabled' : ''} class="w-8 h-8 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white disabled:opacity-30 transition-colors" aria-label="Move down"><i aria-hidden="true" class="fa-solid fa-chevron-down text-xs"></i></button>
+          <button data-edit="${m.id}" class="w-9 h-9 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:border-skynex-dark transition-colors ml-1" aria-label="Edit"><i aria-hidden="true" class="fa-solid fa-pen text-xs"></i></button>
+          <button data-delete="${m.id}" class="w-9 h-9 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-red-600 dark:text-red-400 hover:border-red-600 transition-colors" aria-label="Delete"><i aria-hidden="true" class="fa-solid fa-trash text-xs"></i></button>
         </div>
       </div>`).join('');
     listEl.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => openForm(rows.find(r => r.id === b.dataset.edit))));
@@ -68,20 +68,20 @@
     const isEdit = !!existing;
     const { body, close } = Staff.drawer({ title: isEdit ? 'Edit Member' : 'Add Member', html: /*html*/`
       <form data-form class="space-y-5">
-        <div><label class="${Staff.labelCls}">Full name</label><input data-name required maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(existing?.full_name || '')}"></div>
-        <div><label class="${Staff.labelCls}">Position / title</label><input data-title required maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(existing?.position_title || '')}"></div>
-        <div><label class="${Staff.labelCls}">Bio <span class="normal-case font-normal text-slate-400">(optional)</span></label><textarea data-bio rows="4" class="${Staff.inputCls}">${Staff.esc(existing?.bio || '')}</textarea></div>
+        <div><label for="ld-1" class="${Staff.labelCls}">Full name</label><input id="ld-1" data-name required maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(existing?.full_name || '')}"></div>
+        <div><label for="ld-2" class="${Staff.labelCls}">Position / title</label><input id="ld-2" data-title required maxlength="120" class="${Staff.inputCls}" value="${Staff.esc(existing?.position_title || '')}"></div>
+        <div><label for="ld-3" class="${Staff.labelCls}">Bio <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(optional)</span></label><textarea id="ld-3" data-bio rows="4" class="${Staff.inputCls}">${Staff.esc(existing?.bio || '')}</textarea></div>
         <div>
-          <label class="${Staff.labelCls}">Photo <span class="normal-case font-normal text-slate-400">(optional, cropped to a portrait automatically)</span></label>
+          <label for="ld-4" class="${Staff.labelCls}">Photo <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(optional, cropped to a portrait automatically)</span></label>
           ${existing?.photo_path ? `<img src="${Staff.esc(Media.publicUrl('team-photos', existing.photo_path))}" class="w-24 aspect-[4/5] object-cover rounded-lg mb-2 bg-skynex-gray dark:bg-neutral-950">` : ''}
-          <input data-photo type="file" accept="image/png,image/jpeg,image/webp" class="text-sm">
+          <input id="ld-4" data-photo type="file" accept="image/png,image/jpeg,image/webp" class="text-sm">
         </div>
         <div class="grid grid-cols-2 gap-4">
-          <div><label class="${Staff.labelCls}">LinkedIn URL</label><input data-linkedin type="url" placeholder="https://linkedin.com/in/…" class="${Staff.inputCls}" value="${Staff.esc(existing?.linkedin_url || '')}"></div>
-          <div><label class="${Staff.labelCls}">Instagram URL</label><input data-instagram type="url" placeholder="https://instagram.com/…" class="${Staff.inputCls}" value="${Staff.esc(existing?.instagram_url || '')}"></div>
+          <div><label for="ld-5" class="${Staff.labelCls}">LinkedIn URL</label><input id="ld-5" data-linkedin type="url" placeholder="https://linkedin.com/in/…" class="${Staff.inputCls}" value="${Staff.esc(existing?.linkedin_url || '')}"></div>
+          <div><label for="ld-6" class="${Staff.labelCls}">Instagram URL</label><input id="ld-6" data-instagram type="url" placeholder="https://instagram.com/…" class="${Staff.inputCls}" value="${Staff.esc(existing?.instagram_url || '')}"></div>
         </div>
-        <label class="flex items-center gap-2 text-sm text-skynex-dark dark:text-white"><input type="checkbox" data-active ${existing ? (existing.is_active ? 'checked' : '') : 'checked'}> Visible on the public Leadership page</label>
-        <p data-error class="hidden text-sm text-red-600"></p>
+        <label for="ld-7" class="flex items-center gap-2 text-sm text-skynex-dark dark:text-white"><input id="ld-7" type="checkbox" data-active ${existing ? (existing.is_active ? 'checked' : '') : 'checked'}> Visible on the public Leadership page</label>
+        <p data-error role="alert" class="hidden text-sm text-red-600 dark:text-red-400"></p>
         <button type="submit" data-submit class="${Staff.primaryBtn} w-full">${isEdit ? 'Save Changes' : 'Add Member'}</button>
       </form>` });
 
@@ -139,7 +139,7 @@
   }
 
   const { data, error } = await db.from('leadership_members').select('*').order('display_order', { ascending: true });
-  if (error) { listEl.innerHTML = `<p class="text-center text-red-600 py-16">Could not load the leadership list.</p>`; return; }
+  if (error) { listEl.innerHTML = `<p class="text-center text-red-600 dark:text-red-400 py-16">Could not load the leadership list.</p>`; return; }
   rows = data;
   renderList();
 })();

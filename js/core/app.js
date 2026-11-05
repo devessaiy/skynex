@@ -64,26 +64,38 @@ const AppController = {
   },
 
   // --- 2. Mobile Footer Accordion Logic ---
+  // Footer columns: on phones each heading is a real disclosure button (aria-expanded) and a collapsed column is
+  // inert, so keyboard users never tab into links they cannot see. From md up the columns are always open and the
+  // heading button is skipped by Tab.
   initFooterAccordion: () => {
-    const footerBtns = document.querySelectorAll('.footer-btn');
-    footerBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Only execute accordion toggle on mobile screens (less than 768px wide)
-        if (window.innerWidth >= 768) return;
-
-        const content = btn.nextElementSibling;
-        const icon = btn.querySelector('i');
-        const isOpen = content.classList.contains('grid-rows-[1fr]');
-
-        if (isOpen) {
-          content.classList.replace('grid-rows-[1fr]', 'grid-rows-[0fr]');
-          icon.classList.replace('fa-minus', 'fa-plus');
-        } else {
-          content.classList.replace('grid-rows-[0fr]', 'grid-rows-[1fr]');
-          icon.classList.replace('fa-plus', 'fa-minus');
-        }
-      });
+    const desktop = window.matchMedia('(min-width: 768px)');
+    const buttons = [...document.querySelectorAll('.footer-btn')];
+    const setOpen = (btn, open) => {
+      const panel = document.getElementById(btn.getAttribute('aria-controls'));
+      const icon = btn.querySelector('i');
+      btn.setAttribute('aria-expanded', String(open));
+      if (panel) {
+        panel.classList.toggle('grid-rows-[1fr]', open); panel.classList.toggle('grid-rows-[0fr]', !open);
+        panel.inert = !open;
+      }
+      if (icon) { icon.classList.toggle('fa-minus', open); icon.classList.toggle('fa-plus', !open); }
+    };
+    const layout = () => buttons.forEach(btn => {
+      const panel = document.getElementById(btn.getAttribute('aria-controls'));
+      if (desktop.matches) {                       // desktop: always open, heading is not a control
+        btn.tabIndex = -1; btn.removeAttribute('aria-expanded'); if (panel) panel.inert = false;
+      } else {                                     // phone: collapsed unless the person opened it
+        btn.tabIndex = 0; setOpen(btn, btn.dataset.open === '1');
+      }
     });
+    buttons.forEach(btn => btn.addEventListener('click', () => {
+      if (desktop.matches) return;
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.dataset.open = open ? '1' : '0';
+      setOpen(btn, open);
+    }));
+    layout();
+    if (desktop.addEventListener) desktop.addEventListener('change', layout); else desktop.addListener(layout);
   },
 
   // --- 3. Navbar Scroll Effect ---
@@ -126,6 +138,7 @@ const AppController = {
     AppController.initMobileMenu();
     AppController.initFooterAccordion();
     AppController.markActiveNav();
+    const mainEl = document.getElementById('app-root'); if (mainEl) mainEl.setAttribute('tabindex', '-1');   // lets the skip link move focus into the page
     AppController.initCookieSettingsLink();
 
     // Coming back with the browser Back button can restore the page from cache with the

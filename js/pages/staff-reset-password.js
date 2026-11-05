@@ -14,13 +14,13 @@
     try {
       await Auth.updatePassword(password);
       msg.textContent = 'Password updated. Redirecting…';
-      msg.classList.remove('hidden', 'text-red-600');
+      msg.classList.remove('hidden', 'text-red-600', 'dark:text-red-400');
       msg.classList.add('text-green-600');
       setTimeout(() => window.location.assign('/staff/dashboard'), 1200);
     } catch (err) {
       msg.textContent = 'Could not update password. The reset link may have expired — request a new one from the login page.';
       msg.classList.remove('hidden', 'text-green-600');
-      msg.classList.add('text-red-600');
+      msg.classList.add('text-red-600', 'dark:text-red-400');
       btn.disabled = false;
     }
   });

@@ -8,7 +8,7 @@
   let rows = [];
 
   main.innerHTML = Staff.pageHeader('News', 'Posts you publish here go live immediately and are removed automatically after 7 days.',
-    `<button data-new class="${Staff.primaryBtn}"><i class="fa-solid fa-plus"></i> New Post</button>`);
+    `<button data-new class="${Staff.primaryBtn}"><i aria-hidden="true" class="fa-solid fa-plus"></i> New Post</button>`);
   const listEl = document.createElement('div');
   listEl.className = 'space-y-3';
   main.appendChild(listEl);
@@ -17,7 +17,7 @@
   const daysLeft = (expires_at) => Math.max(0, Math.ceil((new Date(expires_at) - Date.now()) / 86400000));
 
   function renderList() {
-    if (!rows.length) { listEl.innerHTML = `<p class="text-center text-slate-400 font-light py-16">No news posts yet. Create the first one.</p>`; return; }
+    if (!rows.length) { listEl.innerHTML = `<p class="text-center text-slate-600 dark:text-slate-400 font-light py-16">No news posts yet. Create the first one.</p>`; return; }
     listEl.innerHTML = rows.map(p => {
       const left = daysLeft(p.expires_at);
       return /*html*/`
@@ -25,13 +25,13 @@
         <div class="min-w-0">
           <div class="flex items-center gap-2 mb-1 flex-wrap">
             <p class="font-bold text-skynex-dark dark:text-white truncate">${Staff.esc(p.title)}</p>
-            <span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${left <= 1 ? 'bg-amber-50 dark:bg-amber-950/30 text-amber-700' : 'bg-green-50 dark:bg-green-950/30 text-green-700'}">${left === 0 ? 'expires today' : `${left}d left`}</span>
+            <span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${left <= 1 ? 'bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400' : 'bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400'}">${left === 0 ? 'expires today' : `${left}d left`}</span>
           </div>
-          <p class="text-sm text-slate-500 dark:text-slate-400 truncate">${Staff.esc(p.author_name)} · published ${Staff.esc(Staff.formatDate(p.published_at))}</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400 truncate">${Staff.esc(p.author_name)} · published ${Staff.esc(Staff.formatDate(p.published_at))}</p>
         </div>
         <div class="shrink-0 flex gap-2">
-          <button data-edit="${p.id}" class="w-9 h-9 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:border-skynex-dark transition-colors" aria-label="Edit"><i class="fa-solid fa-pen text-xs"></i></button>
-          <button data-delete="${p.id}" class="w-9 h-9 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-red-600 hover:border-red-600 transition-colors" aria-label="Delete"><i class="fa-solid fa-trash text-xs"></i></button>
+          <button data-edit="${p.id}" class="w-9 h-9 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:border-skynex-dark transition-colors" aria-label="Edit"><i aria-hidden="true" class="fa-solid fa-pen text-xs"></i></button>
+          <button data-delete="${p.id}" class="w-9 h-9 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-red-600 dark:text-red-400 hover:border-red-600 transition-colors" aria-label="Delete"><i aria-hidden="true" class="fa-solid fa-trash text-xs"></i></button>
         </div>
       </div>`;
     }).join('');
@@ -57,22 +57,22 @@
     const isEdit = !!existing;
     const { body, close } = Staff.drawer({ title: isEdit ? 'Edit Post' : 'New Post', html: /*html*/`
       <form data-form class="space-y-5">
-        <div><label class="${Staff.labelCls}">Title</label><input data-title required maxlength="200" class="${Staff.inputCls}" value="${Staff.esc(existing?.title || '')}"></div>
-        <div><label class="${Staff.labelCls}">Excerpt <span class="normal-case font-normal text-slate-400">(shown on the News list, optional)</span></label><input data-excerpt maxlength="400" class="${Staff.inputCls}" value="${Staff.esc(existing?.excerpt || '')}"></div>
-        <div><label class="${Staff.labelCls}">Body</label><textarea data-body required rows="8" class="${Staff.inputCls}">${Staff.esc(existing?.body || '')}</textarea></div>
+        <div><label for="nw-1" class="${Staff.labelCls}">Title</label><input id="nw-1" data-title required maxlength="200" class="${Staff.inputCls}" value="${Staff.esc(existing?.title || '')}"></div>
+        <div><label for="nw-2" class="${Staff.labelCls}">Excerpt <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(shown on the News list, optional)</span></label><input id="nw-2" data-excerpt maxlength="400" class="${Staff.inputCls}" value="${Staff.esc(existing?.excerpt || '')}"></div>
+        <div><label for="nw-3" class="${Staff.labelCls}">Body</label><textarea id="nw-3" data-body required rows="8" class="${Staff.inputCls}">${Staff.esc(existing?.body || '')}</textarea></div>
         <div>
-          <label class="${Staff.labelCls}">Featured image <span class="normal-case font-normal text-slate-400">(optional, compressed automatically)</span></label>
+          <label for="nw-4" class="${Staff.labelCls}">Featured image <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(optional, compressed automatically)</span></label>
           ${existing?.image_path ? `<img src="${Staff.esc(Media.publicUrl('news-media', existing.image_path))}" class="w-full aspect-video object-cover rounded-lg mb-2 bg-skynex-gray dark:bg-neutral-950">` : ''}
-          <input data-image type="file" accept="image/png,image/jpeg,image/webp" class="text-sm">
-          ${existing?.image_path ? `<label class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-2"><input type="checkbox" data-remove-image> Remove current image</label>` : ''}
+          <input id="nw-4" data-image type="file" accept="image/png,image/jpeg,image/webp" class="text-sm">
+          ${existing?.image_path ? `<label for="nw-5" class="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 mt-2"><input id="nw-5" type="checkbox" data-remove-image> Remove current image</label>` : ''}
         </div>
         <div>
-          <label class="${Staff.labelCls}">Video <span class="normal-case font-normal text-slate-400">(optional, MP4/WebM, 50MB max)</span></label>
-          ${existing?.video_path ? `<p class="text-xs text-slate-500 dark:text-slate-400 mb-2"><i class="fa-solid fa-circle-play"></i> Current video attached</p>` : ''}
-          <input data-video type="file" accept="video/mp4,video/webm" class="text-sm">
-          ${existing?.video_path ? `<label class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-2"><input type="checkbox" data-remove-video> Remove current video</label>` : ''}
+          <label for="nw-6" class="${Staff.labelCls}">Video <span class="normal-case font-normal text-slate-600 dark:text-slate-400">(optional, MP4/WebM, 50MB max)</span></label>
+          ${existing?.video_path ? `<p class="text-xs text-slate-600 dark:text-slate-400 mb-2"><i aria-hidden="true" class="fa-solid fa-circle-play"></i> Current video attached</p>` : ''}
+          <input id="nw-6" data-video type="file" accept="video/mp4,video/webm" class="text-sm">
+          ${existing?.video_path ? `<label for="nw-7" class="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 mt-2"><input id="nw-7" type="checkbox" data-remove-video> Remove current video</label>` : ''}
         </div>
-        <p data-error class="hidden text-sm text-red-600"></p>
+        <p data-error role="alert" class="hidden text-sm text-red-600 dark:text-red-400"></p>
         <div class="flex gap-3 pt-2">
           <button type="submit" data-submit class="${Staff.primaryBtn} flex-1">${isEdit ? 'Save Changes' : 'Publish'}</button>
         </div>
@@ -145,7 +145,7 @@
   }
 
   const { data, error } = await db.from('news_posts').select('*').order('published_at', { ascending: false });
-  if (error) { listEl.innerHTML = `<p class="text-center text-red-600 py-16">Could not load news posts.</p>`; return; }
+  if (error) { listEl.innerHTML = `<p class="text-center text-red-600 dark:text-red-400 py-16">Could not load news posts.</p>`; return; }
   rows = data;
   renderList();
 })();

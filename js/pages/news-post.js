@@ -15,7 +15,7 @@ const setMeta = (sel, attr, val) => { let el = document.head.querySelector(sel);
     box.innerHTML = /*html*/`
       <div class="text-center py-16">
         <h1 class="text-3xl md:text-4xl font-bold text-skynex-dark dark:text-white tracking-tighter mb-4">${text}</h1>
-        <a href="/news" class="text-sm font-bold uppercase tracking-widest text-skynex-blue hover:text-skynex-dark dark:hover:text-white transition-colors">Back to news</a>
+        <a href="/news" class="text-sm font-bold uppercase tracking-widest text-skynex-bluetext dark:text-skynex-bluelight hover:text-skynex-dark dark:hover:text-white transition-colors">Back to news</a>
       </div>`;
   };
 
@@ -37,11 +37,11 @@ const setMeta = (sel, attr, val) => { let el = document.head.querySelector(sel);
     const shareUrl = `${AppConfig.siteUrl}/news-post?id=${encodeURIComponent(p.id)}`;   // same link for everyone, whatever address they opened
 
     box.innerHTML = /*html*/`
-      <a href="/news" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white transition-colors mb-10">
-        <i class="fa-solid fa-arrow-left text-[10px]"></i> All news
+      <a href="/news" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white transition-colors mb-10">
+        <i aria-hidden="true" class="fa-solid fa-arrow-left text-[10px]"></i> All news
       </a>
       <h1 class="text-4xl md:text-5xl font-bold text-skynex-dark dark:text-white tracking-tighter leading-tight mb-6">${UI.esc(p.title)}</h1>
-      <p class="text-sm text-slate-500 dark:text-slate-400 mb-10">
+      <p class="text-sm text-slate-600 dark:text-slate-400 mb-10">
         <span class="font-semibold text-skynex-dark dark:text-white">${UI.esc(p.author_name)}</span>${p.author_title ? ` · ${UI.esc(p.author_title)}` : ''} · ${UI.esc(PublicAPI.formatDate(p.published_at))}
       </p>
       ${img ? `<img src="${UI.esc(img)}" alt="" decoding="async" class="w-full rounded-2xl mb-10 bg-skynex-gray dark:bg-neutral-950">` : ''}

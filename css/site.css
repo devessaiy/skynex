@@ -75,7 +75,7 @@
   --sx-canvas: #f7f7f7;
   --sx-surface: #ffffff;
   --sx-ink: #111113;
-  --sx-ink-soft: #85858b;
+  --sx-ink-soft: #65656c;
   --sx-line: #e3e3e6;
   --sx-accent: #1976D2;
   --sx-dot: 17, 17, 19;              /* rgb triplet used by the hero dot field */
@@ -194,7 +194,7 @@
 .search-opt__cat { flex: none; font-size: .75rem; color: var(--sx-ink-soft); }
 .search-opt__desc { display: block; margin-top: .15rem; font-size: .82rem; color: var(--sx-ink-soft); line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .search-pop__note { padding: .7rem .8rem; font-size: .85rem; color: var(--sx-ink-soft); }
-.search-pop mark, .search-result mark { background: rgba(25, 118, 210, .18); color: inherit; border-radius: 3px; padding: 0 1px; }
+.search-pop mark, .search-result mark { background: rgba(25, 118, 210, .14); color: var(--sx-ink); border-radius: 3px; padding: 0 1px; }
 
 /* Dot-matrix field built from the Skynex mark (see js/features/hero-field.js) */
 .hero__field { position: relative; min-height: clamp(7rem, 20vh, 16rem); max-height: min(26rem, 36vh); width: 100%; max-width: 78rem; margin-inline: auto; }
@@ -261,3 +261,12 @@
 }
 .consent__btn:hover { opacity: .88; }
 @media (max-width: 480px) { .consent__actions { width: 100%; } .consent__btn { flex: 1; } }
+
+/* ---- Skip link: first Tab stop on every page, visible only when focused ---- */
+.skip-link {
+  position: absolute; left: .75rem; top: -4rem; z-index: 100; padding: .7rem 1.1rem; border-radius: 999px;
+  background: var(--sx-ink); color: var(--sx-canvas); font-weight: 600; font-size: .875rem; text-decoration: none;
+  transition: top .15s ease;
+}
+.skip-link:focus { top: max(.75rem, env(safe-area-inset-top, 0px)); }
+#app-root:focus, #staff-main:focus { outline: none; }

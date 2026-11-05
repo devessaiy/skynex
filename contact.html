@@ -49,20 +49,20 @@
                   <h2 class="text-2xl font-bold text-skynex-dark dark:text-white mb-8">Send an Inquiry</h2>
                   <form data-contact-form class="space-y-8">
                     <div>
-                      <label class="block text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400 mb-2">Full Name</label>
-                      <input data-contact-name maxlength="100" type="text" required class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark dark:text-white focus:outline-none focus:border-skynex-dark transition-colors" placeholder="Jane Doe">
+                      <label for="ct-1" class="block text-xs font-bold tracking-widest uppercase text-slate-600 dark:text-slate-400 mb-2">Full Name</label>
+                      <input id="ct-1" data-contact-name autocomplete="name" maxlength="100" type="text" required class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark dark:text-white focus:outline-none focus:border-skynex-dark transition-colors" placeholder="Jane Doe">
                     </div>
                     <div>
-                      <label class="block text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400 mb-2">Email Address</label>
-                      <input data-contact-email maxlength="254" type="email" required class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark dark:text-white focus:outline-none focus:border-skynex-dark transition-colors" placeholder="jane@company.com">
+                      <label for="ct-2" class="block text-xs font-bold tracking-widest uppercase text-slate-600 dark:text-slate-400 mb-2">Email Address</label>
+                      <input id="ct-2" data-contact-email autocomplete="email" maxlength="254" type="email" required class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark dark:text-white focus:outline-none focus:border-skynex-dark transition-colors" placeholder="jane@company.com">
                     </div>
                     <div>
-                      <label class="block text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400 mb-2">Company Name</label>
-                      <input data-contact-company maxlength="150" type="text" class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark dark:text-white focus:outline-none focus:border-skynex-dark transition-colors" placeholder="Company Ltd. (optional)">
+                      <label for="ct-3" class="block text-xs font-bold tracking-widest uppercase text-slate-600 dark:text-slate-400 mb-2">Company Name</label>
+                      <input id="ct-3" data-contact-company autocomplete="organization" maxlength="150" type="text" class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark dark:text-white focus:outline-none focus:border-skynex-dark transition-colors" placeholder="Company Ltd. (optional)">
                     </div>
                     <div>
-                      <label class="block text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400 mb-2">Service Needed</label>
-                      <select data-contact-service required class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark dark:text-white focus:outline-none focus:border-skynex-dark transition-colors">
+                      <label for="ct-4" class="block text-xs font-bold tracking-widest uppercase text-slate-600 dark:text-slate-400 mb-2">Service Needed</label>
+                      <select id="ct-4" data-contact-service required class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark dark:text-white focus:outline-none focus:border-skynex-dark transition-colors">
                         <option value="" disabled selected>Select a service</option>
                         <option value="Web Development">Web Development</option>
                         <option value="Custom App">Custom App</option>
@@ -74,8 +74,8 @@
                       </select>
                     </div>
                     <div>
-                      <label class="block text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400 mb-2">Project Budget <span class="normal-case font-normal tracking-normal">(optional)</span></label>
-                      <select data-contact-budget class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark dark:text-white focus:outline-none focus:border-skynex-dark transition-colors">
+                      <label for="ct-5" class="block text-xs font-bold tracking-widest uppercase text-slate-600 dark:text-slate-400 mb-2">Project Budget <span class="normal-case font-normal tracking-normal">(optional)</span></label>
+                      <select id="ct-5" data-contact-budget class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark dark:text-white focus:outline-none focus:border-skynex-dark transition-colors">
                         <option value="" selected>Prefer not to say</option>
                         <option value="Under ₦500,000">Under ₦500,000</option>
                         <option value="₦500,000 - ₦2,000,000">₦500,000 - ₦2,000,000</option>
@@ -86,11 +86,11 @@
                       </select>
                     </div>
                     <div>
-                      <label class="block text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400 mb-2">Message or Requirement</label>
-                      <textarea data-contact-message maxlength="5000" rows="4" required class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark dark:text-white focus:outline-none focus:border-skynex-dark transition-colors resize-none" placeholder="How can we assist your business?"></textarea>
+                      <label for="ct-6" class="block text-xs font-bold tracking-widest uppercase text-slate-600 dark:text-slate-400 mb-2">Message or Requirement</label>
+                      <textarea id="ct-6" data-contact-message maxlength="5000" rows="4" required class="w-full bg-transparent border-b border-slate-300 py-3 text-skynex-dark dark:text-white focus:outline-none focus:border-skynex-dark transition-colors resize-none" placeholder="How can we assist your business?"></textarea>
                     </div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 font-light leading-relaxed">We use the details you send only to respond to your enquiry. Read our <a href="/privacy-policy" class="underline hover:text-skynex-dark dark:hover:text-white">Privacy Policy</a> to see how your information is handled and how to request its correction or deletion.</p>
-                    <p data-contact-status class="text-sm font-medium hidden"></p>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 font-light leading-relaxed">We use the details you send only to respond to your enquiry. Read our <a href="/privacy-policy" class="underline hover:text-skynex-dark dark:hover:text-white">Privacy Policy</a> to see how your information is handled and how to request its correction or deletion.</p>
+                    <p data-contact-status role="status" aria-live="polite" class="text-sm font-medium hidden"></p>
                     <button type="submit" data-contact-submit class="px-10 py-4 bg-skynex-dark text-white text-sm font-bold tracking-widest uppercase rounded-full hover:bg-slate-800 transition-colors disabled:opacity-50">
                       Submit Message
                     </button>
@@ -101,15 +101,15 @@
                   <h2 class="text-2xl font-bold text-skynex-dark dark:text-white mb-10">Corporate Headquarters</h2>
                   <div class="space-y-8">
                     <div>
-                      <p class="text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400 mb-2">Address</p>
+                      <p class="text-xs font-bold tracking-widest uppercase text-slate-600 dark:text-slate-400 mb-2">Address</p>
                       <p class="text-lg text-skynex-dark dark:text-white font-light leading-relaxed">KS Pawa Plaza,<br>Shuaibu Dagaci St.,<br>Suleja, Niger State,<br>Nigeria.</p>
                     </div>
                     <div>
-                      <p class="text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400 mb-2">Electronic Mail</p>
-                      <a href="mailto:skynexsolutionslimited@gmail.com" class="text-lg text-skynex-blue hover:text-skynex-dark dark:hover:text-white transition-colors">skynexsolutionslimited@gmail.com</a>
+                      <p class="text-xs font-bold tracking-widest uppercase text-slate-600 dark:text-slate-400 mb-2">Electronic Mail</p>
+                      <a href="mailto:skynexsolutionslimited@gmail.com" class="text-lg text-skynex-bluetext dark:text-skynex-bluelight hover:text-skynex-dark dark:hover:text-white transition-colors">skynexsolutionslimited@gmail.com</a>
                     </div>
                     <div class="pt-8 border-t border-slate-200">
-                      <p class="text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400 mb-2">Corporate Registration</p>
+                      <p class="text-xs font-bold tracking-widest uppercase text-slate-600 dark:text-slate-400 mb-2">Corporate Registration</p>
                       <p class="text-lg text-skynex-dark dark:text-white font-light">CAC RC: 9757226</p>
                     </div>
                   </div>

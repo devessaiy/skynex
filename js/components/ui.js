@@ -35,7 +35,7 @@ const UI = {
   TeamCard: (member) => {
     const social = (href, icon, label) => href ? /*html*/`
       <a href="${UI.esc(href)}" target="_blank" rel="noopener noreferrer" aria-label="${UI.esc(member.name)} on ${label}" class="w-8 h-8 rounded-full border border-skynex-border dark:border-neutral-800 flex items-center justify-center text-skynex-dark dark:text-white hover:bg-skynex-dark hover:text-white hover:border-skynex-dark transition-colors">
-        <i class="fa-brands ${icon} text-xs"></i>
+        <i aria-hidden="true" class="fa-brands ${icon} text-xs"></i>
       </a>` : '';
     const links = social(member.linkedin, 'fa-linkedin-in', 'LinkedIn') + social(member.instagram, 'fa-instagram', 'Instagram');
     return /*html*/`
@@ -44,9 +44,9 @@ const UI = {
         <img src="${UI.esc(member.photo || UI._PLACEHOLDER_AVATAR)}" alt="${UI.esc(member.name)}" loading="lazy" decoding="async" width="400" height="500" class="w-full h-full object-cover">
       </div>
       <div class="pt-6">
-        <h3 class="text-base font-bold text-skynex-dark dark:text-white uppercase tracking-widest mb-1">${UI.esc(member.name)}</h3>
-        <p class="text-sm text-slate-500 dark:text-slate-400 font-medium mb-4">${UI.esc(member.role)}</p>
-        ${member.description ? `<p class="text-sm text-slate-500 dark:text-slate-400 font-light leading-relaxed mb-5">${UI.esc(member.description)}</p>` : ''}
+        <h2 class="text-base font-bold text-skynex-dark dark:text-white uppercase tracking-widest mb-1">${UI.esc(member.name)}</h2>
+        <p class="text-sm text-slate-600 dark:text-slate-400 font-medium mb-4">${UI.esc(member.role)}</p>
+        ${member.description ? `<p class="text-sm text-slate-600 dark:text-slate-400 font-light leading-relaxed mb-5">${UI.esc(member.description)}</p>` : ''}
         ${links ? `<div class="flex items-center gap-3">${links}</div>` : ''}
       </div>
     </div>`;
@@ -65,13 +65,17 @@ const UI = {
 
   // One footer accordion column (heading + list of links).
   // Mobile: heading and links are left-aligned. Desktop (md+) layout is unchanged.
-  FooterColumn: (column) => /*html*/`
+  FooterColumn: (column) => {
+    const id = 'footer-panel-' + String(column.title).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    return /*html*/`
     <div class="border-b border-slate-100 md:border-none">
-      <button class="footer-btn relative w-full flex justify-start items-center md:pointer-events-none py-4 md:py-0">
-        <h4 class="text-sm font-bold text-skynex-dark dark:text-white uppercase tracking-widest md:mb-6">${column.title}</h4>
-        <i class="fa-solid fa-plus absolute right-0 md:hidden text-skynex-dark dark:text-white transition-transform duration-300"></i>
-      </button>
-      <div class="grid grid-rows-[0fr] md:grid-rows-[1fr] transition-[grid-template-rows] duration-300">
+      <h2 class="m-0">
+        <button type="button" class="footer-btn relative w-full flex justify-start items-center md:pointer-events-none py-4 md:py-0" aria-expanded="false" aria-controls="${id}">
+          <span class="text-sm font-bold text-skynex-dark dark:text-white uppercase tracking-widest md:mb-6">${column.title}</span>
+          <i class="fa-solid fa-plus absolute right-0 md:hidden text-skynex-dark dark:text-white transition-transform duration-300" aria-hidden="true"></i>
+        </button>
+      </h2>
+      <div id="${id}" data-footer-panel class="grid grid-rows-[0fr] md:grid-rows-[1fr] transition-[grid-template-rows] duration-300">
         <div class="overflow-hidden">
           <ul class="space-y-4 pb-6 md:pb-0 text-left">
             ${column.links.map(link => UI.FooterLink(link)).join('')}
@@ -79,7 +83,8 @@ const UI = {
         </div>
       </div>
     </div>
-  `,
+  `;
+  },
 
   // Numbered section for a legal document (Privacy Policy / Terms / Legal Information).
   // bodyHtml is raw HTML — wrap paragraphs in <p class="..."> and lists in <ul class="...">
@@ -97,15 +102,15 @@ const UI = {
   // one-line description and an "external link" icon for links that leave the SPA router).
   SitemapColumn: (col) => /*html*/`
     <div>
-      <h3 class="text-sm font-bold text-skynex-dark dark:text-white uppercase tracking-widest mb-6 pb-2 border-b-2 border-skynex-dark inline-block">${col.title}</h3>
+      <h2 class="text-sm font-bold text-skynex-dark dark:text-white uppercase tracking-widest mb-6 pb-2 border-b-2 border-skynex-dark inline-block">${col.title}</h2>
       <ul class="space-y-5 mt-6">
         ${col.links.map(l => /*html*/`
           <li>
             <a href="${l.href}"${l.newTab ? ' target="_blank" rel="noopener noreferrer"' : ''} class="text-base font-medium text-skynex-dark dark:text-white hover:text-skynex-blue hover:underline transition-colors inline-flex items-center gap-2">
               ${l.label}
-              ${l.newTab ? '<i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-50"></i>' : ''}
+              ${l.newTab ? '<i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-50"></i>' : ''}
             </a>
-            ${l.desc ? `<p class="text-sm text-slate-500 dark:text-slate-400 font-light mt-1">${l.desc}</p>` : ''}
+            ${l.desc ? `<p class="text-sm text-slate-600 dark:text-slate-400 font-light mt-1">${l.desc}</p>` : ''}
           </li>
         `).join('')}
       </ul>
@@ -114,10 +119,10 @@ const UI = {
 
   FooterLink: (link) => {
     const cls = link.accent
-      ? 'text-sm font-semibold text-skynex-blue hover:underline transition-all'
+      ? 'text-sm font-semibold text-skynex-bluetext dark:text-skynex-bluelight hover:underline transition-all'
       : 'text-sm text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:underline transition-all';
     const target = link.newTab ? ' target="_blank" rel="noopener noreferrer"' : '';
-    const icon = link.icon ? ' <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1 opacity-50"></i>' : '';
+    const icon = link.icon ? ' <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1 opacity-50"></i>' : '';
     return /*html*/`<li><a href="${link.href}"${target} class="${cls}">${link.label}${icon}</a></li>`;
   }
 };

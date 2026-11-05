@@ -15,7 +15,7 @@ const Share = {
         class="share-btn w-11 h-11 rounded-full border border-skynex-border dark:border-neutral-700 flex items-center justify-center text-skynex-dark dark:text-white hover:bg-skynex-dark hover:text-white hover:border-skynex-dark transition-colors"><i class="${icon}" aria-hidden="true"></i></button>`;
     return /*html*/`
       <section data-share class="mt-12 pt-8 border-t border-skynex-border dark:border-neutral-800" aria-labelledby="share-heading">
-        <h2 id="share-heading" class="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-4">Share this article</h2>
+        <h2 id="share-heading" class="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400 mb-4">Share this article</h2>
         <div class="flex flex-wrap items-center gap-3">
           ${btn('data-share-native hidden', 'fa-solid fa-share-nodes', 'Share using your device')}
           ${link(`https://wa.me/?text=${t}%20${u}`, 'fa-brands fa-whatsapp', 'WhatsApp')}
@@ -25,7 +25,7 @@ const Share = {
           ${link(`mailto:?subject=${t}&body=${t}%0A%0A${u}`, 'fa-solid fa-envelope', 'Email').replace(' target="_blank" rel="noopener noreferrer"', '').replace(' (opens in a new tab)', '')}
           ${btn('data-share-copy', 'fa-solid fa-link', 'Copy link')}
         </div>
-        <p data-share-status role="status" aria-live="polite" class="mt-3 text-sm text-slate-500 dark:text-slate-400 min-h-[1.25rem]"></p>
+        <p data-share-status role="status" aria-live="polite" class="mt-3 text-sm text-slate-600 dark:text-slate-400 min-h-[1.25rem]"></p>
       </section>`;
   },
 

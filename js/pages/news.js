@@ -19,7 +19,7 @@
 
   const message = (text) => {
     list.className = '';
-    list.innerHTML = `<p class="text-center text-slate-500 dark:text-slate-400 font-light py-16">${text}</p>`;
+    list.innerHTML = `<p class="text-center text-slate-600 dark:text-slate-400 font-light py-16">${text}</p>`;
   };
 
   try {
@@ -36,13 +36,13 @@
         <a href="/news-post?id=${encodeURIComponent(p.id)}" class="group bg-white dark:bg-neutral-900 border border-skynex-border dark:border-neutral-800 rounded-2xl overflow-hidden flex flex-col hover:border-skynex-dark transition-colors">
           <div class="aspect-video bg-skynex-gray dark:bg-neutral-950 overflow-hidden">
             ${img ? `<img src="${UI.esc(img)}" alt="" ${i < 3 ? '' : 'loading="lazy"'} decoding="async" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500">`
-                  : `<div class="w-full h-full flex items-center justify-center text-slate-300"><i class="fa-regular fa-newspaper text-4xl"></i></div>`}
+                  : `<div class="w-full h-full flex items-center justify-center text-slate-300"><i aria-hidden="true" class="fa-regular fa-newspaper text-4xl"></i></div>`}
           </div>
           <div class="p-6 md:p-8 flex flex-col flex-1">
-            <p class="text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400 mb-3">${UI.esc(PublicAPI.formatDate(p.published_at))}</p>
+            <p class="text-xs font-bold tracking-widest uppercase text-slate-600 dark:text-slate-400 mb-3">${UI.esc(PublicAPI.formatDate(p.published_at))}</p>
             <h2 class="text-xl md:text-2xl font-bold text-skynex-dark dark:text-white tracking-tight leading-snug mb-3">${UI.esc(p.title)}</h2>
-            ${p.excerpt ? `<p class="text-slate-500 dark:text-slate-400 font-light leading-relaxed mb-6">${UI.esc(p.excerpt)}</p>` : ''}
-            <span class="mt-auto text-xs font-bold uppercase tracking-widest text-skynex-blue">Read more</span>
+            ${p.excerpt ? `<p class="text-slate-600 dark:text-slate-400 font-light leading-relaxed mb-6">${UI.esc(p.excerpt)}</p>` : ''}
+            <span class="mt-auto text-xs font-bold uppercase tracking-widest text-skynex-bluetext dark:text-skynex-bluelight">Read more</span>
           </div>
         </a>`;
     });

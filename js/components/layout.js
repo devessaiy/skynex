@@ -3,6 +3,7 @@
 // ==========================================
 const Layout = {
   Header: () => /*html*/`
+    <a href="#app-root" class="skip-link">Skip to main content</a>
     <nav class="fixed w-full z-50 transition-all duration-300 border-b border-transparent" id="navbar" aria-label="Main">
       <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
         <div class="flex justify-between items-center h-20 md:h-24">
@@ -36,8 +37,8 @@ const Layout = {
           ${UI.MobileNavLinks()}
         </div>
         <div class="mt-16 pt-8 border-t border-skynex-border dark:border-neutral-800 text-center md:text-left">
-          <p class="text-sm font-semibold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-4">Official Contact</p>
-          <a href="mailto:${AppConfig.company.email}" class="text-lg text-skynex-blue block mb-2">${AppConfig.company.email}</a>
+          <p class="text-sm font-semibold uppercase tracking-widest text-slate-600 dark:text-slate-400 mb-4">Official Contact</p>
+          <a href="mailto:${AppConfig.company.email}" class="text-lg text-skynex-bluetext dark:text-skynex-bluelight block mb-2">${AppConfig.company.email}</a>
           <p class="text-slate-600 dark:text-slate-400">Suleja, Niger State, Nigeria.</p>
         </div>
       </div>
@@ -55,7 +56,7 @@ const Layout = {
         <div class="border-t border-skynex-border dark:border-neutral-800 mb-8"></div>
 
         <div class="mb-8">
-          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed max-w-4xl text-center md:text-left mx-auto md:mx-0">
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed max-w-4xl text-center md:text-left mx-auto md:mx-0">
             Copyright &copy; <span>${AppConfig.company.year}</span> ${AppConfig.company.name}. All Rights Reserved. RC: ${AppConfig.company.rc}.
             Trideta and associated product names are proprietary assets of Skynex Solutions Limited. Check our official contact pages for authentic communication.
           </p>
@@ -72,7 +73,7 @@ const Layout = {
             <a href="#cookie-settings" data-cookie-settings class="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-skynex-dark dark:hover:text-white hover:underline transition-all">Cookie Settings</a>
           </div>
           <div class="${AppConfig.company.social && Object.values(AppConfig.company.social).some(Boolean) ? 'flex' : 'hidden'} flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
-            <span class="text-xs font-bold text-slate-500 dark:text-slate-400 tracking-widest uppercase">Stay Connected</span>
+            <span class="text-xs font-bold text-slate-600 dark:text-slate-400 tracking-widest uppercase">Stay Connected</span>
             <div class="flex gap-4 justify-center">
               ${[['linkedin','fa-linkedin-in','LinkedIn'],['x','fa-x-twitter','X'],['instagram','fa-instagram','Instagram']]
                 .filter(([k]) => AppConfig.company.social && AppConfig.company.social[k])
